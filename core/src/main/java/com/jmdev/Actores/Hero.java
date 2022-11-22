@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
+import java.util.ArrayList;
+
 public class Hero extends Actor {
     private static final int FRAME_COLS = 3, FRAME_ROWS = 4;
     enum VerticalMovement {UP, NONE, DOWN}
@@ -28,7 +30,7 @@ public class Hero extends Actor {
     TextureRegion regionActual;
     TextureRegion[] andarArriba, andarDerecha, andarIzquierda, andarAbajo;
     float stateTime;
-    TiledMapTileLayer capaObstaculos;
+    ArrayList<TiledMapTileLayer> capasObstaculos;
     TiledMap mapa;
     Vector2 posicionAntigua;
     public Vector2 spawnPoint;
@@ -47,13 +49,17 @@ public class Hero extends Actor {
 
         spawnPoint = getSpawnPoint();
         setPosition(spawnPoint.x, spawnPoint.y);
-        //cargarColisiones(mapa);
+        cargarColisiones(mapa);
 
         addListener(new HeroeInputListener());
     }
 
     private void cargarColisiones(TiledMap mapa) {
-        capaObstaculos = (TiledMapTileLayer) mapa.getLayers().get("obstaculos");
+        capasObstaculos = new ArrayList<TiledMapTileLayer>();
+        //capaObstaculos = (TiledMapTileLayer) mapa.getLayers().get("obstaculos");
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colision_filo"));
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colision_objetos"));
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones_cofres"));
     }
 
     @Override
@@ -67,26 +73,27 @@ public class Hero extends Actor {
         stateTime += Gdx.graphics.getDeltaTime();
 
         compruebaTeclado();
-        //if (!colision()) {
+        if (!colision()) {
             posicionAntigua = new Vector2(getX(), getY());
             mover(delta);
-        /*} else {
+        } else {
             setPosition(posicionAntigua.x, posicionAntigua.y);
-        }*/
+        }
         compruebaLimites();
     }
 
     private boolean colision() {
         boolean colision = false;
         TiledMapTileLayer.Cell cell;
-
-        cell = capaObstaculos.getCell(Math.round(getX()) / 32, Math.round(getY()) / 32);
-        if (cell != null) {
-            colision = true;
-        }
-        cell = capaObstaculos.getCell(Math.round(getX() + getWidth()) / 32, Math.round(getY()) / 32);
-        if (cell != null) {
-            colision = true;
+        for(TiledMapTileLayer capaObstaculos:capasObstaculos){
+            cell = capaObstaculos.getCell(Math.round(getX()) / 32, Math.round(getY()) / 32);
+            if (cell != null) {
+                colision = true;
+            }
+            cell = capaObstaculos.getCell(Math.round(getX() + getWidth()) / 32, Math.round(getY()) / 32);
+            if (cell != null) {
+                colision = true;
+            }
         }
         return colision;
     }
