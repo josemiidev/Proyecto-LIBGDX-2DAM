@@ -64,8 +64,7 @@ public class Menu  extends ScreenAdapter {
         newGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                juego.dificultad = "facil";
-                //juego.setScreen(new PantallaJuego(juego));
+                juego.setScreen(new JuegoTower(juego));
             }
 
             @Override
@@ -84,7 +83,6 @@ public class Menu  extends ScreenAdapter {
         loadGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                juego.dificultad = "medio";
                 //juego.setScreen(new PantallaJuego(juego));
             }
 
