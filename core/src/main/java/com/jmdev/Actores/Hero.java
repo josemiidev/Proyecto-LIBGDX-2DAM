@@ -56,7 +56,6 @@ public class Hero extends Actor {
 
     private void cargarColisiones(TiledMap mapa) {
         capasObstaculos = new ArrayList<TiledMapTileLayer>();
-        //capaObstaculos = (TiledMapTileLayer) mapa.getLayers().get("obstaculos");
         capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colision_filo"));
         capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colision_objetos"));
         capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones_cofres"));
@@ -96,6 +95,22 @@ public class Hero extends Actor {
             }
         }
         return colision;
+    }
+    private void ComprobarCofre(){
+        TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones_cofres");
+        ArrayList<TiledMapTileLayer.Cell> celdas = new ArrayList<TiledMapTileLayer.Cell>();
+        celdas.add(cofres.getCell((Math.round(getX()) / 32) + 2, Math.round(getY()) / 32));
+        celdas.add(cofres.getCell((Math.round(getX()) / 32) - 1, Math.round(getY()) / 32));
+        celdas.add(cofres.getCell(Math.round(getX()) / 32, (Math.round(getY()) / 32) + 1));
+        celdas.add(cofres.getCell((Math.round(getX()) / 32)+1, (Math.round(getY()) / 32) + 1));
+        celdas.add(cofres.getCell((Math.round(getX()) / 32)-1, (Math.round(getY()) / 32) + 1));
+        celdas.add(cofres.getCell(Math.round(getX()) / 32, (Math.round(getY()) / 32) - 1 ));
+        for(TiledMapTileLayer.Cell cell:celdas){
+            if(cell!= null){
+                //SONIDO DE ABRIR COFRE
+                System.out.println("HAY COFRE");
+            }
+        }
     }
 
     private void compruebaLimites() {
@@ -183,17 +198,20 @@ public class Hero extends Actor {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             switch (keycode) {
-                case Input.Keys.DOWN:
+                case Input.Keys.S:
                     verticalMovement = VerticalMovement.DOWN;
                     break;
-                case Input.Keys.UP:
+                case Input.Keys.W:
                     verticalMovement = VerticalMovement.UP;
                     break;
-                case Input.Keys.LEFT:
+                case Input.Keys.A:
                     horizontalMovement = HorizontalMovement.LEFT;
                     break;
-                case Input.Keys.RIGHT:
+                case Input.Keys.D:
                     horizontalMovement = HorizontalMovement.RIGHT;
+                    break;
+                case Input.Keys.E:
+                    ComprobarCofre();
                     break;
             }
             return true;
@@ -202,22 +220,22 @@ public class Hero extends Actor {
         @Override
         public boolean keyUp(InputEvent event, int keycode) {
             switch (keycode) {
-                case Input.Keys.DOWN:
+                case Input.Keys.S:
                     if (verticalMovement == VerticalMovement.DOWN) {
                         verticalMovement = VerticalMovement.NONE;
                     }
                     break;
-                case Input.Keys.UP:
+                case Input.Keys.W:
                     if (verticalMovement == VerticalMovement.UP) {
                         verticalMovement = VerticalMovement.NONE;
                     }
                     break;
-                case Input.Keys.LEFT:
+                case Input.Keys.A:
                     if (horizontalMovement == HorizontalMovement.LEFT) {
                         horizontalMovement = HorizontalMovement.NONE;
                     }
                     break;
-                case Input.Keys.RIGHT:
+                case Input.Keys.D:
                     if (horizontalMovement == HorizontalMovement.RIGHT) {
                         horizontalMovement = HorizontalMovement.NONE;
                     }
