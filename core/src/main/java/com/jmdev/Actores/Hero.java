@@ -2,6 +2,7 @@ package com.jmdev.Actores;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,8 +26,8 @@ public class Hero extends Actor {
 
     Animation<TextureRegion> animacionArriba, animacionDerecha, animacionIzquierda, animacionAbajo;
     Texture walkSheet;
-    HorizontalMovement horizontalMovement;
-    VerticalMovement verticalMovement;
+    public HorizontalMovement horizontalMovement;
+    public VerticalMovement verticalMovement;
     TextureRegion regionActual;
     TextureRegion[] andarArriba, andarDerecha, andarIzquierda, andarAbajo;
     float stateTime;
@@ -50,8 +51,6 @@ public class Hero extends Actor {
         spawnPoint = getSpawnPoint();
         setPosition(spawnPoint.x, spawnPoint.y);
         cargarColisiones(mapa);
-
-        addListener(new HeroeInputListener());
     }
 
     private void cargarColisiones(TiledMap mapa) {
@@ -96,7 +95,7 @@ public class Hero extends Actor {
         }
         return colision;
     }
-    private void ComprobarCofre(){
+    public void ComprobarCofre(){
         TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones_cofres");
         ArrayList<TiledMapTileLayer.Cell> celdas = new ArrayList<TiledMapTileLayer.Cell>();
         celdas.add(cofres.getCell((Math.round(getX()) / 32) + 2, Math.round(getY()) / 32));
@@ -109,6 +108,8 @@ public class Hero extends Actor {
             if(cell!= null){
                 //SONIDO DE ABRIR COFRE
                 System.out.println("HAY COFRE");
+                Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
+                dropSound.play();
             }
         }
     }
@@ -192,56 +193,5 @@ public class Hero extends Actor {
         MapLayer positionLayer = mapa.getLayers().get("puntos");
         MapObject playerSpawn = positionLayer.getObjects().get("spawn");
         return new Vector2(playerSpawn.getProperties().get("x", Float.class) - regionActual.getRegionWidth() / 2, playerSpawn.getProperties().get("y", Float.class));
-    }
-
-    class HeroeInputListener extends InputListener {
-        @Override
-        public boolean keyDown(InputEvent event, int keycode) {
-            switch (keycode) {
-                case Input.Keys.S:
-                    verticalMovement = VerticalMovement.DOWN;
-                    break;
-                case Input.Keys.W:
-                    verticalMovement = VerticalMovement.UP;
-                    break;
-                case Input.Keys.A:
-                    horizontalMovement = HorizontalMovement.LEFT;
-                    break;
-                case Input.Keys.D:
-                    horizontalMovement = HorizontalMovement.RIGHT;
-                    break;
-                case Input.Keys.E:
-                    ComprobarCofre();
-                    break;
-            }
-            return true;
-        }
-
-        @Override
-        public boolean keyUp(InputEvent event, int keycode) {
-            switch (keycode) {
-                case Input.Keys.S:
-                    if (verticalMovement == VerticalMovement.DOWN) {
-                        verticalMovement = VerticalMovement.NONE;
-                    }
-                    break;
-                case Input.Keys.W:
-                    if (verticalMovement == VerticalMovement.UP) {
-                        verticalMovement = VerticalMovement.NONE;
-                    }
-                    break;
-                case Input.Keys.A:
-                    if (horizontalMovement == HorizontalMovement.LEFT) {
-                        horizontalMovement = HorizontalMovement.NONE;
-                    }
-                    break;
-                case Input.Keys.D:
-                    if (horizontalMovement == HorizontalMovement.RIGHT) {
-                        horizontalMovement = HorizontalMovement.NONE;
-                    }
-                    break;
-            }
-            return true;
-        }
     }
 }

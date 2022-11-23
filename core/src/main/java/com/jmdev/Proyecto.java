@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Proyecto extends Game {
     public Skin gameSkin;
+    public long tiempo;
 
     @Override
     public void create() {

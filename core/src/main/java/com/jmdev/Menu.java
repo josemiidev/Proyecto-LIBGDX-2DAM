@@ -64,6 +64,7 @@ public class Menu  extends ScreenAdapter {
         newGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                juego.tiempo = 300000;
                 juego.setScreen(new JuegoTower(juego));
             }
 

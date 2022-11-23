@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
+import com.jmdev.Actores.Manager;
 
 public class JuegoTower extends ScreenAdapter {
     private Proyecto juego;
@@ -22,16 +23,14 @@ public class JuegoTower extends ScreenAdapter {
     private int mapWidthInPixels;
     private int mapHeightInPixels;
     private float offsetX, offsetY;
-    Actor heroe;
+    private Hero heroe;
+
     final int[] capas_altas = {7,9};
     final int[] capas_bajas = {0,1,2,3,4,5,6,8,10};
 
 
     public JuegoTower(Proyecto juego){
         this.juego = juego;
-
-        //CREAMOS EL MANEJADOR DEL JUEGO
-        //Actor manager = new Manager(juego,stage);
 
         //MAPA
         map = new TmxMapLoader().load("mapa_proyecto/mapa.tmx");
@@ -44,20 +43,20 @@ public class JuegoTower extends ScreenAdapter {
         mapHeightInPixels = mapHeightInTiles * tileHeight;
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        heroe = new Hero(map);
-
         //CAMARA
         camera = new OrthographicCamera();
         Viewport viewport = new ScreenViewport(camera);
+        heroe = new Hero(map);
 
         //ESCENA
         stage = new Stage();
         stage.setViewport(viewport);
-        stage.addActor(heroe);
+        Actor manager = new Manager(juego,stage,heroe);
+        stage.addActor(manager);
 
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);
-        stage.setKeyboardFocus(heroe);
+        stage.setKeyboardFocus(manager);
 
         //POSICION CAMARA
         offsetX = heroe.getX() - 320;
