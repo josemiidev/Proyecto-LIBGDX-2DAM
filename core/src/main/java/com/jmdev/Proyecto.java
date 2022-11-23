@@ -16,6 +16,7 @@ public class Proyecto extends Game {
     }
     @Override
     public void dispose() {
+        gameSkin.dispose();
     }
 
     @Override

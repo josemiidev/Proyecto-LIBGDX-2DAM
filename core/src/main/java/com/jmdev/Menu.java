@@ -50,6 +50,7 @@ public class Menu  extends ScreenAdapter {
     @Override
     public void dispose() {
         stage.dispose();
+        juego.dispose();
     }
 
     private void crearMenu(float width, float height){
