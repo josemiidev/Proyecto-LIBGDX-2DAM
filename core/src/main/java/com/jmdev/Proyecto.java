@@ -16,4 +16,9 @@ public class Proyecto extends Game {
     @Override
     public void dispose() {
     }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+    }
 }
