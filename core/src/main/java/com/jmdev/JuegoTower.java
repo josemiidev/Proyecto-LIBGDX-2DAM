@@ -54,6 +54,10 @@ public class JuegoTower extends ScreenAdapter {
         Actor manager = new Manager(juego,stage,heroe);
         stage.addActor(manager);
 
+        //CREAMOS EL MANAGER
+        Actor manager = new Manager(juego,stage);
+        stage.addActor(manager);
+
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);
         stage.setKeyboardFocus(manager);
