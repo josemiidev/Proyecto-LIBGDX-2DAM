@@ -116,7 +116,13 @@ public class JuegoTower extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        camera.setToOrtho(false, width, height);
+        if(width > 800){
+            if(height > 640){
+                camera.setToOrtho(false, 800, 640);
+            }
+        }else{
+            camera.setToOrtho(false, width, height);
+        }
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
         camera.update();
