@@ -116,9 +116,12 @@ public class JuegoTower extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
+        //LIMITAMOS EL MAPA A 800x640 PARA QUE EL USUARIO NO VEA MUCHO MAPA AL PONER EL JUEGO EN PANTALLA COMPLETA
         if(width > 800){
             if(height > 640){
                 camera.setToOrtho(false, 800, 640);
+            }else{
+                camera.setToOrtho(false,800,height);
             }
         }else{
             camera.setToOrtho(false, width, height);
