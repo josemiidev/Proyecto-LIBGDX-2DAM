@@ -25,15 +25,15 @@ public class JuegoTower extends ScreenAdapter {
     private float offsetX, offsetY;
     private Hero heroe;
 
-    final int[] capas_altas = {7,9};
-    final int[] capas_bajas = {0,1,2,3,4,5,6,8,10};
+    final int[] capas_altas = {9,10};
+    final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,11,12,13};
 
 
     public JuegoTower(Proyecto juego){
         this.juego = juego;
 
         //MAPA
-        map = new TmxMapLoader().load("mapa_proyecto/mapa.tmx");
+        map = new TmxMapLoader().load("mapa/mapa.tmx");
         MapProperties properties = map.getProperties();
         int tileWidth = properties.get("tilewidth", Integer.class);
         int tileHeight = properties.get("tileheight", Integer.class);

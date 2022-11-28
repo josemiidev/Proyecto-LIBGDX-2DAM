@@ -55,9 +55,10 @@ public class Hero extends Actor {
 
     private void cargarColisiones(TiledMap mapa) {
         capasObstaculos = new ArrayList<TiledMapTileLayer>();
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colision_filo"));
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colision_objetos"));
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones_cofres"));
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones cofres"));
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones objetos"));
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones arbustos"));
+        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones paredes"));
     }
 
     @Override
@@ -190,7 +191,7 @@ public class Hero extends Actor {
     }
 
     private Vector2 getSpawnPoint() {
-        MapLayer positionLayer = mapa.getLayers().get("puntos");
+        MapLayer positionLayer = mapa.getLayers().get("objetos");
         MapObject playerSpawn = positionLayer.getObjects().get("spawn");
         return new Vector2(playerSpawn.getProperties().get("x", Float.class) - regionActual.getRegionWidth() / 2, playerSpawn.getProperties().get("y", Float.class));
     }
