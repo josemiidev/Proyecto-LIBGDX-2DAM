@@ -25,8 +25,8 @@ public class JuegoTower extends ScreenAdapter {
     private float offsetX, offsetY;
     private Hero heroe;
 
-    final int[] capas_altas = {9,10};
-    final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,11,12,13};
+    final int[] capas_altas = {11,12};
+    final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,13};
 
 
     public JuegoTower(Proyecto juego){
