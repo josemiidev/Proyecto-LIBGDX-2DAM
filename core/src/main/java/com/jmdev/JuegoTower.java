@@ -59,8 +59,8 @@ public class JuegoTower extends ScreenAdapter {
         stage.setKeyboardFocus(manager);
 
         //POSICION CAMARA
-        offsetX = heroe.getX() - 320;
-        offsetY = 0;
+        offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
+        offsetY = -heroe.getY() + Gdx.graphics.getHeight() / 2f;
     }
     @Override
     public void show() {
@@ -77,6 +77,8 @@ public class JuegoTower extends ScreenAdapter {
         super.render(delta);
 
         ubicacionCamara();
+        System.out.println(offsetY); // -1322,4777
+        System.out.println(heroe.getY()); //1600
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
         camera.update();
