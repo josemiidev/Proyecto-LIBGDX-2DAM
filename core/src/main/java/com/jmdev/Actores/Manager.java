@@ -48,6 +48,12 @@ public class Manager extends Actor {
                 case Input.Keys.D:
                     heroe.horizontalMovement = Hero.HorizontalMovement.RIGHT;
                     break;
+                case Input.Keys.SPACE:
+                    heroe.atacando = true;
+                    break;
+                case Input.Keys.E:
+                    heroe.ComprobarCofre();
+                    break;
             }
             return true;
         }
@@ -74,8 +80,8 @@ public class Manager extends Actor {
                         heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
                     }
                     break;
-                case Input.Keys.E:
-                    heroe.ComprobarCofre();
+                case Input.Keys.SPACE:
+                    heroe.atacando = false;
                     break;
             }
             return true;

@@ -77,8 +77,8 @@ public class JuegoTower extends ScreenAdapter {
         super.render(delta);
 
         ubicacionCamara();
-        System.out.println(offsetY); // -1322,4777
-        System.out.println(heroe.getY()); //1600
+        //System.out.println(offsetY); // -1322,4777
+        //System.out.println(heroe.getY()); //1600
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
         camera.update();
