@@ -21,6 +21,9 @@ public class Manager extends Actor {
 
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
+
+        Enemigo en = new Enemigo(1500,1500);
+        stage.addActor(en);
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -52,7 +55,7 @@ public class Manager extends Actor {
                     heroe.atacando = true;
                     break;
                 case Input.Keys.E:
-                    heroe.ComprobarCofre();
+                    heroe.comprobarCofre();
                     break;
             }
             return true;

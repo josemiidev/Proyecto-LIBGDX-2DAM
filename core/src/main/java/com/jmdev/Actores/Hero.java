@@ -44,7 +44,7 @@ public class Hero extends Actor {
     public Hero(TiledMap mapa) {
         this.mapa = mapa;
         if (regionActual == null) {
-            RecortarTextura();
+            recortarTextura();
         }
         stateTime = 0f;
         atacando = false;
@@ -84,7 +84,7 @@ public class Hero extends Actor {
             setPosition(posicionAntigua.x, posicionAntigua.y);
         }
         if (atacando) {
-            Atacar();
+            atacar();
         }
         compruebaLimites();
     }
@@ -105,7 +105,7 @@ public class Hero extends Actor {
         return colision;
     }
 
-    public void ComprobarCofre() {
+    public void comprobarCofre() {
         TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones cofres");
         ArrayList<TiledMapTileLayer.Cell> celdas = new ArrayList<TiledMapTileLayer.Cell>();
         celdas.add(cofres.getCell((Math.round(getX()) / 32) + 2, Math.round(getY()) / 32));
@@ -124,7 +124,7 @@ public class Hero extends Actor {
         }
     }
 
-    public void Atacar() {
+    public void atacar() {
         switch (ultimaPosicion) {
             case "arriba":
                 regionActual = animacionAtaqueArriba.getKeyFrame(stateTime, true);
@@ -188,7 +188,7 @@ public class Hero extends Actor {
         }
     }
 
-    private void RecortarTextura() {
+    private void recortarTextura() {
         //texturas andar
         Texture completo = new Texture(Gdx.files.internal("heroe.png"));
         //CREAMOS LOS OBJETOS TEXTUREREGION
@@ -265,7 +265,7 @@ public class Hero extends Actor {
         atacarAbajo[2] = new TextureRegion(completo, 451, 1800, 41, 55);
         atacarAbajo[3] = new TextureRegion(completo, 632, 1799, 54, 56);
         atacarAbajo[4] = new TextureRegion(completo, 819, 1798, 80, 76);
-        atacarAbajo[5] = new TextureRegion(completo, 1040, 1798, 75, 73);
+        atacarAbajo[5] = new TextureRegion(completo, 1040, 1798, 75, 75);
 
         atacarDerecha[0] = new TextureRegion(completo, 74, 1995, 64, 53);
         atacarDerecha[1] = new TextureRegion(completo, 268, 1997, 39, 50);
@@ -280,10 +280,10 @@ public class Hero extends Actor {
         animacionAbajo = new Animation<TextureRegion>(0.1f, andarAbajo);
         animacionDerecha = new Animation<TextureRegion>(0.1f, andarDerecha);
 
-        animacionAtaqueArriba = new Animation<TextureRegion>(0.1f, atacarArriba);
-        animacionAtaqueIzquierda = new Animation<TextureRegion>(0.1f, atacarIzquierda);
-        animacionAtaqueAbajo = new Animation<TextureRegion>(0.1f, atacarAbajo);
-        animacionAtaqueDerecha = new Animation<TextureRegion>(0.1f, atacarDerecha);
+        animacionAtaqueArriba = new Animation<TextureRegion>(0.08f, atacarArriba);
+        animacionAtaqueIzquierda = new Animation<TextureRegion>(0.08f, atacarIzquierda);
+        animacionAtaqueAbajo = new Animation<TextureRegion>(0.08f, atacarAbajo);
+        animacionAtaqueDerecha = new Animation<TextureRegion>(0.08f, atacarDerecha);
 
         //ESTABLECEMOS ESTADO ACTUAL
         regionActual = andarAbajo[1];
