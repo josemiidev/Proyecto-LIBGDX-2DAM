@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import java.util.ArrayList;
 
 public class Hero extends Actor {
-    private static final int FRAME_COLS = 3, FRAME_ROWS = 4;
+    private static final int FRAME_COLS = 9, FRAME_ROWS = 4;
     enum VerticalMovement {UP, NONE, DOWN}
     enum HorizontalMovement {LEFT, NONE, RIGHT}
 
@@ -47,6 +47,7 @@ public class Hero extends Actor {
         verticalMovement = VerticalMovement.NONE;
 
         setSize(regionActual.getRegionWidth(), regionActual.getRegionHeight());
+        setSize(32, 64);
 
         spawnPoint = getSpawnPoint();
         setPosition(spawnPoint.x, spawnPoint.y);
@@ -97,7 +98,7 @@ public class Hero extends Actor {
         return colision;
     }
     public void ComprobarCofre(){
-        TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones_cofres");
+        TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones cofres");
         ArrayList<TiledMapTileLayer.Cell> celdas = new ArrayList<TiledMapTileLayer.Cell>();
         celdas.add(cofres.getCell((Math.round(getX()) / 32) + 2, Math.round(getY()) / 32));
         celdas.add(cofres.getCell((Math.round(getX()) / 32) - 1, Math.round(getY()) / 32));
@@ -156,7 +157,7 @@ public class Hero extends Actor {
     }
 
     private void RecortarTextura() {
-        walkSheet = new Texture(Gdx.files.internal("hero.png"));
+        walkSheet = new Texture(Gdx.files.internal("heroe_recortado.png"));
         TextureRegion[][] tmp = TextureRegion.split(walkSheet,
                 walkSheet.getWidth() / FRAME_COLS,
                 walkSheet.getHeight() / FRAME_ROWS);
@@ -169,20 +170,20 @@ public class Hero extends Actor {
             for (int j = 0; j < FRAME_COLS; j++) {
                 switch (i) {
                     case 0:
-                        andarAbajo[j] = tmp[i][j];
+                        andarArriba[j] = tmp[i][j];
                         animacionArriba = new Animation<TextureRegion>(0.1f, andarArriba);
                         break;
                     case 1:
                         andarIzquierda[j] = tmp[i][j];
-                        animacionDerecha = new Animation<TextureRegion>(0.1f, andarDerecha);
+                        animacionIzquierda = new Animation<TextureRegion>(0.1f, andarIzquierda);
                         break;
                     case 2:
-                        andarDerecha[j] = tmp[i][j];
+                        andarAbajo[j] = tmp[i][j];
                         animacionAbajo = new Animation<TextureRegion>(0.1f, andarAbajo);
                         break;
                     case 3:
-                        andarArriba[j] = tmp[i][j];
-                        animacionIzquierda = new Animation<TextureRegion>(0.1f, andarIzquierda);
+                        andarDerecha[j] = tmp[i][j];
+                        animacionDerecha = new Animation<TextureRegion>(0.1f, andarDerecha);
                         break;
                 }
             }
