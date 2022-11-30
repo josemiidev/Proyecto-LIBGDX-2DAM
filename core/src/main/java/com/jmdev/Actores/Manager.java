@@ -2,6 +2,7 @@ package com.jmdev.Actores;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapLayer;
@@ -31,7 +32,11 @@ public class Manager extends Actor {
         this.stage = stage;
         this.mapa = mapa;
         this.heroe = heroe;
-
+        if (font == null) {
+            // Cargar fuente solamente si es la primera vez
+            font = new BitmapFont();
+            font.setColor(Color.RED);
+        }
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
         enemigos = new ArrayList<Enemigo>();
@@ -45,19 +50,19 @@ public class Manager extends Actor {
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        //font.draw(batch, "Time: " + juego.tiempo, 20, 460);
+        font.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, 460);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
         for (Enemigo m : enemigos) {
-            System.out.println(m.isAlive);
             if(m != null){
                 if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {
                     if(heroe.atacando){
                         m.isAlive = false;
                         m.clearActions();
+                        juego.enemigosEliminados++;
                     }else{
                         heroe.isAlive = false;
                         heroe.clearActions();

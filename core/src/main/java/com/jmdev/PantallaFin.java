@@ -54,27 +54,6 @@ public class PantallaFin extends ScreenAdapter {
     private void crearPantalla(float width, float height){
         stage.clear();
 
-        TextButton loadGame = new TextButton("Cargar Partida", game.gameSkin);
-        loadGame.setWidth(width / 2);
-        loadGame.setPosition(
-                width / 2 - (loadGame.getWidth() / 2),
-                (height / 2 - loadGame.getHeight())
-        );
-        loadGame.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //juego.setScreen(new PantallaJuego(juego));
-                game.tiempo = 300000;
-                game.setScreen(new JuegoTower(game));
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(loadGame);
-
         TextButton newGame = new TextButton("Nueva Partida", game.gameSkin);
         newGame.setWidth(width/ 2);
         newGame.setPosition(
@@ -98,7 +77,7 @@ public class PantallaFin extends ScreenAdapter {
         exitGame.setWidth(width/2);
         exitGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
-                height / 2 - (loadGame.getHeight() + exitGame.getHeight() +10)
+                height / 2 - (newGame.getHeight() + exitGame.getHeight() +10)
         );
         exitGame.addListener(new InputListener() {
             @Override

@@ -24,14 +24,13 @@ public class JuegoTower extends ScreenAdapter {
     private int mapHeightInPixels;
     private float offsetX, offsetY;
     private Hero heroe;
-
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
 
 
     public JuegoTower(Proyecto juego){
         this.juego = juego;
-
+        juego.enemigosEliminados = 0;
         //MAPA
         map = new TmxMapLoader().load("mapa/mapa.tmx");
         MapProperties properties = map.getProperties();
@@ -89,6 +88,7 @@ public class JuegoTower extends ScreenAdapter {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         mapRenderer.render(capas_altas);
+
     }
     private void ubicacionCamara(){
         if (heroe.getX() < camera.position.x - camera.viewportWidth/2 + 200 && offsetX > 0){

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class Proyecto extends Game {
     public Skin gameSkin;
     public long tiempo;
-
+    public int enemigosEliminados;
     @Override
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
