@@ -1,6 +1,7 @@
 package com.jmdev.Actores;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Intersector;
@@ -8,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.jmdev.JuegoTower;
+import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
 import java.util.ArrayList;
@@ -51,6 +54,9 @@ public class Manager extends Actor {
                     }
                 }
             }
+        }
+        if(heroe.muerto){
+            juego.setScreen(new PantallaFin(juego,stage));
         }
     }
 

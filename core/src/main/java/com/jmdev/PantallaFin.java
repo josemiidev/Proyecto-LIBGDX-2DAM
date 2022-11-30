@@ -1,6 +1,8 @@
 package com.jmdev;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,29 +11,26 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Menu  extends ScreenAdapter {
-    private Proyecto juego;
-    private Stage stage;
-    private TextButton newGame;
-    private TextButton loadGame;
-    private TextButton exitGame;
-    private Label title;
-    private Label autor;
+public class PantallaFin extends ScreenAdapter {
+    Proyecto game;
+    Stage stage;
 
-    public Menu(Proyecto juego) {
-        this.juego = juego;
-        stage = new Stage(new ScreenViewport());
-
-        crearMenu(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-
+    public PantallaFin(Proyecto game, Stage stage){
+        this.game = game;
+        this.stage = stage;
     }
-
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean keyDown(int keyCode) {
+                if (keyCode == Input.Keys.ENTER) {
+                    game.setScreen(new Menu(game));
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -47,16 +46,15 @@ public class Menu  extends ScreenAdapter {
         Gdx.input.setInputProcessor(null);
     }
 
-    @Override
-    public void dispose() {
-        stage.dispose();
-        juego.dispose();
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        stage.getViewport().update(width,height,true);
+        crearPantalla(width,height);
     }
-
-    private void crearMenu(float width, float height){
+    private void crearPantalla(float width, float height){
         stage.clear();
 
-        loadGame = new TextButton("Cargar Partida", juego.gameSkin);
+        TextButton loadGame = new TextButton("Cargar Partida", game.gameSkin);
         loadGame.setWidth(width / 2);
         loadGame.setPosition(
                 width / 2 - (loadGame.getWidth() / 2),
@@ -66,8 +64,8 @@ public class Menu  extends ScreenAdapter {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 //juego.setScreen(new PantallaJuego(juego));
-                juego.tiempo = 300000;
-                juego.setScreen(new JuegoTower(juego));
+                game.tiempo = 300000;
+                game.setScreen(new JuegoTower(game));
             }
 
             @Override
@@ -77,7 +75,7 @@ public class Menu  extends ScreenAdapter {
         });
         stage.addActor(loadGame);
 
-        newGame = new TextButton("Nueva Partida", juego.gameSkin);
+        TextButton newGame = new TextButton("Nueva Partida", game.gameSkin);
         newGame.setWidth(width/ 2);
         newGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
@@ -86,7 +84,7 @@ public class Menu  extends ScreenAdapter {
         newGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                juego.setScreen(new JuegoTower(juego));
+                game.setScreen(new JuegoTower(game));
             }
 
             @Override
@@ -96,7 +94,7 @@ public class Menu  extends ScreenAdapter {
         });
         stage.addActor(newGame);
 
-        exitGame = new TextButton("Salir", juego.gameSkin);
+        TextButton exitGame = new TextButton("Salir", game.gameSkin);
         exitGame.setWidth(width/2);
         exitGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
@@ -114,23 +112,16 @@ public class Menu  extends ScreenAdapter {
             }
         });
         stage.addActor(exitGame);
-        title = new Label("Tower Adventure", juego.gameSkin, "title");
+        Label title = new Label("Tower Adventure", game.gameSkin, "title");
         title.setAlignment(Align.center);
         title.setY(height / 2 + newGame.getHeight() + 25);
         title.setWidth(width);
         stage.addActor(title);
 
-        autor = new Label("Create By: José Miguel Lorenzo Lara", juego.gameSkin, "default");
+        Label autor = new Label("Create By: José Miguel Lorenzo Lara", game.gameSkin, "default");
         autor.setAlignment(Align.center);
         autor.setY( autor.getHeight());
         autor.setWidth(width);
         stage.addActor(autor);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-        stage.getViewport().update(width,height,true);
-        crearMenu(width,height);
     }
 }
