@@ -3,16 +3,20 @@ package com.jmdev.Actores;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jmdev.Proyecto;
 
+import java.util.ArrayList;
+
 public class Manager extends Actor {
     private Proyecto juego;
     private Stage stage;
     private Hero heroe;
+    private ArrayList<Enemigo> enemigos;
     private static BitmapFont font;
     public Manager(Proyecto juego, Stage stage, Hero heroe){
         this.juego = juego;
@@ -21,8 +25,10 @@ public class Manager extends Actor {
 
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
-
         Enemigo en = new Enemigo(1500,1500);
+        enemigos = new ArrayList<Enemigo>();
+        enemigos.add(en);
+
         stage.addActor(en);
     }
     @Override
@@ -33,6 +39,19 @@ public class Manager extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
+        for (Enemigo m : enemigos) {
+            if(m != null){
+                if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {
+                    if(heroe.atacando){
+                        m.isAlive = false;
+                        m.clearActions();
+                    }else{
+                        heroe.isAlive = false;
+                        heroe.clearActions();
+                    }
+                }
+            }
+        }
     }
 
     class ManagerInputListener extends InputListener {
@@ -52,7 +71,9 @@ public class Manager extends Actor {
                     heroe.horizontalMovement = Hero.HorizontalMovement.RIGHT;
                     break;
                 case Input.Keys.SPACE:
-                    heroe.atacando = true;
+                    if(heroe.finAnimacion){
+                        heroe.atacando = true;
+                    }
                     break;
                 case Input.Keys.E:
                     heroe.comprobarCofre();
@@ -82,9 +103,6 @@ public class Manager extends Actor {
                     if (heroe.horizontalMovement == Hero.HorizontalMovement.RIGHT) {
                         heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
                     }
-                    break;
-                case Input.Keys.SPACE:
-                    heroe.atacando = false;
                     break;
             }
             return true;

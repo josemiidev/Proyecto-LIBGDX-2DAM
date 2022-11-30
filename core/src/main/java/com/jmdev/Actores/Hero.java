@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -38,7 +39,7 @@ public class Hero extends Actor {
     TiledMap mapa;
     Vector2 posicionAntigua;
     public Vector2 spawnPoint;
-    public boolean atacando;
+    public boolean atacando, finAnimacion, isAlive;
     private String ultimaPosicion;
 
     public Hero(TiledMap mapa) {
@@ -46,6 +47,7 @@ public class Hero extends Actor {
         if (regionActual == null) {
             recortarTextura();
         }
+        isAlive = true;
         stateTime = 0f;
         atacando = false;
         horizontalMovement = HorizontalMovement.NONE;
@@ -69,6 +71,7 @@ public class Hero extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(regionActual, getX(), getY());
+
     }
 
     @Override
@@ -83,8 +86,33 @@ public class Hero extends Actor {
         } else {
             setPosition(posicionAntigua.x, posicionAntigua.y);
         }
+        if (!isAlive) {
+            regionActual = animacionMuerte.getKeyFrame(stateTime, false);
+            if (animacionMuerte.isAnimationFinished(stateTime)) {
+                //addAction(Actions.removeActor());
+                System.out.println("MUERTO");
+                //game.setScreen(new PantallaFinal(game));
+            }
+        }
         if (atacando) {
             atacar();
+            if (animacionAtaqueAbajo.isAnimationFinished(stateTime)) {
+                finAnimacion = true;
+                atacando = false;
+                stateTime = delta;
+            } else if (animacionAtaqueDerecha.isAnimationFinished(stateTime)) {
+                finAnimacion = true;
+                atacando = false;
+                stateTime = delta;
+            } else if (animacionAtaqueIzquierda.isAnimationFinished(stateTime)) {
+                finAnimacion = true;
+                atacando = false;
+                stateTime = delta;
+            } else if (animacionAtaqueArriba.isAnimationFinished(stateTime)) {
+                finAnimacion = true;
+                atacando = false;
+                stateTime = delta;
+            }
         }
         compruebaLimites();
     }
@@ -127,19 +155,16 @@ public class Hero extends Actor {
     public void atacar() {
         switch (ultimaPosicion) {
             case "arriba":
-                regionActual = animacionAtaqueArriba.getKeyFrame(stateTime, true);
+                regionActual = animacionAtaqueArriba.getKeyFrame(stateTime, false);
                 break;
             case "abajo":
-                regionActual = animacionAtaqueAbajo.getKeyFrame(stateTime, true);
+                regionActual = animacionAtaqueAbajo.getKeyFrame(stateTime, false);
                 break;
             case "izquierda":
-                regionActual = animacionAtaqueIzquierda.getKeyFrame(stateTime, true);
+                regionActual = animacionAtaqueIzquierda.getKeyFrame(stateTime, false);
                 break;
             case "derecha":
-                regionActual = animacionAtaqueDerecha.getKeyFrame(stateTime, true);
-                break;
-            default:
-                regionActual = animacionAtaqueArriba.getKeyFrame(stateTime, true);
+                regionActual = animacionAtaqueDerecha.getKeyFrame(stateTime, false);
                 break;
         }
     }
@@ -197,10 +222,10 @@ public class Hero extends Actor {
         andarIzquierda = new TextureRegion[8];
         andarAbajo = new TextureRegion[8];
         muerte = new TextureRegion[6];
-        atacarArriba = new TextureRegion[6];
-        atacarDerecha = new TextureRegion[6];
-        atacarIzquierda = new TextureRegion[6];
-        atacarAbajo = new TextureRegion[6];
+        atacarArriba = new TextureRegion[7];
+        atacarDerecha = new TextureRegion[7];
+        atacarIzquierda = new TextureRegion[7];
+        atacarAbajo = new TextureRegion[7];
 
         //CARGAMOS LOS OBJETOS
         andarArriba[0] = new TextureRegion(completo, 80, 523, 35, 52);
@@ -252,6 +277,7 @@ public class Hero extends Actor {
         atacarArriba[3] = new TextureRegion(completo, 629, 1420, 86, 51);
         atacarArriba[4] = new TextureRegion(completo, 820, 1404, 88, 67);
         atacarArriba[5] = new TextureRegion(completo, 996, 1406, 122, 64);
+        atacarArriba[6] = andarArriba[0];
 
         atacarIzquierda[0] = new TextureRegion(completo, 53, 1611, 64, 53);
         atacarIzquierda[1] = new TextureRegion(completo, 269, 1613, 38, 50);
@@ -259,6 +285,7 @@ public class Hero extends Actor {
         atacarIzquierda[3] = new TextureRegion(completo, 646, 1611, 56, 52);
         atacarIzquierda[4] = new TextureRegion(completo, 787, 1611, 94, 52);
         atacarIzquierda[5] = new TextureRegion(completo, 978, 1611, 95, 52);
+        atacarIzquierda[6] = andarIzquierda[0];
 
         atacarAbajo[0] = new TextureRegion(completo, 71, 1798, 40, 58);
         atacarAbajo[1] = new TextureRegion(completo, 255, 1798, 47, 57);
@@ -266,6 +293,7 @@ public class Hero extends Actor {
         atacarAbajo[3] = new TextureRegion(completo, 632, 1799, 54, 56);
         atacarAbajo[4] = new TextureRegion(completo, 819, 1798, 80, 76);
         atacarAbajo[5] = new TextureRegion(completo, 1040, 1798, 75, 75);
+        atacarAbajo[6] = andarAbajo[0];
 
         atacarDerecha[0] = new TextureRegion(completo, 74, 1995, 64, 53);
         atacarDerecha[1] = new TextureRegion(completo, 268, 1997, 39, 50);
@@ -273,6 +301,7 @@ public class Hero extends Actor {
         atacarDerecha[3] = new TextureRegion(completo, 641, 1995, 56, 52);
         atacarDerecha[4] = new TextureRegion(completo, 846, 1995, 94, 52);
         atacarDerecha[5] = new TextureRegion(completo, 1038, 1995, 95, 52);
+        atacarDerecha[6] = andarDerecha[0];
 
         //CARGAMOS LA ANIMACION
         animacionArriba = new Animation<TextureRegion>(0.1f, andarArriba);
@@ -280,19 +309,33 @@ public class Hero extends Actor {
         animacionAbajo = new Animation<TextureRegion>(0.1f, andarAbajo);
         animacionDerecha = new Animation<TextureRegion>(0.1f, andarDerecha);
 
-        animacionAtaqueArriba = new Animation<TextureRegion>(0.08f, atacarArriba);
-        animacionAtaqueIzquierda = new Animation<TextureRegion>(0.08f, atacarIzquierda);
-        animacionAtaqueAbajo = new Animation<TextureRegion>(0.08f, atacarAbajo);
-        animacionAtaqueDerecha = new Animation<TextureRegion>(0.08f, atacarDerecha);
+        animacionAtaqueArriba = new Animation<TextureRegion>(0.1f, atacarArriba);
+        animacionAtaqueArriba.setPlayMode(Animation.PlayMode.NORMAL);
 
+        animacionAtaqueIzquierda = new Animation<TextureRegion>(0.1f, atacarIzquierda);
+        animacionAtaqueIzquierda.setPlayMode(Animation.PlayMode.NORMAL);
+
+        animacionAtaqueAbajo = new Animation<TextureRegion>(0.1f, atacarAbajo);
+        animacionAtaqueAbajo.setPlayMode(Animation.PlayMode.NORMAL);
+
+        animacionAtaqueDerecha = new Animation<TextureRegion>(0.1f, atacarDerecha);
+        animacionAtaqueDerecha.setPlayMode(Animation.PlayMode.NORMAL);
+
+        animacionMuerte = new Animation<TextureRegion>(0.2f, muerte);
+        animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);
         //ESTABLECEMOS ESTADO ACTUAL
         regionActual = andarAbajo[1];
         ultimaPosicion = "abajo";
+        finAnimacion = true;
     }
 
     private Vector2 getSpawnPoint() {
         MapLayer positionLayer = mapa.getLayers().get("objetos");
         MapObject playerSpawn = positionLayer.getObjects().get("spawn");
         return new Vector2(playerSpawn.getProperties().get("x", Float.class) - regionActual.getRegionWidth() / 2, playerSpawn.getProperties().get("y", Float.class));
+    }
+
+    public Rectangle getShape() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 }

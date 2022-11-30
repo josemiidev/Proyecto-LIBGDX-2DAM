@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -21,16 +22,21 @@ public class Enemigo extends Actor {
     TextureRegion[] andarArriba, andarDerecha, andarIzquierda, andarAbajo;
     float stateTime;
     TiledMap mapa;
+    public boolean isAlive;
     public Enemigo(int x,int y) {
         if (regionActual == null) {
             recortarTextura();
         }
+        isAlive = true;
         stateTime = 0f;
         horizontalMovement = Hero.HorizontalMovement.NONE;
         verticalMovement = Hero.VerticalMovement.NONE;
 
         setSize(regionActual.getRegionWidth(), regionActual.getRegionHeight());
         setPosition(x, y);
+    }
+    public void morir(){
+
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -40,6 +46,7 @@ public class Enemigo extends Actor {
     public void act(float delta) {
         super.act(delta);
         stateTime += Gdx.graphics.getDeltaTime();
+
     }
     private void recortarTextura() {
         switch(MathUtils.random(1,3)){
@@ -85,5 +92,8 @@ public class Enemigo extends Actor {
             }
         }
         regionActual = andarAbajo[1];
+    }
+    public Rectangle getShape(){
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 }
