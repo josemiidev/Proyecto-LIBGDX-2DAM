@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.jmdev.JuegoTower;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
@@ -27,6 +29,7 @@ public class Manager extends Actor {
     private TiledMap mapa;
     private ArrayList<Enemigo> enemigos;
     private static BitmapFont font;
+    Label puntuacion;
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
@@ -47,15 +50,21 @@ public class Manager extends Actor {
             enemigos.add(en);
             stage.addActor(en);
         }
+        puntuacion = new Label("Puntuación: ", juego.gameSkin, "default");
+        puntuacion.setX(20);
+        puntuacion.setY(460);
+        puntuacion.toFront();
+        stage.addActor(puntuacion);
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        font.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, 460);
+        //font.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, 460);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
+        puntuacion.setText(juego.enemigosEliminados);
         for (Enemigo m : enemigos) {
             if(m != null){
                 if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {

@@ -10,23 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Menu  extends ScreenAdapter {
-    private Proyecto juego;
-    private Stage stage;
-    private TextButton newGame;
-    private TextButton loadGame;
-    private TextButton exitGame;
-    private Label title;
-    private Label autor;
+    private final Proyecto juego;
+    private final Stage stage;
 
     public Menu(Proyecto juego) {
         this.juego = juego;
         stage = new Stage(new ScreenViewport());
-
         crearMenu(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-
     }
 
     @Override
@@ -56,7 +48,7 @@ public class Menu  extends ScreenAdapter {
     private void crearMenu(float width, float height){
         stage.clear();
 
-        loadGame = new TextButton("Cargar Partida", juego.gameSkin);
+        TextButton loadGame = new TextButton("Cargar Partida", juego.gameSkin);
         loadGame.setWidth(width / 2);
         loadGame.setPosition(
                 width / 2 - (loadGame.getWidth() / 2),
@@ -77,7 +69,7 @@ public class Menu  extends ScreenAdapter {
         });
         stage.addActor(loadGame);
 
-        newGame = new TextButton("Nueva Partida", juego.gameSkin);
+        TextButton newGame = new TextButton("Nueva Partida", juego.gameSkin);
         newGame.setWidth(width/ 2);
         newGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
@@ -96,7 +88,7 @@ public class Menu  extends ScreenAdapter {
         });
         stage.addActor(newGame);
 
-        exitGame = new TextButton("Salir", juego.gameSkin);
+        TextButton exitGame = new TextButton("Salir", juego.gameSkin);
         exitGame.setWidth(width/2);
         exitGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
@@ -114,13 +106,13 @@ public class Menu  extends ScreenAdapter {
             }
         });
         stage.addActor(exitGame);
-        title = new Label("Tower Adventure", juego.gameSkin, "title");
+        Label title = new Label("Tower Adventure", juego.gameSkin, "title");
         title.setAlignment(Align.center);
         title.setY(height / 2 + newGame.getHeight() + 25);
         title.setWidth(width);
         stage.addActor(title);
 
-        autor = new Label("Create By: José Miguel Lorenzo Lara", juego.gameSkin, "default");
+        Label autor = new Label("Create By: José Miguel Lorenzo Lara", juego.gameSkin, "default");
         autor.setAlignment(Align.center);
         autor.setY( autor.getHeight());
         autor.setWidth(width);

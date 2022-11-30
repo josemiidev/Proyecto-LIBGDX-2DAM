@@ -12,7 +12,6 @@ public class Proyecto extends Game {
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         setScreen(new Menu(this));
-
     }
     @Override
     public void dispose() {

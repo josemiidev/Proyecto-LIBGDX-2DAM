@@ -15,15 +15,15 @@ import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
 
 public class JuegoTower extends ScreenAdapter {
-    private Proyecto juego;
-    private Stage stage;
+    private final Proyecto juego;
+    private final Stage stage;
     TiledMap map;
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
     OrthogonalTiledMapRenderer mapRenderer;
-    private int mapWidthInPixels;
-    private int mapHeightInPixels;
+    private final int mapWidthInPixels;
+    private final int mapHeightInPixels;
     private float offsetX, offsetY;
-    private Hero heroe;
+    private final Hero heroe;
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
 
