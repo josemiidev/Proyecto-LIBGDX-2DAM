@@ -63,6 +63,19 @@ public class Enemigo extends Actor {
         }
 
     }
+    public void setTextura(String textura){
+        switch(textura){
+            case "arriba":
+
+                break;
+            case "abajo":
+                break;
+            case "derecha":
+                break;
+            case "izquierda":
+                break;
+        }
+    }
     private void recortarTextura() {
         switch(MathUtils.random(1,3)){
             case 1:

@@ -195,6 +195,31 @@ public class Manager extends Actor {
                 e.addAction(repeticion);
                 break;
             case 8:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()-200, e.getY()-200);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY()-300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()-200, e.getY()-500);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY()-700);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
                 break;
             case 9:
                 secuencia = new SequenceAction();
@@ -212,6 +237,31 @@ public class Manager extends Actor {
                 e.addAction(repeticion);
                 break;
             case 10:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()+175, e.getY()-200);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY()-300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()+175, e.getY()-600);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY()-800);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
                 break;
             case 11:
                 secuencia = new SequenceAction();
@@ -322,6 +372,23 @@ public class Manager extends Actor {
                 e.addAction(repeticion);
                 break;
             case 15:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()+250, e.getY()-300);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()-200, e.getY() -300);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
                 break;
         }
     }
