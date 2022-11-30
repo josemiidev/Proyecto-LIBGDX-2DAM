@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.jmdev.JuegoTower;
@@ -48,6 +51,7 @@ public class Manager extends Actor {
             Vector2 spawn = getSpawnEnemigo(i);
             en.setPosition(spawn.x,spawn.y);
             enemigos.add(en);
+            CrearAnimacionEnemigo(en,i);
             stage.addActor(en);
         }
         puntuacion = new Label("Puntuación: ", juego.gameSkin, "default");
@@ -55,6 +59,90 @@ public class Manager extends Actor {
         puntuacion.setY(460);
         puntuacion.toFront();
         stage.addActor(puntuacion);
+    }
+    private void CrearAnimacionEnemigo(Enemigo e, int i){
+        MoveToAction movimiento;
+        SequenceAction secuencia;
+        RepeatAction repeticion;
+        switch(i){
+            case 1:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200,e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 2:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 970);
+                movimiento.setDuration(9f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(),e.getY());
+                movimiento.setDuration(9f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 3:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 550);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX()+600,e.getY()-550);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(),e.getY()-550);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(),e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+            case 15:
+                break;
+        }
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {

@@ -118,37 +118,37 @@
   <object id="37" name="enemigo1" x="327.273" y="460.606">
    <point/>
   </object>
-  <object id="38" name="enemigo2" x="896.97" y="1393.94">
+  <object id="38" name="enemigo2" x="878.158" y="1011.9">
    <point/>
   </object>
-  <object id="39" name="enemigo3" x="100" y="1215.15">
+  <object id="39" name="enemigo3" x="38.2839" y="1020.05">
    <point/>
   </object>
-  <object id="40" name="enemigo4" x="330.303" y="3054.55">
+  <object id="40" name="enemigo4" x="328.312" y="3040.61">
    <point/>
   </object>
-  <object id="41" name="enemigo5" x="1248.48" y="2206.06">
+  <object id="41" name="enemigo5" x="744.797" y="2438.99">
    <point/>
   </object>
   <object id="42" name="enemigo6" x="1693.94" y="487.879">
    <point/>
   </object>
-  <object id="43" name="enemigo7" x="2339.39" y="748.485">
+  <object id="43" name="enemigo7" x="2283.65" y="708.668">
    <point/>
   </object>
-  <object id="44" name="enemigo8" x="3133.33" y="1360.61">
+  <object id="44" name="enemigo8" x="3135.32" y="1032.12">
    <point/>
   </object>
-  <object id="45" name="enemigo9" x="2321.21" y="3006.06">
+  <object id="45" name="enemigo9" x="1616.45" y="3021.99">
    <point/>
   </object>
-  <object id="46" name="enemigo10" x="3087.88" y="2715.15">
+  <object id="46" name="enemigo10" x="3004.26" y="1988.49">
    <point/>
   </object>
   <object id="47" name="enemigo11" x="1996.97" y="1378.79">
    <point/>
   </object>
-  <object id="48" name="enemigo12" x="1621.21" y="1369.7">
+  <object id="48" name="enemigo12" x="1487.82" y="1871.39">
    <point/>
   </object>
   <object id="49" name="enemigo13" x="2378.79" y="2336.36">
