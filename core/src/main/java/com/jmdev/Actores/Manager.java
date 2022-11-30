@@ -4,7 +4,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -19,20 +23,25 @@ public class Manager extends Actor {
     private Proyecto juego;
     private Stage stage;
     private Hero heroe;
+    private TiledMap mapa;
     private ArrayList<Enemigo> enemigos;
     private static BitmapFont font;
-    public Manager(Proyecto juego, Stage stage, Hero heroe){
+    public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
+        this.mapa = mapa;
         this.heroe = heroe;
 
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
-        Enemigo en = new Enemigo(1500,1500);
         enemigos = new ArrayList<Enemigo>();
-        enemigos.add(en);
-
-        stage.addActor(en);
+        for(int i = 1; i<=15; i++){
+            Enemigo en = new Enemigo(1500,1500);
+            Vector2 spawn = getSpawnEnemigo(i);
+            en.setPosition(spawn.x,spawn.y);
+            enemigos.add(en);
+            stage.addActor(en);
+        }
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -61,7 +70,11 @@ public class Manager extends Actor {
             juego.setScreen(new PantallaFin(juego,stage));
         }
     }
-
+    private Vector2 getSpawnEnemigo(int i) {
+        MapLayer positionLayer = mapa.getLayers().get("enemigos");
+        MapObject playerSpawn = positionLayer.getObjects().get("enemigo"+i);
+        return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
+    }
     class ManagerInputListener extends InputListener {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {

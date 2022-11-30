@@ -51,7 +51,7 @@ public class JuegoTower extends ScreenAdapter {
         //ESCENA
         stage = new Stage();
         stage.setViewport(viewport);
-        Actor manager = new Manager(juego,stage,heroe);
+        Actor manager = new Manager(juego,stage,map,heroe);
         stage.addActor(manager);
 
         //ASIGANAMOS LOS PERMISOS DE TECLADO
