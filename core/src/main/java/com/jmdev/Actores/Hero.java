@@ -99,19 +99,19 @@ public class Hero extends Actor {
             atacar();
             if (animacionAtaqueAbajo.isAnimationFinished(stateTime)) {
                 finAnimacion = true;
-                atacando = false;
+                //atacando = false;
                 stateTime = delta;
             } else if (animacionAtaqueDerecha.isAnimationFinished(stateTime)) {
                 finAnimacion = true;
-                atacando = false;
+                //atacando = false;
                 stateTime = delta;
             } else if (animacionAtaqueIzquierda.isAnimationFinished(stateTime)) {
                 finAnimacion = true;
-                atacando = false;
+                //atacando = false;
                 stateTime = delta;
             } else if (animacionAtaqueArriba.isAnimationFinished(stateTime)) {
                 finAnimacion = true;
-                atacando = false;
+                //atacando = false;
                 stateTime = delta;
             }
         }

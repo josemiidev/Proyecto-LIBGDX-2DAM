@@ -43,6 +43,7 @@ public class Manager extends Actor {
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
         for (Enemigo m : enemigos) {
+            System.out.println(m.isAlive);
             if(m != null){
                 if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {
                     if(heroe.atacando){
@@ -54,6 +55,7 @@ public class Manager extends Actor {
                     }
                 }
             }
+            if(m.completo) m.remove();
         }
         if(heroe.muerto){
             juego.setScreen(new PantallaFin(juego,stage));
@@ -77,9 +79,9 @@ public class Manager extends Actor {
                     heroe.horizontalMovement = Hero.HorizontalMovement.RIGHT;
                     break;
                 case Input.Keys.SPACE:
-                    if(heroe.finAnimacion){
+                    //if(heroe.finAnimacion){
                         heroe.atacando = true;
-                    }
+                    //}
                     break;
                 case Input.Keys.E:
                     heroe.comprobarCofre();
@@ -109,6 +111,9 @@ public class Manager extends Actor {
                     if (heroe.horizontalMovement == Hero.HorizontalMovement.RIGHT) {
                         heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
                     }
+                    break;
+                case Input.Keys.SPACE:
+                    heroe.atacando = false;
                     break;
             }
             return true;

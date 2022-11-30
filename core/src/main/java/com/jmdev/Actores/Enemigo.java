@@ -1,16 +1,22 @@
 package com.jmdev.Actores;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RemoveActorAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 public class Enemigo extends Actor {
     private static final int FRAME_COLS = 3, FRAME_ROWS = 4;
@@ -21,31 +27,46 @@ public class Enemigo extends Actor {
     TextureRegion regionActual;
     TextureRegion[] andarArriba, andarDerecha, andarIzquierda, andarAbajo;
     float stateTime;
-    TiledMap mapa;
-    public boolean isAlive;
+    public boolean isAlive,completo;
+    AlphaAction actionFadeOut;
     public Enemigo(int x,int y) {
+        isAlive = true;
+        completo = false;
         if (regionActual == null) {
             recortarTextura();
         }
-        isAlive = true;
+
         stateTime = 0f;
         horizontalMovement = Hero.HorizontalMovement.NONE;
         verticalMovement = Hero.VerticalMovement.NONE;
 
         setSize(regionActual.getRegionWidth(), regionActual.getRegionHeight());
         setPosition(x, y);
-    }
-    public void morir(){
-
+        actionFadeOut = new AlphaAction();
+        actionFadeOut.setAlpha(0f);
+        actionFadeOut.setDuration(1f);
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(regionActual, getX(), getY());
+        //batch.draw(regionActual, getX(), getY());
+        Color color = getColor();
+        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+        batch.draw(regionActual, getX(), getY(), getWidth() * getScaleX(),
+                getHeight() * getScaleY());
+        batch.setColor(color.r, color.g, color.b, 1f);
     }
     @Override
     public void act(float delta) {
         super.act(delta);
         stateTime += Gdx.graphics.getDeltaTime();
+
+        if(!isAlive){
+            addAction(actionFadeOut);
+        }
+        if(actionFadeOut.isComplete()){
+            addAction(Actions.removeActor());
+            completo = true;
+        }
 
     }
     private void recortarTextura() {
@@ -68,6 +89,7 @@ public class Enemigo extends Actor {
         andarDerecha = new TextureRegion[FRAME_COLS];
         andarIzquierda = new TextureRegion[FRAME_COLS];
         andarAbajo = new TextureRegion[FRAME_COLS];
+
 
         for (int i = 0; i < FRAME_ROWS; i++) {
             for (int j = 0; j < FRAME_COLS; j++) {
