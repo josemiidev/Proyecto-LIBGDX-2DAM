@@ -411,6 +411,9 @@ public class Manager extends Actor {
         for(Mensaje men :mensajes){
             if(Intersector.overlaps(heroe.getShape(), men.getArea())){
                 if(!men.isMostrado()){
+                    Textos texto = new Textos(men.getTexto(),heroe.getX(),heroe.getY());
+                    texto.toFront();
+                    stage.addActor(texto);
                     System.out.println(men.getTexto());
                     men.setMostrado(true);
                 }
@@ -447,7 +450,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y",Float.class),
                 objetoMensajes.getProperties().get("width",Float.class),
                 objetoMensajes.getProperties().get("height",Float.class),
-                "¿Que camino debo coger primero? ¿Derecha, Izquierda Abajo? Tendremos que probar suerte...");
+                "¿Que camino debo coger primero? ¿Derecha, Izquierda, Abajo? \nTendremos que probar suerte...");
         mensajes.add(mensaje);
 
         objetoMensajes= capaMensajes.getObjects().get("cartel_casa_1");
