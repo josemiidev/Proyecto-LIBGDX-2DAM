@@ -23,6 +23,7 @@ public class Enemigo extends Actor {
     float stateTime;
     public boolean isAlive,completo;
     AlphaAction actionFadeOut;
+    private float xAnterior, yAnterior;
     public Enemigo(int x,int y) {
         isAlive = true;
         completo = false;
@@ -39,6 +40,8 @@ public class Enemigo extends Actor {
         actionFadeOut = new AlphaAction();
         actionFadeOut.setAlpha(0f);
         actionFadeOut.setDuration(1f);
+        xAnterior = getX();
+        yAnterior = getY();
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -61,19 +64,23 @@ public class Enemigo extends Actor {
             addAction(Actions.removeActor());
             completo = true;
         }
+        comprobarTextura();
 
     }
-    public void setTextura(String textura){
-        switch(textura){
-            case "arriba":
-
-                break;
-            case "abajo":
-                break;
-            case "derecha":
-                break;
-            case "izquierda":
-                break;
+    public void comprobarTextura(){
+        if(xAnterior < getX()){
+            regionActual = animacionDerecha.getKeyFrame(stateTime, true);
+            xAnterior = getX();
+        }else if(xAnterior > getX()){
+            regionActual = animacionIzquierda.getKeyFrame(stateTime, true);
+            xAnterior = getX();
+        }
+        if(yAnterior < getY()){
+            regionActual = animacionArriba.getKeyFrame(stateTime, true);
+            yAnterior = getY();
+        } else if (yAnterior > getY()) {
+            regionActual = animacionAbajo.getKeyFrame(stateTime, true);
+            yAnterior = getY();
         }
     }
     private void recortarTextura() {
