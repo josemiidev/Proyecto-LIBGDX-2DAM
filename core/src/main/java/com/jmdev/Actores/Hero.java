@@ -18,16 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import java.util.ArrayList;
 
 public class Hero extends Actor {
-    private static final int FRAME_COLS = 9, FRAME_ROWS = 4;
-
     enum VerticalMovement {UP, NONE, DOWN}
-
     enum HorizontalMovement {LEFT, NONE, RIGHT}
-
     Animation<TextureRegion> animacionArriba, animacionDerecha, animacionIzquierda, animacionAbajo;
     Animation<TextureRegion> animacionAtaqueArriba, animacionAtaqueDerecha, animacionAtaqueIzquierda, animacionAtaqueAbajo;
     Animation<TextureRegion> animacionMuerte;
-    Texture walkSheet;
     public HorizontalMovement horizontalMovement;
     public VerticalMovement verticalMovement;
     TextureRegion regionActual;
@@ -72,7 +67,6 @@ public class Hero extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(regionActual, getX(), getY());
-
     }
 
     @Override
@@ -90,16 +84,13 @@ public class Hero extends Actor {
         if (!isAlive) {
             regionActual = animacionMuerte.getKeyFrame(stateTime, false);
             if (animacionMuerte.isAnimationFinished(stateTime)) {
-                //addAction(Actions.removeActor());
                 muerto = true;
-                //game.setScreen(new PantallaFinal(game));
             }
         }
         if (atacando) {
             atacar();
             if (animacionAtaqueAbajo.isAnimationFinished(stateTime)) {
                 finAnimacion = true;
-                //atacando = false;
                 stateTime = delta;
             } else if (animacionAtaqueDerecha.isAnimationFinished(stateTime)) {
                 finAnimacion = true;
@@ -322,7 +313,7 @@ public class Hero extends Actor {
         animacionAtaqueDerecha = new Animation<TextureRegion>(0.1f, atacarDerecha);
         animacionAtaqueDerecha.setPlayMode(Animation.PlayMode.NORMAL);
 
-        animacionMuerte = new Animation<TextureRegion>(0.4f, muerte);
+        animacionMuerte = new Animation<TextureRegion>(0.5f, muerte);
         animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);
         //ESTABLECEMOS ESTADO ACTUAL
         regionActual = andarAbajo[1];
@@ -333,7 +324,7 @@ public class Hero extends Actor {
     private Vector2 getSpawnPoint() {
         MapLayer positionLayer = mapa.getLayers().get("objetos");
         MapObject playerSpawn = positionLayer.getObjects().get("spawn");
-        return new Vector2(playerSpawn.getProperties().get("x", Float.class) - regionActual.getRegionWidth() / 2, playerSpawn.getProperties().get("y", Float.class));
+        return new Vector2(playerSpawn.getProperties().get("x", Float.class) - regionActual.getRegionWidth() / 2f, playerSpawn.getProperties().get("y", Float.class));
     }
 
     public Rectangle getShape() {

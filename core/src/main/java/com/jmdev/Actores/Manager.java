@@ -1,5 +1,6 @@
 package com.jmdev.Actores;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -9,7 +10,9 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -20,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.jmdev.JuegoTower;
+import com.jmdev.Objetos.Mensaje;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
@@ -31,6 +35,7 @@ public class Manager extends Actor {
     private Hero heroe;
     private TiledMap mapa;
     private ArrayList<Enemigo> enemigos;
+    private ArrayList<Mensaje> mensajes;
     private static BitmapFont font;
     Label puntuacion;
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
@@ -46,6 +51,7 @@ public class Manager extends Actor {
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
         enemigos = new ArrayList<Enemigo>();
+        mensajes = new ArrayList<Mensaje>();
         for(int i = 1; i<=15; i++){
             Enemigo en = new Enemigo(1500,1500);
             Vector2 spawn = getSpawnEnemigo(i);
@@ -401,6 +407,11 @@ public class Manager extends Actor {
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
         puntuacion.setText(juego.enemigosEliminados);
+        for(Mensaje men :mensajes){
+            if(Intersector.overlaps(heroe.getShape(), men.getArea())){
+
+            }
+        }
         for (Enemigo m : enemigos) {
             if(m != null){
                 if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {
@@ -411,6 +422,8 @@ public class Manager extends Actor {
                     }else{
                         heroe.isAlive = false;
                         heroe.clearActions();
+                        Gdx.input.setInputProcessor(null);
+                        stage.setKeyboardFocus(null);
                     }
                 }
             }
@@ -419,6 +432,55 @@ public class Manager extends Actor {
         if(heroe.muerto){
             juego.setScreen(new PantallaFin(juego,stage));
         }
+    }
+    private void cargaAreaMensajes(){
+        MapLayer capaMensajes = mapa.getLayers().get("objetos");
+        MapObject objetoMensajes;
+        Mensaje mensaje;
+
+        objetoMensajes = capaMensajes.getObjects().get("decision_camino");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
+                objetoMensajes.getProperties().get("y",Float.class),
+                objetoMensajes.getProperties().get("width",Float.class),
+                objetoMensajes.getProperties().get("height",Float.class),
+                "¿Que camino debo coger primero? ¿Derecha, Izquierda Abajo? Tendremos que probar suerte...");
+        mensajes.add(mensaje);
+
+        objetoMensajes= capaMensajes.getObjects().get("cartel_casa_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
+                objetoMensajes.getProperties().get("y",Float.class),
+                objetoMensajes.getProperties().get("width",Float.class),
+                objetoMensajes.getProperties().get("height",Float.class),
+                "'Casa de los Meintron... No pasar...' \nParece que no hay nadie...");
+        mensajes.add(mensaje);
+        objetoMensajes= capaMensajes.getObjects().get("cementerio_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
+                objetoMensajes.getProperties().get("y",Float.class),
+                objetoMensajes.getProperties().get("width",Float.class),
+                objetoMensajes.getProperties().get("height",Float.class),
+                "¿Un cementerio al lado de casa? ¿Serán familiares? Anda que asomarte por la ventana y ver el jardín lleno de tumbas...");
+        mensajes.add(mensaje);
+        objetoMensajes= capaMensajes.getObjects().get("laberinto_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
+                objetoMensajes.getProperties().get("y",Float.class),
+                objetoMensajes.getProperties().get("width",Float.class),
+                objetoMensajes.getProperties().get("height",Float.class),
+                "El que plantó los arbustos así era un cachondo eh!");
+        mensajes.add(mensaje);
+        objetoMensajes= capaMensajes.getObjects().get("lapida_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
+                objetoMensajes.getProperties().get("y",Float.class),
+                objetoMensajes.getProperties().get("width",Float.class),
+                objetoMensajes.getProperties().get("height",Float.class),
+                "¿Tanto arbusto para esto? ¿Qué habrá en el cofre?");
+        mensajes.add(mensaje);
+        objetoMensajes= capaMensajes.getObjects().get("cartel_casa_2");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
+                objetoMensajes.getProperties().get("y",Float.class),
+                objetoMensajes.getProperties().get("width",Float.class),
+                objetoMensajes.getProperties().get("height",Float.class),
+                "Se vende... \n¿Pero quien va a comparar esto?");
+        mensajes.add(mensaje);
     }
     private Vector2 getSpawnEnemigo(int i) {
         MapLayer positionLayer = mapa.getLayers().get("enemigos");

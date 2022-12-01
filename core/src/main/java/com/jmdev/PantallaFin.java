@@ -19,6 +19,7 @@ public class PantallaFin extends ScreenAdapter {
     public PantallaFin(Proyecto game, Stage stage){
         this.game = game;
         this.stage = stage;
+
     }
     @Override
     public void show() {
@@ -102,5 +103,6 @@ public class PantallaFin extends ScreenAdapter {
         autor.setY( autor.getHeight());
         autor.setWidth(width);
         stage.addActor(autor);
+        Gdx.input.setInputProcessor(stage);
     }
 }
