@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
+import com.jmdev.Objetos.Hud;
 
 public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
@@ -24,12 +25,14 @@ public class JuegoTower extends ScreenAdapter {
     private final int mapHeightInPixels;
     private float offsetX, offsetY;
     private final Hero heroe;
+    private Hud hud;
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
 
 
     public JuegoTower(Proyecto juego){
         this.juego = juego;
+        hud= new Hud(juego.batch);
         juego.enemigosEliminados = 0;
         //MAPA
         map = new TmxMapLoader().load("mapa/mapa.tmx");
@@ -60,6 +63,9 @@ public class JuegoTower extends ScreenAdapter {
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
         offsetY = -heroe.getY() + Gdx.graphics.getHeight() / 2f;
+
+        juego.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
     @Override
     public void show() {
@@ -70,7 +76,6 @@ public class JuegoTower extends ScreenAdapter {
         super.hide();
         Gdx.input.setInputProcessor(null);
     }
-
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -88,6 +93,7 @@ public class JuegoTower extends ScreenAdapter {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         mapRenderer.render(capas_altas);
+
 
     }
     private void ubicacionCamara(){
@@ -136,6 +142,7 @@ public class JuegoTower extends ScreenAdapter {
     @Override
     public void dispose() {
         map.dispose();
+        hud.dispose();
         juego.dispose();
         stage.dispose();
         mapRenderer.dispose();

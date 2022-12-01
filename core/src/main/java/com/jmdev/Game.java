@@ -18,6 +18,7 @@ public class Game implements ApplicationListener {
     public void resume () {
         if (screen != null) screen.resume();
     }
+
     @Override
     public void render () {
         if (screen != null) screen.render(Gdx.graphics.getDeltaTime());
