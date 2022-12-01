@@ -52,6 +52,7 @@ public class Manager extends Actor {
         addListener(new ManagerInputListener());
         enemigos = new ArrayList<Enemigo>();
         mensajes = new ArrayList<Mensaje>();
+        cargaAreaMensajes();
         for(int i = 1; i<=15; i++){
             Enemigo en = new Enemigo(1500,1500);
             Vector2 spawn = getSpawnEnemigo(i);
@@ -409,7 +410,10 @@ public class Manager extends Actor {
         puntuacion.setText(juego.enemigosEliminados);
         for(Mensaje men :mensajes){
             if(Intersector.overlaps(heroe.getShape(), men.getArea())){
-
+                if(!men.isMostrado()){
+                    System.out.println(men.getTexto());
+                    men.setMostrado(true);
+                }
             }
         }
         for (Enemigo m : enemigos) {
