@@ -2,7 +2,6 @@ package com.jmdev.Actores;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,9 +9,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -21,8 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Align;
-import com.jmdev.JuegoTower;
 import com.jmdev.Objetos.Mensaje;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
@@ -38,7 +33,6 @@ public class Manager extends Actor {
     private ArrayList<Mensaje> mensajes;
     private static BitmapFont font;
     private Textos texto;
-    Label puntuacion;
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
@@ -62,11 +56,6 @@ public class Manager extends Actor {
             CrearAnimacionEnemigo(en,i);
             stage.addActor(en);
         }
-        puntuacion = new Label("Puntuación: ", juego.gameSkin, "default");
-        puntuacion.setX(20);
-        puntuacion.setY(460);
-        puntuacion.toFront();
-        stage.addActor(puntuacion);
     }
     private void CrearAnimacionEnemigo(Enemigo e, int i){
         MoveToAction movimiento;
@@ -408,7 +397,6 @@ public class Manager extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
-        puntuacion.setText(juego.enemigosEliminados);
         if(juego.enemigosEliminados == 15){
             juego.setScreen(new PantallaFin(juego,stage,false));
         }
