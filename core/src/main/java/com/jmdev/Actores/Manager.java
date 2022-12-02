@@ -409,6 +409,9 @@ public class Manager extends Actor {
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
         puntuacion.setText(juego.enemigosEliminados);
+        if(juego.enemigosEliminados == 15){
+            juego.setScreen(new PantallaFin(juego,stage,false));
+        }
         for(Mensaje men :mensajes){
             if(Intersector.overlaps(heroe.getShape(), men.getArea())){
                 if(!men.isMostrado()){
