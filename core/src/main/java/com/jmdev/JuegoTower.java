@@ -2,7 +2,10 @@ package com.jmdev;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -13,26 +16,25 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
-import com.jmdev.Objetos.Hud;
 
 public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
     private final Stage stage;
     TiledMap map;
-    private final OrthographicCamera camera;
+    private OrthographicCamera camera,cameraHud;
     OrthogonalTiledMapRenderer mapRenderer;
     private final int mapWidthInPixels;
     private final int mapHeightInPixels;
     private float offsetX, offsetY;
     private final Hero heroe;
-    private Hud hud;
+    private SpriteBatch batch;
+    private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
 
 
     public JuegoTower(Proyecto juego){
         this.juego = juego;
-        hud= new Hud(juego.batch);
         juego.enemigosEliminados = 0;
         //MAPA
         map = new TmxMapLoader().load("mapa/mapa.tmx");
@@ -45,10 +47,21 @@ public class JuegoTower extends ScreenAdapter {
         mapHeightInPixels = mapHeightInTiles * tileHeight;
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        //CAMARA
+        //CAMARAS
+        //CAMARA MOVIMIENTO
         camera = new OrthographicCamera();
         Viewport viewport = new ScreenViewport(camera);
         heroe = new Hero(map);
+        //CAMARA HUD
+        cameraHud = new OrthographicCamera();
+        cameraHud.setToOrtho(false, 800, 480);
+        batch = new SpriteBatch();
+
+        //FUENTES
+        fuenteEnemigos = new BitmapFont();
+        fuenteEnemigos.setColor(Color.BLACK);
+        fuenteVidas = new BitmapFont();
+        fuenteVidas.setColor(Color.BLACK);
 
         //ESCENA
         stage = new Stage();
@@ -64,8 +77,7 @@ public class JuegoTower extends ScreenAdapter {
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
         offsetY = -(heroe.getY()+heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
 
-        juego.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+
     }
     @Override
     public void show() {
@@ -91,6 +103,13 @@ public class JuegoTower extends ScreenAdapter {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         mapRenderer.render(capas_altas);
+        //DIBUJAR EL HUD
+        cameraHud.update();
+        batch.setProjectionMatrix(cameraHud.combined);
+        batch.begin();
+        fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
+        fuenteVidas.draw(batch,"Vidas: " + juego.vidas,700,460);
+        batch.end();
 
 
     }
@@ -140,7 +159,6 @@ public class JuegoTower extends ScreenAdapter {
     @Override
     public void dispose() {
         map.dispose();
-        hud.dispose();
         juego.dispose();
         stage.dispose();
         mapRenderer.dispose();

@@ -9,6 +9,7 @@ public class Proyecto extends Game {
     public Skin gameSkin;
     public long tiempo;
     public int enemigosEliminados;
+    public int vidas;
     public SpriteBatch batch;
     @Override
     public void create() {
