@@ -72,7 +72,7 @@ public class PantallaFin extends ScreenAdapter {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 //juego.setScreen(new PantallaJuego(juego));
-                game.setScreen(new JuegoTower(game));
+                game.setScreen(new JuegoTower(game,1));
             }
 
             @Override
@@ -91,7 +91,7 @@ public class PantallaFin extends ScreenAdapter {
         newGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new JuegoTower(game));
+                game.setScreen(new JuegoTower(game,0));
             }
 
             @Override

@@ -33,7 +33,13 @@ public class JuegoTower extends ScreenAdapter {
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
 
 
-    public JuegoTower(Proyecto juego){
+    /**
+     *
+     * @param juego Clase Proyecto donde almacenamos toda la informacion
+     * @param estado Estado en el que entra al juego, 0=nuevo 1=carga 2=vuelta pause
+     */
+    public JuegoTower(Proyecto juego,int estado){
+
         this.juego = juego;
         juego.enemigosEliminados = 0;
         //MAPA

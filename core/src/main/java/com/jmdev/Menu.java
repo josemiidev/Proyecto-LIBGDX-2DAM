@@ -59,7 +59,7 @@ public class Menu  extends ScreenAdapter {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 //juego.setScreen(new PantallaJuego(juego));
                 juego.tiempo = 300000;
-                juego.setScreen(new JuegoTower(juego));
+                juego.setScreen(new JuegoTower(juego,1));
             }
 
             @Override
@@ -80,7 +80,7 @@ public class Menu  extends ScreenAdapter {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 juego.vidas = 2;
                 juego.enemigosEliminados = 0;
-                juego.setScreen(new JuegoTower(juego));
+                juego.setScreen(new JuegoTower(juego,0));
             }
 
             @Override
