@@ -415,6 +415,10 @@ public class Manager extends Actor {
         for(Mensaje men :mensajes){
             if(Intersector.overlaps(heroe.getShape(), men.getArea())){
                 if(!men.isMostrado()){
+                    if(texto!=null){
+                        texto.remove();
+                        texto = null;
+                    }
                     texto = new Textos(men.getTexto());
                     texto.setPosition(heroe.getX() + heroe.getWidth(),heroe.getY()+heroe.getHeight());
                     texto.toFront();
@@ -423,7 +427,7 @@ public class Manager extends Actor {
                 }
             }
         }
-        if(texto!= null){
+        if(texto!=null){
             texto.setX(heroe.getX() + heroe.getWidth());
             texto.setY(heroe.getY()+heroe.getHeight());
         }
@@ -459,7 +463,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y",Float.class),
                 objetoMensajes.getProperties().get("width",Float.class),
                 objetoMensajes.getProperties().get("height",Float.class),
-                "¿Que camino debo coger primero? ¿Derecha, Izquierda, Abajo? \nTendremos que probar suerte...");
+                "¿Que camino debo coger primero? \nTendremos que probar suerte...");
         mensajes.add(mensaje);
 
         objetoMensajes= capaMensajes.getObjects().get("cartel_casa_1");
@@ -474,7 +478,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y",Float.class),
                 objetoMensajes.getProperties().get("width",Float.class),
                 objetoMensajes.getProperties().get("height",Float.class),
-                "¿Un cementerio al lado de casa? ¿Serán familiares? Anda que asomarte por la ventana y ver el jardín lleno de tumbas...");
+                "¿Un cementerio al lado de casa? ¿Serán familiares?\n Anda que asomarte por la ventana y ver el jardín lleno de tumbas...");
         mensajes.add(mensaje);
         objetoMensajes= capaMensajes.getObjects().get("laberinto_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
@@ -526,6 +530,12 @@ public class Manager extends Actor {
                     break;
                 case Input.Keys.E:
                     heroe.comprobarCofre();
+                    break;
+                case Input.Keys.ESCAPE:
+                    if(texto!=null){
+                        texto.remove();
+                        texto = null;
+                    }
                     break;
             }
             return true;
