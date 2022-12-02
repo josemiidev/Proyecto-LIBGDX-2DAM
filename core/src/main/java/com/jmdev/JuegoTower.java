@@ -62,7 +62,7 @@ public class JuegoTower extends ScreenAdapter {
 
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
-        offsetY = -heroe.getY() + Gdx.graphics.getHeight() / 2f;
+        offsetY = -(heroe.getY()+heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
 
         juego.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -95,16 +95,16 @@ public class JuegoTower extends ScreenAdapter {
 
     }
     private void ubicacionCamara(){
-        if (heroe.getX() < camera.position.x - camera.viewportWidth/2 + 200 && offsetX > 0){
+        if (heroe.getX() < camera.position.x - camera.viewportWidth/2 + 100 && offsetX > 0){
             offsetX -= 200 * Gdx.graphics.getDeltaTime();
         }
-        if(heroe.getX() + heroe.getWidth() > camera.position.x + camera.viewportWidth / 2 - 200 &&  offsetX < mapWidthInPixels - camera.viewportWidth){
+        if(heroe.getX() + heroe.getWidth() > camera.position.x + camera.viewportWidth / 2 - 100 &&  offsetX < mapWidthInPixels - camera.viewportWidth){
             offsetX += 200 * Gdx.graphics.getDeltaTime();
         }
-        if(heroe.getY() < camera.position.y -camera.viewportHeight/2 + 200 && offsetY > - mapHeightInPixels + camera.viewportHeight){
+        if(heroe.getY() < camera.position.y -camera.viewportHeight/2 + 100 && offsetY > - mapHeightInPixels + camera.viewportHeight){
             offsetY -=200 * Gdx.graphics.getDeltaTime();
         }
-        if (heroe.getY() + heroe.getHeight() > camera.position.y  +camera.viewportHeight/2 - 200 && offsetY < 0){
+        if (heroe.getY() + heroe.getHeight() > camera.position.y  +camera.viewportHeight/2 - 100 && offsetY < 0){
             offsetY += 200 * Gdx.graphics.getDeltaTime();
         }
 
