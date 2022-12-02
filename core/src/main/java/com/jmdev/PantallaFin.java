@@ -38,13 +38,8 @@ public class PantallaFin extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if(muerto){
-            Gdx.gl.glClearColor(1f, 0.2f, 0.2f, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        }else{
-            Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        }
+        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
     }
@@ -62,52 +57,26 @@ public class PantallaFin extends ScreenAdapter {
     private void crearPantalla(float width, float height){
         stage.clear();
 
-        TextButton loadGame = new TextButton("Nueva Partida", game.gameSkin);
-        loadGame.setWidth(width / 2);
-        loadGame.setPosition(
-                width / 2 - (loadGame.getWidth() / 2),
-                (height / 2 - loadGame.getHeight())
+        Label title = new Label("¡Has Ganado!", game.gameSkin, "title");
+
+        title.setAlignment(Align.center);
+        title.setY(height - title.getHeight() - 20);
+        title.setWidth(width);
+        stage.addActor(title);
+
+        Label autor = new Label("Create By: Jose Miguel Lorenzo Lara", game.gameSkin, "default");
+        autor.setAlignment(Align.center);
+        autor.setY(autor.getHeight());
+        autor.setWidth(width);
+        stage.addActor(autor);
+
+        TextButton salir = new TextButton("Salir", game.gameSkin);
+        salir.setWidth(width/2);
+        salir.setPosition(
+                width / 2 - (salir.getWidth() / 2),
+                autor.getHeight() + salir.getHeight() + 10
         );
-        loadGame.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //juego.setScreen(new PantallaJuego(juego));
-                game.setScreen(new JuegoTower(game,1));
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(loadGame);
-
-        TextButton newGame = new TextButton("Reintentar", game.gameSkin);
-        newGame.setWidth(width/ 2);
-        newGame.setPosition(
-                width / 2 - (newGame.getWidth() / 2),
-                height/ 2 + 10
-        );
-        newGame.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new JuegoTower(game,0));
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(newGame);
-
-        TextButton exitGame = new TextButton("Salir", game.gameSkin);
-        exitGame.setWidth(width/2);
-        exitGame.setPosition(
-                width / 2 - (newGame.getWidth() / 2),
-                height / 2 - (newGame.getHeight() + exitGame.getHeight() +10)
-        );
-        exitGame.addListener(new InputListener() {
+        salir.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.exit();
@@ -118,28 +87,70 @@ public class PantallaFin extends ScreenAdapter {
                 return true;
             }
         });
-        stage.addActor(exitGame);
+        stage.addActor(salir);
 
-        Label title = new Label("¡Has Ganado!", game.gameSkin, "title");
+        TextButton nueva = new TextButton("Nueva Partida", game.gameSkin);
+        nueva.setWidth(width / 2);
+        nueva.setPosition(
+                width / 2 - (nueva.getWidth() / 2),
+                salir.getY() + salir.getHeight() + 10
+        );
+        nueva.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.vidas = 2;
+                game.setScreen(new JuegoTower(game,1));
+            }
 
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(nueva);
 
-        title.setAlignment(Align.center);
-        title.setY(height / 2 + newGame.getHeight() + 25);
-        title.setWidth(width);
-        stage.addActor(title);
+        TextButton reintentar = new TextButton("Reintentar", game.gameSkin);
+        reintentar.setWidth(width/ 2);
+        reintentar.setPosition(
+                width / 2 - (reintentar.getWidth() / 2),
+                nueva.getY() + nueva.getHeight() + 10
+        );
+        reintentar.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.vidas--;
+                game.setScreen(new JuegoTower(game,0));
+            }
 
-        Label autor = new Label("Create By: Jose Miguel Lorenzo Lara", game.gameSkin, "default");
-        autor.setAlignment(Align.center);
-        autor.setY( autor.getHeight());
-        autor.setWidth(width);
-        stage.addActor(autor);
-        Gdx.input.setInputProcessor(stage);
-
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(reintentar);
         if(muerto){
-            title.setText("¡Has Muerto!");
+            if(game.vidas>0){
+                title.setText("¡Has Muerto!");
+            }else{
+                title.setText("¡Has Perdido!");
+                reintentar.setVisible(false);
+            }
+
             title.setColor(Color.RED);
             autor.setColor(Color.RED);
-            exitGame.setColor(Color.RED);
+            salir.setColor(Color.RED);
+            nueva.setColor(Color.RED);
+            reintentar.setColor(Color.RED);
+        }else{
+            reintentar.setVisible(false);
         }
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        stage.dispose();
+        game.dispose();
     }
 }

@@ -114,7 +114,7 @@ public class JuegoTower extends ScreenAdapter {
         batch.setProjectionMatrix(cameraHud.combined);
         batch.begin();
         fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
-        fuenteVidas.draw(batch,"Vidas: " + juego.vidas,cameraHud.viewportWidth - 75,cameraHud.viewportHeight - 15);
+        fuenteVidas.draw(batch,"Vidas Restantes: " + juego.vidas,cameraHud.viewportWidth - 150,cameraHud.viewportHeight - 15);
         batch.end();
 
 

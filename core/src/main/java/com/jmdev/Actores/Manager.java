@@ -397,7 +397,7 @@ public class Manager extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
-        if(juego.enemigosEliminados == 15){
+        if(juego.enemigosEliminados == 1){
             juego.setScreen(new PantallaFin(juego,stage,false));
         }
         for(Mensaje men :mensajes){
