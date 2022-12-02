@@ -112,7 +112,7 @@ public class Menu  extends ScreenAdapter {
         title.setWidth(width);
         stage.addActor(title);
 
-        Label autor = new Label("Create By: José Miguel Lorenzo Lara", juego.gameSkin, "default");
+        Label autor = new Label("Create By: Jose Miguel Lorenzo Lara", juego.gameSkin, "default");
         autor.setAlignment(Align.center);
         autor.setY( autor.getHeight());
         autor.setWidth(width);

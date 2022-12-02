@@ -34,7 +34,7 @@ public class Hero extends Actor {
     TiledMap mapa;
     Vector2 posicionAntigua;
     public Vector2 spawnPoint;
-    public boolean atacando, finAnimacion, isAlive,muerto;
+    public boolean atacando, finAnimacion, isAlive,muerto,muriendo;
     private String ultimaPosicion;
 
     public Hero(TiledMap mapa) {
@@ -81,7 +81,11 @@ public class Hero extends Actor {
         } else {
             setPosition(posicionAntigua.x, posicionAntigua.y);
         }
-        if (!isAlive) {
+        if (!isAlive && !muriendo) {
+            muriendo=true;
+            stateTime = 0;
+        }
+        if(muriendo){
             regionActual = animacionMuerte.getKeyFrame(stateTime, false);
             if (animacionMuerte.isAnimationFinished(stateTime)) {
                 muerto = true;
@@ -313,7 +317,7 @@ public class Hero extends Actor {
         animacionAtaqueDerecha = new Animation<TextureRegion>(0.1f, atacarDerecha);
         animacionAtaqueDerecha.setPlayMode(Animation.PlayMode.NORMAL);
 
-        animacionMuerte = new Animation<TextureRegion>(0.5f, muerte);
+        animacionMuerte = new Animation<TextureRegion>(0.2f, muerte);
         animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);
         //ESTABLECEMOS ESTADO ACTUAL
         regionActual = andarAbajo[1];

@@ -37,6 +37,7 @@ public class Manager extends Actor {
     private ArrayList<Enemigo> enemigos;
     private ArrayList<Mensaje> mensajes;
     private static BitmapFont font;
+    private Textos texto;
     Label puntuacion;
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
@@ -411,13 +412,17 @@ public class Manager extends Actor {
         for(Mensaje men :mensajes){
             if(Intersector.overlaps(heroe.getShape(), men.getArea())){
                 if(!men.isMostrado()){
-                    Textos texto = new Textos(men.getTexto(),heroe.getX(),heroe.getY());
+                    texto = new Textos(men.getTexto());
+                    texto.setPosition(heroe.getX() + heroe.getWidth(),heroe.getY()+heroe.getHeight());
                     texto.toFront();
                     stage.addActor(texto);
-                    System.out.println(men.getTexto());
                     men.setMostrado(true);
                 }
             }
+        }
+        if(texto!= null){
+            texto.setX(heroe.getX() + heroe.getWidth());
+            texto.setY(heroe.getY()+heroe.getHeight());
         }
         for (Enemigo m : enemigos) {
             if(m != null){
@@ -428,7 +433,8 @@ public class Manager extends Actor {
                         juego.enemigosEliminados++;
                     }else{
                         heroe.isAlive = false;
-                        heroe.clearActions();
+                        heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
+                        heroe.verticalMovement = Hero.VerticalMovement.NONE;
                         Gdx.input.setInputProcessor(null);
                         stage.setKeyboardFocus(null);
                     }
@@ -437,7 +443,7 @@ public class Manager extends Actor {
             if(m.completo) m.remove();
         }
         if(heroe.muerto){
-            juego.setScreen(new PantallaFin(juego,stage));
+            juego.setScreen(new PantallaFin(juego,stage,true));
         }
     }
     private void cargaAreaMensajes(){

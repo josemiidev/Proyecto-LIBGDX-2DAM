@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,11 +16,12 @@ import com.badlogic.gdx.utils.Align;
 public class PantallaFin extends ScreenAdapter {
     Proyecto game;
     Stage stage;
+    boolean muerto;
 
-    public PantallaFin(Proyecto game, Stage stage){
+    public PantallaFin(Proyecto game, Stage stage, boolean muerto){
         this.game = game;
         this.stage = stage;
-
+        this.muerto = muerto;
     }
     @Override
     public void show() {
@@ -55,7 +57,27 @@ public class PantallaFin extends ScreenAdapter {
     private void crearPantalla(float width, float height){
         stage.clear();
 
-        TextButton newGame = new TextButton("Nueva Partida", game.gameSkin);
+        TextButton loadGame = new TextButton("Nueva Partida", game.gameSkin);
+        loadGame.setWidth(width / 2);
+        loadGame.setPosition(
+                width / 2 - (loadGame.getWidth() / 2),
+                (height / 2 - loadGame.getHeight())
+        );
+        loadGame.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                //juego.setScreen(new PantallaJuego(juego));
+                game.setScreen(new JuegoTower(game));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(loadGame);
+
+        TextButton newGame = new TextButton("Reintentar", game.gameSkin);
         newGame.setWidth(width/ 2);
         newGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
@@ -92,13 +114,19 @@ public class PantallaFin extends ScreenAdapter {
             }
         });
         stage.addActor(exitGame);
-        Label title = new Label("Tower Adventure", game.gameSkin, "title");
+
+        Label title = new Label("¡Has Ganado!", game.gameSkin, "title");
+        if(muerto){
+            title.setText("¡Has Muerto!");
+            title.setColor(Color.RED);
+        }
+
         title.setAlignment(Align.center);
         title.setY(height / 2 + newGame.getHeight() + 25);
         title.setWidth(width);
         stage.addActor(title);
 
-        Label autor = new Label("Create By: José Miguel Lorenzo Lara", game.gameSkin, "default");
+        Label autor = new Label("Create By: Jose Miguel Lorenzo Lara", game.gameSkin, "default");
         autor.setAlignment(Align.center);
         autor.setY( autor.getHeight());
         autor.setWidth(width);

@@ -9,12 +9,12 @@ public class Textos extends Actor {
     BitmapFont font;
     String texto;
     float x,y;
-    public Textos(String texto, float x, float y){
+    public Textos(String texto){
         this.texto = texto;
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-        this.x = x;
-        this.y = y;
+        x=10;
+        y=10;
     }
 
     @Override
