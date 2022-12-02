@@ -1,8 +1,6 @@
 package com.jmdev;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,28 +11,28 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 
+/**
+ * Pantalla Mostrada al final del juego, ya sea si has muerto o has ganado
+ */
 public class PantallaFin extends ScreenAdapter {
     Proyecto game;
     Stage stage;
     boolean muerto;
 
+    /**
+     * Constructor de la pantalla final
+     * @param game Clase Proyecto en la que almacenamos informacion
+     * @param stage El Stage actual
+     * @param muerto Valor que nos indica como entramos a la pantalla, por muerte o por juego ganado
+     */
     public PantallaFin(Proyecto game, Stage stage, boolean muerto){
         this.game = game;
         this.stage = stage;
         this.muerto = muerto;
     }
+
     @Override
-    public void show() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.ENTER) {
-                    game.setScreen(new PantallaMenu(game));
-                }
-                return true;
-            }
-        });
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
@@ -52,9 +50,15 @@ public class PantallaFin extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         stage.getViewport().update(width,height,true);
-        crearPantalla(width,height);
+        crearMenu(width,height);
     }
-    private void crearPantalla(float width, float height){
+
+    /**
+     * Función que crea los componentes de la pantalla final
+     * @param width Ancho de la pantalla
+     * @param height Alto de la pantalla
+     */
+    private void crearMenu(float width, float height){
         stage.clear();
 
         Label title = new Label("¡Has Ganado!", game.gameSkin, "title");

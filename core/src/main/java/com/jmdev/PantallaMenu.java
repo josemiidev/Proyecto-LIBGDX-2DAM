@@ -11,10 +11,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * Pantalla mostrada al inicio de la aplicación, como menú, para entrar a jugar
+ */
 public class PantallaMenu extends ScreenAdapter {
     private final Proyecto juego;
     private final Stage stage;
 
+    /**
+     * Constructor de la Pantalla del Menu
+     * @param juego Objeto de la clase proyecto que almacena información de la partida
+     */
     public PantallaMenu(Proyecto juego) {
         this.juego = juego;
         stage = new Stage(new ScreenViewport());
@@ -45,6 +52,11 @@ public class PantallaMenu extends ScreenAdapter {
         juego.dispose();
     }
 
+    /**
+     * Función que crea los componentes de la pantalla final
+     * @param width Ancho de la pantalla
+     * @param height Alto de la pantalla
+     */
     private void crearMenu(float width, float height){
         stage.clear();
 
