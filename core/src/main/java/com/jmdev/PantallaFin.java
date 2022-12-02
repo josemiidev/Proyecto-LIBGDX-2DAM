@@ -38,8 +38,13 @@ public class PantallaFin extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if(muerto){
+            Gdx.gl.glClearColor(1f, 0.2f, 0.2f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        }else{
+            Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        }
         stage.act();
         stage.draw();
     }
@@ -116,10 +121,7 @@ public class PantallaFin extends ScreenAdapter {
         stage.addActor(exitGame);
 
         Label title = new Label("¡Has Ganado!", game.gameSkin, "title");
-        if(muerto){
-            title.setText("¡Has Muerto!");
-            title.setColor(Color.RED);
-        }
+
 
         title.setAlignment(Align.center);
         title.setY(height / 2 + newGame.getHeight() + 25);
@@ -132,5 +134,12 @@ public class PantallaFin extends ScreenAdapter {
         autor.setWidth(width);
         stage.addActor(autor);
         Gdx.input.setInputProcessor(stage);
+
+        if(muerto){
+            title.setText("¡Has Muerto!");
+            title.setColor(Color.RED);
+            autor.setColor(Color.RED);
+            exitGame.setColor(Color.RED);
+        }
     }
 }
