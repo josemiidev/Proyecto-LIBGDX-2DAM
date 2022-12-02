@@ -517,9 +517,12 @@ public class Manager extends Actor {
                     heroe.horizontalMovement = Hero.HorizontalMovement.RIGHT;
                     break;
                 case Input.Keys.SPACE:
-                    Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/espada.mp3"));
-                    dropSound.play();
-                    heroe.atacando = true;
+                    if(!heroe.ataca){
+                        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/espada.mp3"));
+                        dropSound.play();
+                        heroe.ataca = true;
+                    }
+
                     break;
                 case Input.Keys.E:
                     heroe.comprobarCofre();
