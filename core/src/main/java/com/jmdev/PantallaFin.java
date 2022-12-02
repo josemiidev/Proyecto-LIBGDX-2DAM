@@ -29,7 +29,7 @@ public class PantallaFin extends ScreenAdapter {
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.ENTER) {
-                    game.setScreen(new Menu(game));
+                    game.setScreen(new PantallaMenu(game));
                 }
                 return true;
             }

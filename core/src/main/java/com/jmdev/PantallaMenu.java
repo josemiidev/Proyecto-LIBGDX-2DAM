@@ -11,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class Menu  extends ScreenAdapter {
+public class PantallaMenu extends ScreenAdapter {
     private final Proyecto juego;
     private final Stage stage;
 
-    public Menu(Proyecto juego) {
+    public PantallaMenu(Proyecto juego) {
         this.juego = juego;
         stage = new Stage(new ScreenViewport());
         crearMenu(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -48,26 +48,6 @@ public class Menu  extends ScreenAdapter {
     private void crearMenu(float width, float height){
         stage.clear();
 
-        TextButton loadGame = new TextButton("Cargar Partida", juego.gameSkin);
-        loadGame.setWidth(width / 2);
-        loadGame.setPosition(
-                width / 2 - (loadGame.getWidth() / 2),
-                (height / 2 - loadGame.getHeight())
-        );
-        loadGame.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //juego.setScreen(new PantallaJuego(juego));
-                juego.tiempo = 300000;
-                juego.setScreen(new JuegoTower(juego,1));
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(loadGame);
 
         TextButton newGame = new TextButton("Nueva Partida", juego.gameSkin);
         newGame.setWidth(width/ 2);
@@ -94,7 +74,7 @@ public class Menu  extends ScreenAdapter {
         exitGame.setWidth(width/2);
         exitGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
-                height / 2 - (loadGame.getHeight() + exitGame.getHeight() +10)
+                newGame.getY() - exitGame.getHeight() - 10
         );
         exitGame.addListener(new InputListener() {
             @Override
