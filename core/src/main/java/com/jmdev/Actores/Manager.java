@@ -2,6 +2,7 @@ package com.jmdev.Actores;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -422,10 +423,14 @@ public class Manager extends Actor {
             if(m != null){
                 if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {
                     if(heroe.atacando){
+                        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/muerte_enemigo.mp3"));
+                        dropSound.play();
                         m.isAlive = false;
                         m.clearActions();
                         juego.enemigosEliminados++;
                     }else{
+                        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/muerte_heroe.mp3"));
+                        dropSound.play();
                         heroe.isAlive = false;
                         heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
                         heroe.verticalMovement = Hero.VerticalMovement.NONE;
@@ -437,6 +442,7 @@ public class Manager extends Actor {
             if(m.completo) m.remove();
         }
         if(heroe.muerto){
+            juego.music.dispose();
             juego.setScreen(new PantallaFin(juego,stage,true));
         }
     }
@@ -472,7 +478,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y",Float.class),
                 objetoMensajes.getProperties().get("width",Float.class),
                 objetoMensajes.getProperties().get("height",Float.class),
-                "El que plantó los arbustos así era un cachondo eh!");
+                "El que plantó los arbustos así era \nun cachondo eh!");
         mensajes.add(mensaje);
         objetoMensajes= capaMensajes.getObjects().get("lapida_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
@@ -511,9 +517,9 @@ public class Manager extends Actor {
                     heroe.horizontalMovement = Hero.HorizontalMovement.RIGHT;
                     break;
                 case Input.Keys.SPACE:
-                    //if(heroe.finAnimacion){
-                        heroe.atacando = true;
-                    //}
+                    Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/espada.mp3"));
+                    dropSound.play();
+                    heroe.atacando = true;
                     break;
                 case Input.Keys.E:
                     heroe.comprobarCofre();

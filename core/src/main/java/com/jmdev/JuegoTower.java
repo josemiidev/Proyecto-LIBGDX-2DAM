@@ -2,6 +2,7 @@ package com.jmdev;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,6 +29,7 @@ public class JuegoTower extends ScreenAdapter {
     private float offsetX, offsetY;
     private final Hero heroe;
     private SpriteBatch batch;
+
     private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
@@ -74,7 +76,9 @@ public class JuegoTower extends ScreenAdapter {
         stage.setViewport(viewport);
         Actor manager = new Manager(juego,stage,map,heroe);
         stage.addActor(manager);
-
+        juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
+        juego.music.setLooping(true); //SE ESTABLECE EL BUCLE PARA LA LLUVIA
+        juego.music.play();
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);
         stage.setKeyboardFocus(manager);

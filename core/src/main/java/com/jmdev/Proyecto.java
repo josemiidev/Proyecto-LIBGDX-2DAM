@@ -1,6 +1,7 @@
 package com.jmdev;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -11,6 +12,7 @@ public class Proyecto extends Game {
     public int enemigosEliminados;
     public int vidas;
     public SpriteBatch batch;
+    public Music music;
     @Override
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));

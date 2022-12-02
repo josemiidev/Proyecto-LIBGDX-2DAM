@@ -149,6 +149,7 @@ public class Hero extends Actor {
     }
 
     public void atacar() {
+
         switch (ultimaPosicion) {
             case "arriba":
                 regionActual = animacionAtaqueArriba.getKeyFrame(stateTime, false);
