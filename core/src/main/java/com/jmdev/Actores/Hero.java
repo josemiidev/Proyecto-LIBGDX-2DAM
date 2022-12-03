@@ -60,10 +60,18 @@ public class Hero extends Actor {
 
     private void cargarColisiones(TiledMap mapa) {
         capasObstaculos = new ArrayList<TiledMapTileLayer>();
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones cofres"));
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones objetos"));
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones arbustos"));
-        capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones paredes"));
+        if(mapa.getLayers().get("colisiones cofres") != null){
+            capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones cofres"));
+        }
+        if(mapa.getLayers().get("colisiones objetos") != null){
+            capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones objetos"));
+        }
+        if(mapa.getLayers().get("colisiones arbustos") != null){
+            capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones arbustos"));
+        }
+        if(mapa.getLayers().get("colisiones paredes") != null){
+            capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones paredes"));
+        }
     }
 
     @Override

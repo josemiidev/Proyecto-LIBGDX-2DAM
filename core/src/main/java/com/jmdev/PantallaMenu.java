@@ -60,7 +60,6 @@ public class PantallaMenu extends ScreenAdapter {
     private void crearMenu(float width, float height){
         stage.clear();
 
-
         TextButton newGame = new TextButton("Nueva Partida", juego.gameSkin);
         newGame.setWidth(width/ 2);
         newGame.setPosition(

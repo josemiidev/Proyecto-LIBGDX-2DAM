@@ -3,9 +3,7 @@ package com.jmdev.Actores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.jmdev.Objetos.Mensaje;
+import com.jmdev.PantallaCasa1;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
@@ -31,23 +30,20 @@ public class Manager extends Actor {
     private TiledMap mapa;
     private ArrayList<Enemigo> enemigos;
     private ArrayList<Mensaje> mensajes;
-    private static BitmapFont font;
+    private ArrayList<Area> areas;
     private Textos texto;
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
         this.mapa = mapa;
         this.heroe = heroe;
-        if (font == null) {
-            // Cargar fuente solamente si es la primera vez
-            font = new BitmapFont();
-            font.setColor(Color.RED);
-        }
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
         enemigos = new ArrayList<Enemigo>();
         mensajes = new ArrayList<Mensaje>();
+        areas = new ArrayList<Area>();
         cargaAreaMensajes();
+        cargaAreas();
         for(int i = 1; i<=15; i++){
             Enemigo en = new Enemigo(1500,1500);
             Vector2 spawn = getSpawnEnemigo(i);
@@ -390,9 +386,7 @@ public class Manager extends Actor {
         }
     }
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-        //font.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, 460);
-    }
+    public void draw(Batch batch, float parentAlpha) {}
 
     @Override
     public void act(float delta) {
@@ -415,6 +409,34 @@ public class Manager extends Actor {
                 }
             }
         }
+        for(Area a :areas){
+            if(Intersector.overlaps(heroe.getShape(), a.getArea())){
+                switch (a.getNumCasa()){
+                    case 1:
+                        juego.setScreen(new PantallaCasa1(juego,heroe));
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+        }
+
+        for(Mensaje men :mensajes){
+            if(Intersector.overlaps(heroe.getShape(), men.getArea())){
+                if(!men.isMostrado()){
+                    if(texto!=null){
+                        texto.remove();
+                        texto = null;
+                    }
+                    texto = new Textos(men.getTexto());
+                    texto.setPosition(heroe.getX() + heroe.getWidth(),heroe.getY()+heroe.getHeight());
+                    texto.toFront();
+                    stage.addActor(texto);
+                    men.setMostrado(true);
+                }
+            }
+        }
+
         if(texto!=null){
             texto.setX(heroe.getX() + heroe.getWidth());
             texto.setY(heroe.getY()+heroe.getHeight());
@@ -445,6 +467,27 @@ public class Manager extends Actor {
             juego.music.dispose();
             juego.setScreen(new PantallaFin(juego,stage,true));
         }
+    }
+    private void cargaAreas(){
+        MapLayer capaAreas = mapa.getLayers().get("objetos");
+        MapObject objetoArea;
+        Area area;
+
+        objetoArea = capaAreas.getObjects().get("puerta_1");
+        area = new Area(objetoArea.getProperties().get("x",Float.class),
+                objetoArea.getProperties().get("y",Float.class),
+                objetoArea.getProperties().get("width",Float.class),
+                objetoArea.getProperties().get("height",Float.class),
+                1);
+        areas.add(area);
+
+        objetoArea = capaAreas.getObjects().get("puerta_2");
+        area = new Area(objetoArea.getProperties().get("x",Float.class),
+                objetoArea.getProperties().get("y",Float.class),
+                objetoArea.getProperties().get("width",Float.class),
+                objetoArea.getProperties().get("height",Float.class),
+                2);
+        areas.add(area);
     }
     private void cargaAreaMensajes(){
         MapLayer capaMensajes = mapa.getLayers().get("objetos");
