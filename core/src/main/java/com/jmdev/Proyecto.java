@@ -4,16 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.jmdev.Actores.Enemigo;
+
+import java.util.ArrayList;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Proyecto extends Game {
     public Skin gameSkin;
-    public long tiempo;
     public int enemigosEliminados;
-    public int vidas;
+    public int vidas,ultimaCasa;
     public SpriteBatch batch;
     public Music music;
-    public int ultimaCasa;
+    public ArrayList<Enemigo> enemigos;
     @Override
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));

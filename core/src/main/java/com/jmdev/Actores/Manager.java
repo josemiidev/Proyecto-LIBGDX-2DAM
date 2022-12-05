@@ -30,7 +30,6 @@ public class Manager extends Actor {
     private Stage stage;
     private Hero heroe;
     private TiledMap mapa;
-    private ArrayList<Enemigo> enemigos;
     private ArrayList<Mensaje> mensajes;
     private ArrayList<Area> areas;
     private Textos texto;
@@ -43,7 +42,7 @@ public class Manager extends Actor {
         this.inmortal = false;
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
-        enemigos = new ArrayList<Enemigo>();
+        juego.enemigos = new ArrayList<Enemigo>();
         mensajes = new ArrayList<Mensaje>();
         areas = new ArrayList<Area>();
         cargaAreaMensajes();
@@ -52,7 +51,7 @@ public class Manager extends Actor {
             Enemigo en = new Enemigo(1500,1500);
             Vector2 spawn = getSpawnEnemigo(i);
             en.setPosition(spawn.x,spawn.y);
-            enemigos.add(en);
+            juego.enemigos.add(en);
             CrearAnimacionEnemigo(en,i);
             stage.addActor(en);
         }
@@ -396,6 +395,7 @@ public class Manager extends Actor {
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
         if(juego.enemigosEliminados == 15){
+            juego.music.pause();
             juego.setScreen(new PantallaFin(juego,stage,false));
         }
         for(Mensaje men :mensajes){
@@ -446,7 +446,7 @@ public class Manager extends Actor {
             texto.setX(heroe.getX() + heroe.getWidth());
             texto.setY(heroe.getY()+heroe.getHeight());
         }
-        for (Enemigo m : enemigos) {
+        for (Enemigo m : juego.enemigos) {
             if(m != null){
                 if (heroe.isAlive && m.isAlive && Intersector.overlaps(heroe.getShape(), m.getShape())) {
                     if(heroe.atacando){
