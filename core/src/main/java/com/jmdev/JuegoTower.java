@@ -90,7 +90,7 @@ public class JuegoTower extends ScreenAdapter {
 
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
-        offsetY = -(heroe.getY()+heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
+        offsetY = -(mapHeightInPixels - heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
     }
     private Vector2 getSpawnVuelta(int i){
         MapLayer positionLayer = map.getLayers().get("objetos");
@@ -118,9 +118,9 @@ public class JuegoTower extends ScreenAdapter {
     public void render(float delta) {
         super.render(delta);
 
-        camera.position.x = camera.viewportWidth / 2 + offsetX;
+        /*.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
-        camera.update();
+        camera.update();*/
 
         ubicacionCamara();
 
