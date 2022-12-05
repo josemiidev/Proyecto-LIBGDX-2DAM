@@ -1,4 +1,4 @@
-package com.jmdev.Actores;
+package com.jmdev.Objetos;
 
 import com.badlogic.gdx.math.Rectangle;
 

@@ -35,6 +35,7 @@ public class PantallaCasa1 extends ScreenAdapter {
     public PantallaCasa1(Proyecto juego,Hero heroe){
         this.juego = juego;
         this.heroe = heroe;
+        juego.ultimaCasa = 1;
         //MAPA
         map = new TmxMapLoader().load("mapas/casa1/casa1.tmx");
         MapProperties properties = map.getProperties();
@@ -129,9 +130,9 @@ public class PantallaCasa1 extends ScreenAdapter {
         if (offsetX > mapWidthInPixels - camera.viewportWidth) offsetX = mapWidthInPixels - camera.viewportWidth;
         if (offsetY < -mapHeightInPixels + camera.viewportHeight) offsetY = -mapHeightInPixels + camera.viewportHeight;
 
-        camera.position.x = camera.viewportWidth / 2 + offsetX;
+        /*camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
-        camera.update();
+        camera.update();*/
         mapRenderer.setView(camera);
         mapRenderer.render();
     }

@@ -18,7 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.jmdev.JuegoTower;
+import com.jmdev.Objetos.Area;
 import com.jmdev.Objetos.Mensaje;
+import com.jmdev.PantallaCasa1;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
@@ -29,13 +32,14 @@ public class ManagerCasa1  extends Actor {
     private Stage stage;
     private Hero heroe;
     private TiledMap mapa;
-    private static BitmapFont font;
+    Area area;
     public ManagerCasa1(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
         this.mapa = mapa;
         this.heroe = heroe;
         stage.addActor(heroe);
+        cargaAreas();
         addListener(new ManagerCasa1.ManagerInputListener());
 
     }
@@ -48,9 +52,22 @@ public class ManagerCasa1  extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
-        if(juego.enemigosEliminados == 15){
-            juego.setScreen(new PantallaFin(juego,stage,false));
+        if(Intersector.overlaps(heroe.getShape(), area.getArea())){
+            juego.setScreen(new JuegoTower(juego,2));
         }
+    }
+    private void cargaAreas(){
+        MapLayer capaAreas = mapa.getLayers().get("objetos");
+        MapObject objetoArea;
+
+
+        objetoArea = capaAreas.getObjects().get("salida");
+        area = new Area(objetoArea.getProperties().get("x",Float.class),
+                objetoArea.getProperties().get("y",Float.class),
+                objetoArea.getProperties().get("width",Float.class),
+                objetoArea.getProperties().get("height",Float.class),
+                1);
+
     }
     class ManagerInputListener extends InputListener {
         @Override

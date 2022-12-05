@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.jmdev.Objetos.Area;
 import com.jmdev.Objetos.Mensaje;
 import com.jmdev.PantallaCasa1;
 import com.jmdev.PantallaFin;
@@ -32,11 +33,13 @@ public class Manager extends Actor {
     private ArrayList<Mensaje> mensajes;
     private ArrayList<Area> areas;
     private Textos texto;
+    private boolean inmortal;
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
         this.mapa = mapa;
         this.heroe = heroe;
+        this.inmortal = false;
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
         enemigos = new ArrayList<Enemigo>();
@@ -451,13 +454,15 @@ public class Manager extends Actor {
                         m.clearActions();
                         juego.enemigosEliminados++;
                     }else{
-                        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/muerte_heroe.mp3"));
-                        dropSound.play();
-                        heroe.isAlive = false;
-                        heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
-                        heroe.verticalMovement = Hero.VerticalMovement.NONE;
-                        Gdx.input.setInputProcessor(null);
-                        stage.setKeyboardFocus(null);
+                        if(!inmortal){
+                            Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/muerte_heroe.mp3"));
+                            dropSound.play();
+                            heroe.isAlive = false;
+                            heroe.horizontalMovement = Hero.HorizontalMovement.NONE;
+                            heroe.verticalMovement = Hero.VerticalMovement.NONE;
+                            Gdx.input.setInputProcessor(null);
+                            stage.setKeyboardFocus(null);
+                        }
                     }
                 }
             }
@@ -565,7 +570,6 @@ public class Manager extends Actor {
                         dropSound.play();
                         heroe.ataca = true;
                     }
-
                     break;
                 case Input.Keys.E:
                     heroe.comprobarCofre();
@@ -575,6 +579,9 @@ public class Manager extends Actor {
                         texto.remove();
                         texto = null;
                     }
+                    break;
+                case Input.Keys.P:
+                    inmortal  = true;
                     break;
             }
             return true;
@@ -604,6 +611,9 @@ public class Manager extends Actor {
                     break;
                 case Input.Keys.SPACE:
                     heroe.atacando = false;
+                    break;
+                case Input.Keys.P:
+                    inmortal  = false;
                     break;
             }
             return true;

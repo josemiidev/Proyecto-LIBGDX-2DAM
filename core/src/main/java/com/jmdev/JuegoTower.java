@@ -6,16 +6,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
+import com.jmdev.Objetos.Area;
 
 public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
@@ -31,8 +35,6 @@ public class JuegoTower extends ScreenAdapter {
     private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
-
-
     /**
      *
      * @param juego Clase Proyecto donde almacenamos toda la informacion
@@ -40,7 +42,7 @@ public class JuegoTower extends ScreenAdapter {
      */
     public JuegoTower(Proyecto juego,int estado){
         this.juego = juego;
-        juego.enemigosEliminados = 0;
+
         //MAPA
         map = new TmxMapLoader().load("mapas/mapa.tmx");
         MapProperties properties = map.getProperties();
@@ -57,6 +59,17 @@ public class JuegoTower extends ScreenAdapter {
         camera = new OrthographicCamera();
         Viewport viewport = new ScreenViewport(camera);
         heroe = new Hero(map);
+        if(juego.ultimaCasa != 0){
+            Vector2 spawn = getSpawnVuelta(juego.ultimaCasa);
+            switch(juego.ultimaCasa){
+                case 1:
+                    heroe.setPosition(spawn.x,spawn.y);
+                    break;
+                case 2:
+                    heroe.setPosition(spawn.x,spawn.y);
+                    break;
+            }
+        }
         //CAMARA HUD
         cameraHud = new OrthographicCamera();
         cameraHud.setToOrtho(false, 800, 480);
@@ -73,9 +86,12 @@ public class JuegoTower extends ScreenAdapter {
         stage.setViewport(viewport);
         Actor manager = new Manager(juego,stage,map,heroe);
         stage.addActor(manager);
-        juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
-        juego.music.setLooping(true); //SE ESTABLECE EL BUCLE PARA LA LLUVIA
-        juego.music.play();
+        if(estado == 0){
+            juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
+            juego.music.setLooping(true); //SE ESTABLECE EL BUCLE PARA LA LLUVIA
+            juego.music.play();
+            juego.enemigosEliminados = 0;
+        }
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);
         stage.setKeyboardFocus(manager);
@@ -83,8 +99,16 @@ public class JuegoTower extends ScreenAdapter {
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
         offsetY = -(heroe.getY()+heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
-
-
+    }
+    private Vector2 getSpawnVuelta(int i){
+        MapLayer positionLayer = map.getLayers().get("objetos");
+        MapObject playerSpawn = new MapObject();
+        switch(i){
+            case 1:
+                playerSpawn = positionLayer.getObjects().get("spawn_casa_1");
+                break;
+        }
+        return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
     }
     @Override
     public void show() {
@@ -99,12 +123,12 @@ public class JuegoTower extends ScreenAdapter {
     public void render(float delta) {
         super.render(delta);
 
-        ubicacionCamara();
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
         camera.update();
 
-        mapRenderer.setView(camera);
+        ubicacionCamara();
+
         mapRenderer.render(capas_bajas);
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -117,8 +141,6 @@ public class JuegoTower extends ScreenAdapter {
         fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
         fuenteVidas.draw(batch,"Vidas Restantes: " + juego.vidas,cameraHud.viewportWidth - 150,cameraHud.viewportHeight - 15);
         batch.end();
-
-
     }
     private void ubicacionCamara(){
         if (heroe.getX() < camera.position.x - camera.viewportWidth/2 + 100 && offsetX > 0){
@@ -143,7 +165,6 @@ public class JuegoTower extends ScreenAdapter {
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
         camera.update();
         mapRenderer.setView(camera);
-        mapRenderer.render();
     }
     @Override
     public void resize(int width, int height) {

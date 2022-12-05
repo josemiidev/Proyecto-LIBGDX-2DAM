@@ -13,10 +13,12 @@ public class Proyecto extends Game {
     public int vidas;
     public SpriteBatch batch;
     public Music music;
+    public int ultimaCasa;
     @Override
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
         batch = new SpriteBatch();
+        ultimaCasa = 0;
         setScreen(new PantallaMenu(this));
     }
     @Override
