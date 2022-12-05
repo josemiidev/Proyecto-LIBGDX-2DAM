@@ -584,6 +584,7 @@ public class Manager extends Actor {
                     break;
                 case Input.Keys.P:
                     inmortal  = true;
+                    heroe.colisiones = true;
                     break;
             }
             return true;
@@ -616,6 +617,7 @@ public class Manager extends Actor {
                     break;
                 case Input.Keys.P:
                     inmortal  = false;
+                    heroe.colisiones = false;
                     break;
             }
             return true;

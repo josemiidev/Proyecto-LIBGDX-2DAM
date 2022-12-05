@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
-import com.jmdev.Actores.ManagerCasa1;
+import com.jmdev.Actores.ManagerCasa;
 
 public class PantallaCasa1 extends ScreenAdapter {
     private  Proyecto juego;
@@ -66,7 +66,7 @@ public class PantallaCasa1 extends ScreenAdapter {
         //ESCENA
         stage = new Stage();
         stage.setViewport(viewport);
-        Actor manager = new ManagerCasa1(juego,stage,map,heroe);
+        Actor manager = new ManagerCasa(juego,stage,map,heroe);
         stage.addActor(manager);
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);

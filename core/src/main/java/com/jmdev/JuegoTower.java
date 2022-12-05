@@ -99,6 +99,9 @@ public class JuegoTower extends ScreenAdapter {
             case 1:
                 playerSpawn = positionLayer.getObjects().get("spawn_casa_1");
                 break;
+            case 2:
+                playerSpawn = positionLayer.getObjects().get("spawn_casa_2");
+                break;
         }
         return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
     }

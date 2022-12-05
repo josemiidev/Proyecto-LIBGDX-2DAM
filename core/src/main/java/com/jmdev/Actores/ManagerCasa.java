@@ -16,20 +16,20 @@ import com.jmdev.JuegoTower;
 import com.jmdev.Objetos.Area;
 import com.jmdev.Proyecto;
 
-public class ManagerCasa1  extends Actor {
+public class ManagerCasa extends Actor {
     private Proyecto juego;
     private Stage stage;
     private Hero heroe;
     private TiledMap mapa;
     Area area;
-    public ManagerCasa1(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
+    public ManagerCasa(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
         this.juego = juego;
         this.stage = stage;
         this.mapa = mapa;
         this.heroe = heroe;
         stage.addActor(heroe);
         cargaAreas();
-        addListener(new ManagerCasa1.ManagerInputListener());
+        addListener(new ManagerCasa.ManagerInputListener());
 
     }
 

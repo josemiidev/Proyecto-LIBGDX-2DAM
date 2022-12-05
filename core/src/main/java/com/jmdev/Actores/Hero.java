@@ -34,7 +34,7 @@ public class Hero extends Actor {
     TiledMap mapa;
     Vector2 posicionAntigua;
     public Vector2 spawnPoint;
-    public boolean atacando, finAnimacion, isAlive,muerto,muriendo,ataca;
+    public boolean atacando, finAnimacion, isAlive,muerto,muriendo,ataca,colisiones;
     private String ultimaPosicion;
 
     public Hero(TiledMap mapa) {
@@ -139,18 +139,23 @@ public class Hero extends Actor {
 
     private boolean colision() {
         boolean colision = false;
-        TiledMapTileLayer.Cell cell;
-        for (TiledMapTileLayer capaObstaculos : capasObstaculos) {
-            cell = capaObstaculos.getCell(Math.round(getX()) / 32, Math.round(getY()) / 32);
-            if (cell != null) {
-                colision = true;
+        if(!colisiones){
+            TiledMapTileLayer.Cell cell;
+            for (TiledMapTileLayer capaObstaculos : capasObstaculos) {
+                cell = capaObstaculos.getCell(Math.round(getX()) / 32, Math.round(getY()) / 32);
+                if (cell != null) {
+                    colision = true;
+                }
+                cell = capaObstaculos.getCell(Math.round(getX() + getWidth()) / 32, Math.round(getY()) / 32);
+                if (cell != null) {
+                    colision = true;
+                }
             }
-            cell = capaObstaculos.getCell(Math.round(getX() + getWidth()) / 32, Math.round(getY()) / 32);
-            if (cell != null) {
-                colision = true;
-            }
+            return colision;
+        }else{
+            return false;
         }
-        return colision;
+
     }
 
     public void comprobarCofre() {
