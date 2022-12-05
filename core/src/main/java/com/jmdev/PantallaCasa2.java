@@ -32,9 +32,8 @@ public class PantallaCasa2 extends ScreenAdapter {
     private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {3};
     final int[] capas_bajas = {0,1,2};
-    public PantallaCasa2(Proyecto juego,Hero heroe){
+    public PantallaCasa2(Proyecto juego){
         this.juego = juego;
-        this.heroe = heroe;
         juego.ultimaCasa = 2;
         //MAPA
         map = new TmxMapLoader().load("mapas/casa2/casa2.tmx");

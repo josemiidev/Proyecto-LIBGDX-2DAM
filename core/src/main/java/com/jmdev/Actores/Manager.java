@@ -417,10 +417,10 @@ public class Manager extends Actor {
             if(Intersector.overlaps(heroe.getShape(), a.getArea())){
                 switch (a.getNumCasa()){
                     case 1:
-                        juego.setScreen(new PantallaCasa1(juego,heroe));
+                        juego.setScreen(new PantallaCasa1(juego));
                         break;
                     case 2:
-                        juego.setScreen(new PantallaCasa2(juego,heroe));
+                        juego.setScreen(new PantallaCasa2(juego));
                         break;
                 }
             }

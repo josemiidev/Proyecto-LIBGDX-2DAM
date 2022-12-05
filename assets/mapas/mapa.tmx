@@ -100,7 +100,7 @@
   <object id="26" name="puerta_2" x="2254" y="633" width="51" height="11.3333"/>
   <object id="27" name="cartel_casa_2" x="2247" y="837" width="94" height="60"/>
   <object id="30" name="entrada_casa_2" x="3060" y="292" width="70" height="32"/>
-  <object id="53" name="patio_casa_2" x="2318.67" y="289.333">
+  <object id="53" name="patio_casa_2" x="2320" y="301.333">
    <point/>
   </object>
   <object id="54" name="fin_juego" x="2702.67" y="2976" width="50" height="62.6667"/>
