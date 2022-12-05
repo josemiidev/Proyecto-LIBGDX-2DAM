@@ -82,11 +82,33 @@ public class PantallaMenu extends ScreenAdapter {
         });
         stage.addActor(newGame);
 
+        TextButton loadGame = new TextButton("Cargar Partida", juego.gameSkin);
+        loadGame.setWidth(width/ 2);
+        loadGame.setPosition(
+                width / 2 - (newGame.getWidth() / 2),
+                newGame.getY() - loadGame.getHeight() - 10
+        );
+        loadGame.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                dispose();
+                juego.vidas = 2;
+                juego.enemigosEliminados = 0;
+                juego.setScreen(new JuegoTower(juego,0));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(loadGame);
+
         TextButton exitGame = new TextButton("Salir", juego.gameSkin);
         exitGame.setWidth(width/2);
         exitGame.setPosition(
-                width / 2 - (newGame.getWidth() / 2),
-                newGame.getY() - exitGame.getHeight() - 10
+                width / 2 - (loadGame.getWidth() / 2),
+                loadGame.getY() - exitGame.getHeight() - 10
         );
         exitGame.addListener(new InputListener() {
             @Override

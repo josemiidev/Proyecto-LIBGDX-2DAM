@@ -521,7 +521,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y",Float.class),
                 objetoMensajes.getProperties().get("width",Float.class),
                 objetoMensajes.getProperties().get("height",Float.class),
-                "¿Un cementerio al lado de casa? ¿Serán familiares?\n Anda que asomarte por la ventana y ver el jardín lleno de tumbas...");
+                "¿Un cementerio al lado de casa? \n Vaya vistas...");
         mensajes.add(mensaje);
         objetoMensajes= capaMensajes.getObjects().get("laberinto_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
@@ -535,7 +535,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y",Float.class),
                 objetoMensajes.getProperties().get("width",Float.class),
                 objetoMensajes.getProperties().get("height",Float.class),
-                "¿Tanto arbusto para esto? ¿Qué habrá en el cofre?");
+                "¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?");
         mensajes.add(mensaje);
         objetoMensajes= capaMensajes.getObjects().get("cartel_casa_2");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x",Float.class),
