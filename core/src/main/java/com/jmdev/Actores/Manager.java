@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.jmdev.Objetos.Area;
 import com.jmdev.Objetos.Mensaje;
 import com.jmdev.PantallaCasa1;
+import com.jmdev.PantallaCasa2;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
@@ -419,6 +420,7 @@ public class Manager extends Actor {
                         juego.setScreen(new PantallaCasa1(juego,heroe));
                         break;
                     case 2:
+                        juego.setScreen(new PantallaCasa2(juego,heroe));
                         break;
                 }
             }

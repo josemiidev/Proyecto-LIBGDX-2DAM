@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
-import com.jmdev.Objetos.Area;
 
 public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
@@ -61,14 +60,7 @@ public class JuegoTower extends ScreenAdapter {
         heroe = new Hero(map);
         if(juego.ultimaCasa != 0){
             Vector2 spawn = getSpawnVuelta(juego.ultimaCasa);
-            switch(juego.ultimaCasa){
-                case 1:
-                    heroe.setPosition(spawn.x,spawn.y);
-                    break;
-                case 2:
-                    heroe.setPosition(spawn.x,spawn.y);
-                    break;
-            }
+            heroe.setPosition(spawn.x,spawn.y);
         }
         //CAMARA HUD
         cameraHud = new OrthographicCamera();

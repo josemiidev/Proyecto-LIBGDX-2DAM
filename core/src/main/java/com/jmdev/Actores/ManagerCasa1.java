@@ -3,29 +3,18 @@ package com.jmdev.Actores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.jmdev.JuegoTower;
 import com.jmdev.Objetos.Area;
-import com.jmdev.Objetos.Mensaje;
-import com.jmdev.PantallaCasa1;
-import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
-
-import java.util.ArrayList;
 
 public class ManagerCasa1  extends Actor {
     private Proyecto juego;
