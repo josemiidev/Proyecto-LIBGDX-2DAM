@@ -118,10 +118,6 @@ public class JuegoTower extends ScreenAdapter {
     public void render(float delta) {
         super.render(delta);
 
-        /*.position.x = camera.viewportWidth / 2 + offsetX;
-        camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
-        camera.update();*/
-
         ubicacionCamara();
 
         mapRenderer.render(capas_bajas);
@@ -135,6 +131,7 @@ public class JuegoTower extends ScreenAdapter {
         batch.begin();
         fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
         fuenteVidas.draw(batch,"Vidas Restantes: " + juego.vidas,cameraHud.viewportWidth - 150,cameraHud.viewportHeight - 15);
+
         batch.end();
     }
     private void ubicacionCamara(){

@@ -36,6 +36,7 @@ public class Hero extends Actor {
     public Vector2 spawnPoint;
     public boolean atacando, finAnimacion, isAlive,muerto,muriendo,ataca,colisiones;
     private String ultimaPosicion;
+    public Inventario inventario;
 
     public Hero(TiledMap mapa) {
         this.mapa = mapa;
