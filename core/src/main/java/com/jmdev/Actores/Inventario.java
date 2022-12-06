@@ -1,18 +1,19 @@
 package com.jmdev.Actores;
 
+import com.badlogic.gdx.graphics.Texture;
+
+import java.util.ArrayList;
+
 public class Inventario {
-    private boolean pocion;
-    private boolean carbon;
-    private boolean baston;
-    private boolean runa;
-    private boolean llave;
-    private boolean calavera;
-    private boolean antorcha;
+    private Texture pocion;
+    private Texture carbon;
+    private Texture baston;
+    private Texture runa;
+    private Texture llave;
+    private Texture calavera;
+    private Texture antorcha;
 
-    public Inventario() {
-    }
-
-    public Inventario(boolean pocion, boolean carbon, boolean baston, boolean runa, boolean llave, boolean calavera, boolean antorcha) {
+    public Inventario(Texture pocion, Texture carbon, Texture baston, Texture runa, Texture llave, Texture calavera, Texture antorcha) {
         this.pocion = pocion;
         this.carbon = carbon;
         this.baston = baston;
@@ -22,59 +23,62 @@ public class Inventario {
         this.antorcha = antorcha;
     }
 
-    public boolean isPocion() {
+    public Inventario() {
+    }
+
+    public Texture getPocion() {
         return pocion;
     }
 
-    public void setPocion(boolean pocion) {
+    public void setPocion(Texture pocion) {
         this.pocion = pocion;
     }
 
-    public boolean isCarbon() {
+    public Texture getCarbon() {
         return carbon;
     }
 
-    public void setCarbon(boolean carbon) {
+    public void setCarbon(Texture carbon) {
         this.carbon = carbon;
     }
 
-    public boolean isBaston() {
+    public Texture getBaston() {
         return baston;
     }
 
-    public void setBaston(boolean baston) {
+    public void setBaston(Texture baston) {
         this.baston = baston;
     }
 
-    public boolean isRuna() {
+    public Texture getRuna() {
         return runa;
     }
 
-    public void setRuna(boolean runa) {
+    public void setRuna(Texture runa) {
         this.runa = runa;
     }
 
-    public boolean isLlave() {
+    public Texture getLlave() {
         return llave;
     }
 
-    public void setLlave(boolean llave) {
+    public void setLlave(Texture llave) {
         this.llave = llave;
     }
 
-    public boolean isCalavera() {
+    public Texture getCalavera() {
         return calavera;
     }
 
-    public void setCalavera(boolean calavera) {
+    public void setCalavera(Texture calavera) {
         this.calavera = calavera;
     }
 
-    public boolean isAntorcha() {
+    public Texture getAntorcha() {
         return antorcha;
     }
 
-    public void setAntorcha(boolean antorcha) {
+    public void setAntorcha(Texture antorcha) {
         this.antorcha = antorcha;
     }
 }

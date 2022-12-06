@@ -395,10 +395,40 @@ public class Manager extends Actor {
     public void draw(Batch batch, float parentAlpha) {
     }
 
+    private boolean compruebaInventario() {
+        boolean sw = false;
+        if (heroe.inventario != null) {
+            sw = true;
+            if (heroe.inventario.getRuna() == null) {
+                sw = false;
+            }
+            if (heroe.inventario.getAntorcha() == null) {
+                sw = false;
+            }
+            if (heroe.inventario.getBaston() == null) {
+                sw = false;
+            }
+            if (heroe.inventario.getLlave() == null) {
+                sw = false;
+            }
+            if (heroe.inventario.getCarbon() == null) {
+                sw = false;
+            }
+            if (heroe.inventario.getPocion() == null) {
+                sw = false;
+            }
+            if (heroe.inventario.getCalavera() == null) {
+                sw = false;
+            }
+        }
+
+        return sw;
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
-        if (juego.enemigosEliminados == 15) {
+        if (juego.enemigosEliminados == 15 && compruebaInventario()) {
             juego.music.pause();
             juego.setScreen(new PantallaFin(juego, stage, false));
         }

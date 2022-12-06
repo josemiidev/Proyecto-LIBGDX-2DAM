@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
 
+import java.util.ArrayList;
+
 public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
     private final Stage stage;
@@ -137,9 +139,37 @@ public class JuegoTower extends ScreenAdapter {
         batch.begin();
         fuenteEnemigos.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, cameraHud.viewportHeight - 15);
         fuenteVidas.draw(batch, "Vidas Restantes: " + juego.vidas, cameraHud.viewportWidth - 150, cameraHud.viewportHeight - 15);
-        if (heroe.inventario != null) {
-            batch.draw(inventario, cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f, 1);
 
+        if (heroe.inventario != null) {
+            heroe.inventario.setRuna(new Texture("objetos/runa.png"));
+            heroe.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
+            heroe.inventario.setBaston(new Texture("objetos/baston.png"));
+            heroe.inventario.setCalavera(new Texture("objetos/calavera.png"));
+            heroe.inventario.setCarbon(new Texture("objetos/carbon.png"));
+            heroe.inventario.setLlave(new Texture("objetos/llave.png"));
+            heroe.inventario.setPocion(new Texture("objetos/pocion.png"));
+            batch.draw(inventario, cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f, 1);
+            if (heroe.inventario.getRuna() != null) {
+                batch.draw(heroe.inventario.getRuna(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 12, 15);
+            }
+            if (heroe.inventario.getAntorcha() != null) {
+                batch.draw(heroe.inventario.getAntorcha(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 68, 15);
+            }
+            if (heroe.inventario.getBaston() != null) {
+                batch.draw(heroe.inventario.getBaston(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 124, 15);
+            }
+            if (heroe.inventario.getLlave() != null) {
+                batch.draw(heroe.inventario.getLlave(), cameraHud.viewportWidth / 2 - heroe.inventario.getLlave().getWidth() / 2f, 15);
+            }
+            if (heroe.inventario.getCarbon() != null) {
+                batch.draw(heroe.inventario.getCarbon(), cameraHud.viewportWidth / 2 +40, 15);
+            }
+            if (heroe.inventario.getPocion() != null) {
+                batch.draw(heroe.inventario.getPocion(), cameraHud.viewportWidth / 2 +95, 15);
+            }
+            if (heroe.inventario.getCalavera() != null) {
+                batch.draw(heroe.inventario.getCalavera(), cameraHud.viewportWidth / 2 +150, 15);
+            }
         }
         batch.end();
     }
