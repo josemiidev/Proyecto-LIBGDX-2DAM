@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
@@ -34,6 +35,7 @@ public class JuegoTower extends ScreenAdapter {
     private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {13,14,15};
     final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
+    Texture inventario;
     /**
      *
      * @param juego Clase Proyecto donde almacenamos toda la informacion
@@ -52,7 +54,7 @@ public class JuegoTower extends ScreenAdapter {
         mapWidthInPixels = mapWidthInTiles * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-
+        inventario = new Texture("inventario.png");
         //CAMARAS
         //CAMARA MOVIMIENTO
         camera = new OrthographicCamera();
@@ -131,7 +133,9 @@ public class JuegoTower extends ScreenAdapter {
         batch.begin();
         fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
         fuenteVidas.draw(batch,"Vidas Restantes: " + juego.vidas,cameraHud.viewportWidth - 150,cameraHud.viewportHeight - 15);
-
+        if(heroe.inventario != null){
+            batch.draw(inventario,cameraHud.viewportWidth/2 - inventario.getWidth()/2f,1);
+        }
         batch.end();
     }
     private void ubicacionCamara(){

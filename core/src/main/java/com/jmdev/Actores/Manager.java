@@ -586,6 +586,9 @@ public class Manager extends Actor {
                     inmortal  = true;
                     heroe.colisiones = true;
                     break;
+                case Input.Keys.Q:
+                    heroe.inventario = new Inventario();
+                    break;
             }
             return true;
         }
