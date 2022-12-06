@@ -20,12 +20,13 @@ public class PantallaMenu extends ScreenAdapter {
 
     /**
      * Constructor de la Pantalla del Menu
+     *
      * @param juego Objeto de la clase proyecto que almacena información de la partida
      */
     public PantallaMenu(Proyecto juego) {
         this.juego = juego;
         stage = new Stage(new ScreenViewport());
-        crearMenu(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        crearMenu(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
@@ -54,17 +55,18 @@ public class PantallaMenu extends ScreenAdapter {
 
     /**
      * Función que crea los componentes de la pantalla final
-     * @param width Ancho de la pantalla
+     *
+     * @param width  Ancho de la pantalla
      * @param height Alto de la pantalla
      */
-    private void crearMenu(float width, float height){
+    private void crearMenu(float width, float height) {
         stage.clear();
 
         TextButton newGame = new TextButton("Nueva Partida", juego.gameSkin);
-        newGame.setWidth(width/ 2);
+        newGame.setWidth(width / 2);
         newGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
-                height/ 2 + 10
+                height / 2 + 10
         );
         newGame.addListener(new InputListener() {
             @Override
@@ -72,7 +74,7 @@ public class PantallaMenu extends ScreenAdapter {
                 dispose();
                 juego.vidas = 2;
                 juego.enemigosEliminados = 0;
-                juego.setScreen(new JuegoTower(juego,0));
+                juego.setScreen(new JuegoTower(juego, 0));
             }
 
             @Override
@@ -83,7 +85,7 @@ public class PantallaMenu extends ScreenAdapter {
         stage.addActor(newGame);
 
         TextButton loadGame = new TextButton("Cargar Partida", juego.gameSkin);
-        loadGame.setWidth(width/ 2);
+        loadGame.setWidth(width / 2);
         loadGame.setPosition(
                 width / 2 - (newGame.getWidth() / 2),
                 newGame.getY() - loadGame.getHeight() - 10
@@ -94,7 +96,7 @@ public class PantallaMenu extends ScreenAdapter {
                 dispose();
                 juego.vidas = 2;
                 juego.enemigosEliminados = 0;
-                juego.setScreen(new JuegoTower(juego,0));
+                juego.setScreen(new JuegoTower(juego, 0));
             }
 
             @Override
@@ -105,7 +107,7 @@ public class PantallaMenu extends ScreenAdapter {
         stage.addActor(loadGame);
 
         TextButton exitGame = new TextButton("Salir", juego.gameSkin);
-        exitGame.setWidth(width/2);
+        exitGame.setWidth(width / 2);
         exitGame.setPosition(
                 width / 2 - (loadGame.getWidth() / 2),
                 loadGame.getY() - exitGame.getHeight() - 10
@@ -130,7 +132,7 @@ public class PantallaMenu extends ScreenAdapter {
 
         Label autor = new Label("Create By: Jose Miguel Lorenzo Lara", juego.gameSkin, "default");
         autor.setAlignment(Align.center);
-        autor.setY( autor.getHeight());
+        autor.setY(autor.getHeight());
         autor.setWidth(width);
         stage.addActor(autor);
     }
@@ -138,7 +140,7 @@ public class PantallaMenu extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        stage.getViewport().update(width,height,true);
-        crearMenu(width,height);
+        stage.getViewport().update(width, height, true);
+        crearMenu(width, height);
     }
 }

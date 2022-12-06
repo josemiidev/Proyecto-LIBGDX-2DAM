@@ -19,20 +19,21 @@ import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.ManagerCasa;
 
 public class PantallaCasa1 extends ScreenAdapter {
-    private  Proyecto juego;
-    private  Stage stage;
+    private Proyecto juego;
+    private Stage stage;
     TiledMap map;
-    private OrthographicCamera camera,cameraHud;
+    private OrthographicCamera camera, cameraHud;
     OrthogonalTiledMapRenderer mapRenderer;
-    private  int mapWidthInPixels;
-    private  int mapHeightInPixels;
+    private int mapWidthInPixels;
+    private int mapHeightInPixels;
     private float offsetX, offsetY;
-    private  Hero heroe;
+    private Hero heroe;
     private SpriteBatch batch;
     private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {3};
-    final int[] capas_bajas = {0,1,2};
-    public PantallaCasa1(Proyecto juego){
+    final int[] capas_bajas = {0, 1, 2};
+
+    public PantallaCasa1(Proyecto juego) {
         this.juego = juego;
         juego.ultimaCasa = 1;
         //MAPA
@@ -65,7 +66,7 @@ public class PantallaCasa1 extends ScreenAdapter {
         //ESCENA
         stage = new Stage();
         stage.setViewport(viewport);
-        Actor manager = new ManagerCasa(juego,stage,map,heroe);
+        Actor manager = new ManagerCasa(juego, stage, map, heroe);
         stage.addActor(manager);
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);
@@ -73,17 +74,20 @@ public class PantallaCasa1 extends ScreenAdapter {
 
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
-        offsetY = -(heroe.getY()+heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
+        offsetY = -(heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
     }
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
     }
+
     @Override
     public void hide() {
         super.hide();
         Gdx.input.setInputProcessor(null);
     }
+
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -106,21 +110,22 @@ public class PantallaCasa1 extends ScreenAdapter {
         cameraHud.update();
         batch.setProjectionMatrix(cameraHud.combined);
         batch.begin();
-        fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
-        fuenteVidas.draw(batch,"Vidas Restantes: " + juego.vidas,cameraHud.viewportWidth - 150,cameraHud.viewportHeight - 15);
+        fuenteEnemigos.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, cameraHud.viewportHeight - 15);
+        fuenteVidas.draw(batch, "Vidas Restantes: " + juego.vidas, cameraHud.viewportWidth - 150, cameraHud.viewportHeight - 15);
         batch.end();
     }
-    private void ubicacionCamara(){
-        if (heroe.getX() < camera.position.x - camera.viewportWidth/2 + 100 && offsetX > 0){
+
+    private void ubicacionCamara() {
+        if (heroe.getX() < camera.position.x - camera.viewportWidth / 2 + 100 && offsetX > 0) {
             offsetX -= 200 * Gdx.graphics.getDeltaTime();
         }
-        if(heroe.getX() + heroe.getWidth() > camera.position.x + camera.viewportWidth / 2 - 100 &&  offsetX < mapWidthInPixels - camera.viewportWidth){
+        if (heroe.getX() + heroe.getWidth() > camera.position.x + camera.viewportWidth / 2 - 100 && offsetX < mapWidthInPixels - camera.viewportWidth) {
             offsetX += 200 * Gdx.graphics.getDeltaTime();
         }
-        if(heroe.getY() < camera.position.y -camera.viewportHeight/2 + 100 && offsetY > - mapHeightInPixels + camera.viewportHeight){
-            offsetY -=200 * Gdx.graphics.getDeltaTime();
+        if (heroe.getY() < camera.position.y - camera.viewportHeight / 2 + 100 && offsetY > -mapHeightInPixels + camera.viewportHeight) {
+            offsetY -= 200 * Gdx.graphics.getDeltaTime();
         }
-        if (heroe.getY() + heroe.getHeight() > camera.position.y  +camera.viewportHeight/2 - 100 && offsetY < 0){
+        if (heroe.getY() + heroe.getHeight() > camera.position.y + camera.viewportHeight / 2 - 100 && offsetY < 0) {
             offsetY += 200 * Gdx.graphics.getDeltaTime();
         }
 
@@ -135,6 +140,7 @@ public class PantallaCasa1 extends ScreenAdapter {
         mapRenderer.setView(camera);
         mapRenderer.render();
     }
+
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

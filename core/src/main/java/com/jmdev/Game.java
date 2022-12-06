@@ -6,21 +6,24 @@ import com.badlogic.gdx.Screen;
 
 public class Game implements ApplicationListener {
     protected Screen screen;
+
     @Override
-    public void dispose () {
+    public void dispose() {
         if (screen != null) screen.hide();
     }
+
     @Override
-    public void pause () {
+    public void pause() {
         if (screen != null) screen.pause();
     }
+
     @Override
-    public void resume () {
+    public void resume() {
         if (screen != null) screen.resume();
     }
 
     @Override
-    public void render () {
+    public void render() {
         if (screen != null) screen.render(Gdx.graphics.getDeltaTime());
     }
 
@@ -30,10 +33,11 @@ public class Game implements ApplicationListener {
     }
 
     @Override
-    public void resize (int width, int height) {
+    public void resize(int width, int height) {
         if (screen != null) screen.resize(width, height);
     }
-    public void setScreen (Screen screen) {
+
+    public void setScreen(Screen screen) {
         if (this.screen != null) this.screen.hide();
         this.screen = screen;
         if (this.screen != null) {
@@ -41,8 +45,11 @@ public class Game implements ApplicationListener {
             this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
     }
-    /** @return the currently active {@link Screen}. */
-    public Screen getScreen () {
+
+    /**
+     * @return the currently active {@link Screen}.
+     */
+    public Screen getScreen() {
         return screen;
     }
 }

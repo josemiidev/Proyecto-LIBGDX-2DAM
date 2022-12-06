@@ -6,9 +6,9 @@ public class Area {
     private Rectangle area;
     private int numCasa;
 
-    public Area(float x, float y, float width, float hegiht,int numCasa){
+    public Area(float x, float y, float width, float hegiht, int numCasa) {
         this.numCasa = numCasa;
-        this.area = new Rectangle(x,y,width,hegiht);
+        this.area = new Rectangle(x, y, width, hegiht);
     }
 
     public Rectangle getArea() {

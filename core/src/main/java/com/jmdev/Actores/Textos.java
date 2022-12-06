@@ -10,7 +10,8 @@ public class Textos extends Actor {
     BitmapFont font;
     String texto;
     Texture bocadillo;
-    public Textos(String texto){
+
+    public Textos(String texto) {
         this.texto = texto;
         font = new BitmapFont();
         font.setColor(Color.BLACK);
@@ -25,7 +26,7 @@ public class Textos extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(bocadillo, getX(), getY(),275,75);
-        font.draw(batch,texto,getX()+20,getY()+60);
+        batch.draw(bocadillo, getX(), getY(), 275, 75);
+        font.draw(batch, texto, getX() + 20, getY() + 60);
     }
 }

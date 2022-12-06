@@ -21,10 +21,11 @@ public class Enemigo extends Actor {
     TextureRegion regionActual;
     TextureRegion[] andarArriba, andarDerecha, andarIzquierda, andarAbajo;
     float stateTime;
-    public boolean isAlive,completo;
+    public boolean isAlive, completo;
     AlphaAction actionFadeOut;
     private float xAnterior, yAnterior;
-    public Enemigo(int x,int y) {
+
+    public Enemigo(int x, int y) {
         isAlive = true;
         completo = false;
         if (regionActual == null) {
@@ -43,6 +44,7 @@ public class Enemigo extends Actor {
         xAnterior = getX();
         yAnterior = getY();
     }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //batch.draw(regionActual, getX(), getY());
@@ -52,30 +54,32 @@ public class Enemigo extends Actor {
                 getHeight() * getScaleY());
         batch.setColor(color.r, color.g, color.b, 1f);
     }
+
     @Override
     public void act(float delta) {
         super.act(delta);
         stateTime += Gdx.graphics.getDeltaTime();
 
-        if(!isAlive){
+        if (!isAlive) {
             addAction(actionFadeOut);
         }
-        if(actionFadeOut.isComplete()){
+        if (actionFadeOut.isComplete()) {
             addAction(Actions.removeActor());
             completo = true;
         }
         comprobarTextura();
 
     }
-    public void comprobarTextura(){
-        if(xAnterior < getX()){
+
+    public void comprobarTextura() {
+        if (xAnterior < getX()) {
             regionActual = animacionDerecha.getKeyFrame(stateTime, true);
             xAnterior = getX();
-        }else if(xAnterior > getX()){
+        } else if (xAnterior > getX()) {
             regionActual = animacionIzquierda.getKeyFrame(stateTime, true);
             xAnterior = getX();
         }
-        if(yAnterior < getY()){
+        if (yAnterior < getY()) {
             regionActual = animacionArriba.getKeyFrame(stateTime, true);
             yAnterior = getY();
         } else if (yAnterior > getY()) {
@@ -83,8 +87,9 @@ public class Enemigo extends Actor {
             yAnterior = getY();
         }
     }
+
     private void recortarTextura() {
-        switch(MathUtils.random(1,3)){
+        switch (MathUtils.random(1, 3)) {
             case 1:
                 walkSheet = new Texture(Gdx.files.internal("duende.png"));
                 break;
@@ -129,7 +134,8 @@ public class Enemigo extends Actor {
         }
         regionActual = andarAbajo[1];
     }
-    public Rectangle getShape(){
+
+    public Rectangle getShape() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 }

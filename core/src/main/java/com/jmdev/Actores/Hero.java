@@ -19,7 +19,9 @@ import java.util.ArrayList;
 
 public class Hero extends Actor {
     enum VerticalMovement {UP, NONE, DOWN}
+
     enum HorizontalMovement {LEFT, NONE, RIGHT}
+
     Animation<TextureRegion> animacionArriba, animacionDerecha, animacionIzquierda, animacionAbajo;
     Animation<TextureRegion> animacionAtaqueArriba, animacionAtaqueDerecha, animacionAtaqueIzquierda, animacionAtaqueAbajo;
     Animation<TextureRegion> animacionMuerte;
@@ -34,7 +36,7 @@ public class Hero extends Actor {
     TiledMap mapa;
     Vector2 posicionAntigua;
     public Vector2 spawnPoint;
-    public boolean atacando, finAnimacion, isAlive,muerto,muriendo,ataca,colisiones;
+    public boolean atacando, finAnimacion, isAlive, muerto, muriendo, ataca, colisiones;
     private String ultimaPosicion;
     public Inventario inventario;
 
@@ -61,16 +63,16 @@ public class Hero extends Actor {
 
     private void cargarColisiones(TiledMap mapa) {
         capasObstaculos = new ArrayList<TiledMapTileLayer>();
-        if(mapa.getLayers().get("colisiones cofres") != null){
+        if (mapa.getLayers().get("colisiones cofres") != null) {
             capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones cofres"));
         }
-        if(mapa.getLayers().get("colisiones objetos") != null){
+        if (mapa.getLayers().get("colisiones objetos") != null) {
             capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones objetos"));
         }
-        if(mapa.getLayers().get("colisiones arbustos") != null){
+        if (mapa.getLayers().get("colisiones arbustos") != null) {
             capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones arbustos"));
         }
-        if(mapa.getLayers().get("colisiones paredes") != null){
+        if (mapa.getLayers().get("colisiones paredes") != null) {
             capasObstaculos.add((TiledMapTileLayer) mapa.getLayers().get("colisiones paredes"));
         }
     }
@@ -93,14 +95,14 @@ public class Hero extends Actor {
             setPosition(posicionAntigua.x, posicionAntigua.y);
         }
         if (!isAlive && !muriendo) {
-            muriendo=true;
+            muriendo = true;
             stateTime = 0;
         }
         if (ataca && !atacando) {
-            atacando=true;
+            atacando = true;
             stateTime = 0;
         }
-        if(muriendo){
+        if (muriendo) {
             regionActual = animacionMuerte.getKeyFrame(stateTime, false);
             if (animacionMuerte.isAnimationFinished(stateTime)) {
                 muerto = true;
@@ -140,7 +142,7 @@ public class Hero extends Actor {
 
     private boolean colision() {
         boolean colision = false;
-        if(!colisiones){
+        if (!colisiones) {
             TiledMapTileLayer.Cell cell;
             for (TiledMapTileLayer capaObstaculos : capasObstaculos) {
                 cell = capaObstaculos.getCell(Math.round(getX()) / 32, Math.round(getY()) / 32);
@@ -153,7 +155,7 @@ public class Hero extends Actor {
                 }
             }
             return colision;
-        }else{
+        } else {
             return false;
         }
 

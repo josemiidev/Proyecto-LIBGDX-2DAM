@@ -25,7 +25,7 @@ public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
     private final Stage stage;
     TiledMap map;
-    private OrthographicCamera camera,cameraHud;
+    private OrthographicCamera camera, cameraHud;
     OrthogonalTiledMapRenderer mapRenderer;
     private final int mapWidthInPixels;
     private final int mapHeightInPixels;
@@ -33,15 +33,15 @@ public class JuegoTower extends ScreenAdapter {
     private final Hero heroe;
     private SpriteBatch batch;
     private BitmapFont fuenteEnemigos, fuenteVidas;
-    final int[] capas_altas = {13,14,15};
-    final int[] capas_bajas = {0,1,2,3,4,5,6,7,8,8,9,10,11,12};
+    final int[] capas_altas = {13, 14, 15};
+    final int[] capas_bajas = {0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12};
     Texture inventario;
+
     /**
-     *
-     * @param juego Clase Proyecto donde almacenamos toda la informacion
+     * @param juego  Clase Proyecto donde almacenamos toda la informacion
      * @param estado Estado en el que entra al juego, 0=nuevo 1=carga 2=vuelta pause
      */
-    public JuegoTower(Proyecto juego,int estado){
+    public JuegoTower(Proyecto juego, int estado) {
         this.juego = juego;
 
         //MAPA
@@ -60,9 +60,9 @@ public class JuegoTower extends ScreenAdapter {
         camera = new OrthographicCamera();
         Viewport viewport = new ScreenViewport(camera);
         heroe = new Hero(map);
-        if(juego.ultimaCasa != 0){
+        if (juego.ultimaCasa != 0) {
             Vector2 spawn = getSpawnVuelta(juego.ultimaCasa);
-            heroe.setPosition(spawn.x,spawn.y);
+            heroe.setPosition(spawn.x, spawn.y);
         }
         //CAMARA HUD
         cameraHud = new OrthographicCamera();
@@ -78,9 +78,9 @@ public class JuegoTower extends ScreenAdapter {
         //ESCENA
         stage = new Stage();
         stage.setViewport(viewport);
-        Actor manager = new Manager(juego,stage,map,heroe);
+        Actor manager = new Manager(juego, stage, map, heroe);
         stage.addActor(manager);
-        if(estado == 0){
+        if (estado == 0) {
             juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
             juego.music.setLooping(true); //SE ESTABLECE EL BUCLE PARA LA LLUVIA
             juego.music.play();
@@ -94,10 +94,11 @@ public class JuegoTower extends ScreenAdapter {
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
         offsetY = -(mapHeightInPixels - heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
     }
-    private Vector2 getSpawnVuelta(int i){
+
+    private Vector2 getSpawnVuelta(int i) {
         MapLayer positionLayer = map.getLayers().get("objetos");
         MapObject playerSpawn = new MapObject();
-        switch(i){
+        switch (i) {
             case 1:
                 playerSpawn = positionLayer.getObjects().get("spawn_casa_1");
                 break;
@@ -107,15 +108,18 @@ public class JuegoTower extends ScreenAdapter {
         }
         return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
     }
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
     }
+
     @Override
     public void hide() {
         super.hide();
         Gdx.input.setInputProcessor(null);
     }
+
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -131,24 +135,26 @@ public class JuegoTower extends ScreenAdapter {
         cameraHud.update();
         batch.setProjectionMatrix(cameraHud.combined);
         batch.begin();
-        fuenteEnemigos.draw(batch,"Enemigos: " + juego.enemigosEliminados + "/15",20,cameraHud.viewportHeight - 15);
-        fuenteVidas.draw(batch,"Vidas Restantes: " + juego.vidas,cameraHud.viewportWidth - 150,cameraHud.viewportHeight - 15);
-        if(heroe.inventario != null){
-            batch.draw(inventario,cameraHud.viewportWidth/2 - inventario.getWidth()/2f,1);
+        fuenteEnemigos.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, cameraHud.viewportHeight - 15);
+        fuenteVidas.draw(batch, "Vidas Restantes: " + juego.vidas, cameraHud.viewportWidth - 150, cameraHud.viewportHeight - 15);
+        if (heroe.inventario != null) {
+            batch.draw(inventario, cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f, 1);
+
         }
         batch.end();
     }
-    private void ubicacionCamara(){
-        if (heroe.getX() < camera.position.x - camera.viewportWidth/2 + 100 && offsetX > 0){
+
+    private void ubicacionCamara() {
+        if (heroe.getX() < camera.position.x - camera.viewportWidth / 2 + 100 && offsetX > 0) {
             offsetX -= 200 * Gdx.graphics.getDeltaTime();
         }
-        if(heroe.getX() + heroe.getWidth() > camera.position.x + camera.viewportWidth / 2 - 100 &&  offsetX < mapWidthInPixels - camera.viewportWidth){
+        if (heroe.getX() + heroe.getWidth() > camera.position.x + camera.viewportWidth / 2 - 100 && offsetX < mapWidthInPixels - camera.viewportWidth) {
             offsetX += 200 * Gdx.graphics.getDeltaTime();
         }
-        if(heroe.getY() < camera.position.y -camera.viewportHeight/2 + 100 && offsetY > - mapHeightInPixels + camera.viewportHeight){
-            offsetY -=200 * Gdx.graphics.getDeltaTime();
+        if (heroe.getY() < camera.position.y - camera.viewportHeight / 2 + 100 && offsetY > -mapHeightInPixels + camera.viewportHeight) {
+            offsetY -= 200 * Gdx.graphics.getDeltaTime();
         }
-        if (heroe.getY() + heroe.getHeight() > camera.position.y  +camera.viewportHeight/2 - 100 && offsetY < 0){
+        if (heroe.getY() + heroe.getHeight() > camera.position.y + camera.viewportHeight / 2 - 100 && offsetY < 0) {
             offsetY += 200 * Gdx.graphics.getDeltaTime();
         }
 
@@ -162,19 +168,11 @@ public class JuegoTower extends ScreenAdapter {
         camera.update();
         mapRenderer.setView(camera);
     }
+
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        //LIMITAMOS EL MAPA A 800x640 PARA QUE EL USUARIO NO VEA MUCHO MAPA AL PONER EL JUEGO EN PANTALLA COMPLETA
-        /*if(width > 800){
-            if(height > 640){
-                camera.setToOrtho(false, 800, 640);
-            }else{
-                camera.setToOrtho(false,800,height);
-            }
-        }else{*/
-            camera.setToOrtho(false, width, height);
-       // }
+        camera.setToOrtho(false, width, height);
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;
         camera.update();

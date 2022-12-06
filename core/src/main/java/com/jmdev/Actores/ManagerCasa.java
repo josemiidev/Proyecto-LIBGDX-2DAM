@@ -22,7 +22,8 @@ public class ManagerCasa extends Actor {
     private Hero heroe;
     private TiledMap mapa;
     Area area;
-    public ManagerCasa(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe){
+
+    public ManagerCasa(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe) {
         this.juego = juego;
         this.stage = stage;
         this.mapa = mapa;
@@ -41,23 +42,25 @@ public class ManagerCasa extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
-        if(Intersector.overlaps(heroe.getShape(), area.getArea())){
-            juego.setScreen(new JuegoTower(juego,2));
+        if (Intersector.overlaps(heroe.getShape(), area.getArea())) {
+            juego.setScreen(new JuegoTower(juego, 2));
         }
     }
-    private void cargaAreas(){
+
+    private void cargaAreas() {
         MapLayer capaAreas = mapa.getLayers().get("objetos");
         MapObject objetoArea;
 
 
         objetoArea = capaAreas.getObjects().get("salida");
-        area = new Area(objetoArea.getProperties().get("x",Float.class),
-                objetoArea.getProperties().get("y",Float.class),
-                objetoArea.getProperties().get("width",Float.class),
-                objetoArea.getProperties().get("height",Float.class),
+        area = new Area(objetoArea.getProperties().get("x", Float.class),
+                objetoArea.getProperties().get("y", Float.class),
+                objetoArea.getProperties().get("width", Float.class),
+                objetoArea.getProperties().get("height", Float.class),
                 1);
 
     }
+
     class ManagerInputListener extends InputListener {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
@@ -75,7 +78,7 @@ public class ManagerCasa extends Actor {
                     heroe.horizontalMovement = Hero.HorizontalMovement.RIGHT;
                     break;
                 case Input.Keys.SPACE:
-                    if(!heroe.ataca){
+                    if (!heroe.ataca) {
                         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/espada.mp3"));
                         dropSound.play();
                         heroe.ataca = true;
@@ -87,6 +90,7 @@ public class ManagerCasa extends Actor {
             }
             return true;
         }
+
         @Override
         public boolean keyUp(InputEvent event, int keycode) {
             switch (keycode) {

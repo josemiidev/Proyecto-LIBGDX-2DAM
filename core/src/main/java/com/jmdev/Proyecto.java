@@ -8,14 +8,17 @@ import com.jmdev.Actores.Enemigo;
 
 import java.util.ArrayList;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
 public class Proyecto extends Game {
     public Skin gameSkin;
     public int enemigosEliminados;
-    public int vidas,ultimaCasa;
+    public int vidas, ultimaCasa;
     public SpriteBatch batch;
     public Music music;
     public ArrayList<Enemigo> enemigos;
+
     @Override
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
@@ -23,6 +26,7 @@ public class Proyecto extends Game {
         ultimaCasa = 0;
         setScreen(new PantallaMenu(this));
     }
+
     @Override
     public void dispose() {
         gameSkin.dispose();
