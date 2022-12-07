@@ -23,6 +23,7 @@ import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class JuegoTower extends ScreenAdapter {
@@ -39,7 +40,6 @@ public class JuegoTower extends ScreenAdapter {
     private BitmapFont fuenteEnemigos, fuenteVidas;
     final int[] capas_altas = {13, 14, 15};
     final int[] capas_bajas = {0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12};
-    Texture inventario;
 
     /**
      * @param juego  Clase Proyecto donde almacenamos toda la informacion
@@ -58,7 +58,6 @@ public class JuegoTower extends ScreenAdapter {
         mapWidthInPixels = mapWidthInTiles * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-        inventario = new Texture("inventario.png");
         //CAMARAS
         //CAMARA MOVIMIENTO
         camera = new OrthographicCamera();
@@ -116,10 +115,11 @@ public class JuegoTower extends ScreenAdapter {
                         objetoCofre.getProperties().get("y", Float.class),
                         objetoCofre.getProperties().get("width", Float.class),
                         objetoCofre.getProperties().get("height", Float.class),
-                        false,cont);
+                        false,cont + "");
                 for(Cofre c:juego.cofres){
-                    if(c.getIdentificador() == cofre.getIdentificador()){
+                    if (Objects.equals(c.getIdentificador(), cofre.getIdentificador())) {
                         sw = false;
+                        break;
                     }
                 }
                 if(sw){
@@ -174,15 +174,15 @@ public class JuegoTower extends ScreenAdapter {
         fuenteVidas.draw(batch, "Vidas Restantes: " + juego.vidas, cameraHud.viewportWidth - 150, cameraHud.viewportHeight - 15);
 
         if (juego.inventario != null) {
-            batch.draw(inventario, cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f, 1);
+            batch.draw(juego.inventario.getRejilla(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f, 1);
             if (juego.inventario.getRuna() != null) {
-                batch.draw(juego.inventario.getRuna(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 12, 15);
+                batch.draw(juego.inventario.getRuna(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f + 12, 15);
             }
             if (juego.inventario.getAntorcha() != null) {
-                batch.draw(juego.inventario.getAntorcha(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 68, 15);
+                batch.draw(juego.inventario.getAntorcha(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f + 68, 15);
             }
             if (juego.inventario.getBaston() != null) {
-                batch.draw(juego.inventario.getBaston(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 124, 15);
+                batch.draw(juego.inventario.getBaston(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f + 124, 15);
             }
             if (juego.inventario.getLlave() != null) {
                 batch.draw(juego.inventario.getLlave(), cameraHud.viewportWidth / 2 - juego.inventario.getLlave().getWidth() / 2f, 15);

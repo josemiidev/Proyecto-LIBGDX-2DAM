@@ -3,6 +3,7 @@ package com.jmdev.Actores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jmdev.JuegoTower;
 import com.jmdev.Objetos.Area;
+import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
 public class ManagerCasa extends Actor {
@@ -34,6 +36,68 @@ public class ManagerCasa extends Actor {
 
     }
 
+    private boolean compruebaInventario() {
+        boolean sw = false;
+        if (juego.inventario != null) {
+            sw = true;
+            if (juego.inventario.getRuna() == null) {
+                sw = false;
+            }
+            if (juego.inventario.getAntorcha() == null) {
+                sw = false;
+            }
+            if (juego.inventario.getBaston() == null) {
+                sw = false;
+            }
+            if (juego.inventario.getLlave() == null) {
+                sw = false;
+            }
+            if (juego.inventario.getCarbon() == null) {
+                sw = false;
+            }
+            if (juego.inventario.getPocion() == null) {
+                sw = false;
+            }
+            if (juego.inventario.getCalavera() == null) {
+                sw = false;
+            }
+        }
+        return sw;
+    }
+    private void compruebaCofre(){
+        for(Cofre c : juego.cofres){
+            if (Intersector.overlaps(heroe.getShape(), c.getArea())) {
+                if (!c.isAbierto()) {
+                    c.setAbierto(true);
+                    Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
+                    dropSound.play();
+                    if(juego.inventario == null){
+                        juego.inventario = new Inventario();
+                        //mensaje inventario
+                    }else{
+                        if(juego.inventario.getRuna() == null){
+                            juego.inventario.setRuna(new Texture("objetos/runa.png"));
+                            //mensaje coleccion
+                        }else if(juego.inventario.getAntorcha() == null){
+                            juego.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
+                        }else if(juego.inventario.getBaston() == null){
+                            juego.inventario.setBaston(new Texture("objetos/baston.png"));
+                        }else if(juego.inventario.getCalavera() == null){
+                            juego.inventario.setCalavera(new Texture("objetos/calavera.png"));
+                        }else if(juego.inventario.getCarbon() == null){
+                            juego.inventario.setCarbon(new Texture("objetos/carbon.png"));
+                        }else if(juego.inventario.getLlave() == null){
+                            juego.inventario.setLlave(new Texture("objetos/llave.png"));
+                        }else if(juego.inventario.getPocion() == null){
+                            juego.inventario.setPocion(new Texture("objetos/pocion.png"));
+                            //mensaje todos conseguidos
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //font.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, 460);
@@ -42,6 +106,11 @@ public class ManagerCasa extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta); // MUY IMPORTANTE
+        if (juego.enemigosEliminados == 15 && compruebaInventario()) {
+            juego.music.pause();
+            juego.setScreen(new PantallaFin(juego, stage, false));
+        }
+
         if (Intersector.overlaps(heroe.getShape(), area.getArea())) {
             juego.setScreen(new JuegoTower(juego, 2));
         }
@@ -85,8 +154,7 @@ public class ManagerCasa extends Actor {
                     }
                     break;
                 case Input.Keys.E:
-                    //heroe.comprobarCofre();
-                    break;
+                    compruebaCofre();
             }
             return true;
         }

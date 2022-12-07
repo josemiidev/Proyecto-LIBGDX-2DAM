@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 public class Inventario {
+    private Texture rejilla;
     private Texture pocion;
     private Texture carbon;
     private Texture baston;
@@ -21,9 +22,11 @@ public class Inventario {
         this.llave = llave;
         this.calavera = calavera;
         this.antorcha = antorcha;
+        rejilla = new Texture("inventario.png");
     }
 
     public Inventario() {
+        rejilla = new Texture("inventario.png");
     }
 
     public Texture getPocion() {
@@ -80,5 +83,13 @@ public class Inventario {
 
     public void setAntorcha(Texture antorcha) {
         this.antorcha = antorcha;
+    }
+
+    public Texture getRejilla() {
+        return rejilla;
+    }
+
+    public void setRejilla(Texture rejilla) {
+        this.rejilla = rejilla;
     }
 }

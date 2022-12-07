@@ -7,12 +7,12 @@ public class Cofre extends Actor {
 
     private Rectangle area;
     private boolean abierto;
-    private int identificador;
+    private String identificador;
 
     public Cofre() {
     }
 
-    public Cofre(float x, float y, float width, float hegiht, boolean abierto, int identificador) {
+    public Cofre(float x, float y, float width, float hegiht, boolean abierto, String identificador) {
         this.abierto = abierto;
         this.area = new Rectangle(x, y, width, hegiht);
         this.identificador = identificador;
@@ -34,11 +34,11 @@ public class Cofre extends Actor {
         this.abierto = abierto;
     }
 
-    public int getIdentificador() {
+    public String getIdentificador() {
         return identificador;
     }
 
-    public void setIdentificador(int identificador) {
+    public void setIdentificador(String identificador) {
         this.identificador = identificador;
     }
 }

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,8 +17,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.jmdev.Actores.Cofre;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.ManagerCasa;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class PantallaCasa1 extends ScreenAdapter {
     private Proyecto juego;
@@ -75,8 +81,40 @@ public class PantallaCasa1 extends ScreenAdapter {
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
         offsetY = -(heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
+
+        cargarCofres();
     }
 
+    private void cargarCofres(){
+        int cont = 0;
+        boolean sw = true;
+        if(juego.cofres == null){
+            juego.cofres = new ArrayList<Cofre>();
+        }
+        do{
+            cont++;
+            MapLayer capaCofres = map.getLayers().get("cofres");
+            MapObject objetoCofre = capaCofres.getObjects().get("cofre"+cont);
+            if(objetoCofre != null){
+                Cofre cofre = new Cofre(objetoCofre.getProperties().get("x", Float.class),
+                        objetoCofre.getProperties().get("y", Float.class),
+                        objetoCofre.getProperties().get("width", Float.class),
+                        objetoCofre.getProperties().get("height", Float.class),
+                        false, "1" + cont);
+                for(Cofre c:juego.cofres){
+                    if (Objects.equals(c.getIdentificador(), cofre.getIdentificador())) {
+                        sw = false;
+                        break;
+                    }
+                }
+                if(sw){
+                    juego.cofres.add(cofre);
+                }
+            }else{
+                break;
+            }
+        }while(true);
+    }
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -112,6 +150,30 @@ public class PantallaCasa1 extends ScreenAdapter {
         batch.begin();
         fuenteEnemigos.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, cameraHud.viewportHeight - 15);
         fuenteVidas.draw(batch, "Vidas Restantes: " + juego.vidas, cameraHud.viewportWidth - 150, cameraHud.viewportHeight - 15);
+        if (juego.inventario != null) {
+            batch.draw(juego.inventario.getRejilla(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f, 1);
+            if (juego.inventario.getRuna() != null) {
+                batch.draw(juego.inventario.getRuna(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f + 12, 15);
+            }
+            if (juego.inventario.getAntorcha() != null) {
+                batch.draw(juego.inventario.getAntorcha(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f + 68, 15);
+            }
+            if (juego.inventario.getBaston() != null) {
+                batch.draw(juego.inventario.getBaston(), cameraHud.viewportWidth / 2 - juego.inventario.getRejilla().getWidth() / 2f + 124, 15);
+            }
+            if (juego.inventario.getLlave() != null) {
+                batch.draw(juego.inventario.getLlave(), cameraHud.viewportWidth / 2 - juego.inventario.getLlave().getWidth() / 2f, 15);
+            }
+            if (juego.inventario.getCarbon() != null) {
+                batch.draw(juego.inventario.getCarbon(), cameraHud.viewportWidth / 2 +40, 15);
+            }
+            if (juego.inventario.getPocion() != null) {
+                batch.draw(juego.inventario.getPocion(), cameraHud.viewportWidth / 2 +95, 15);
+            }
+            if (juego.inventario.getCalavera() != null) {
+                batch.draw(juego.inventario.getCalavera(), cameraHud.viewportWidth / 2 +150, 15);
+            }
+        }
         batch.end();
     }
 
