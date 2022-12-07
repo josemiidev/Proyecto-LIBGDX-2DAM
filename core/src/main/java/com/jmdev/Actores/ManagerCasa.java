@@ -85,7 +85,7 @@ public class ManagerCasa extends Actor {
                     }
                     break;
                 case Input.Keys.E:
-                    heroe.comprobarCofre();
+                    //heroe.comprobarCofre();
                     break;
             }
             return true;

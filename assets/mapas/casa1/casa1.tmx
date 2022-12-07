@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="4">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="6">
  <tileset firstgid="1" source="TX Tileset Stone Ground.tsx"/>
  <tileset firstgid="65" source="TX Props.tsx"/>
  <layer id="1" name="suelo" width="20" height="10">
@@ -27,5 +27,9 @@
    <point/>
   </object>
   <object id="3" name="salida" x="316.072" y="282.357" width="49.9694" height="36.7245"/>
+ </objectgroup>
+ <objectgroup id="6" name="cofres">
+  <object id="4" name="cofre1" x="15.6531" y="240.817" width="63.2143" height="59.6021"/>
+  <object id="5" name="cofre2" x="561.705" y="12.0408" width="60.8062" height="65.0205"/>
  </objectgroup>
 </map>

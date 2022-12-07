@@ -161,7 +161,7 @@ public class Hero extends Actor {
 
     }
 
-    public void comprobarCofre() {
+    /*public void comprobarCofre() {
         TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones cofres");
         ArrayList<TiledMapTileLayer.Cell> celdas = new ArrayList<TiledMapTileLayer.Cell>();
         celdas.add(cofres.getCell((Math.round(getX()) / 32) + 2, Math.round(getY()) / 32));
@@ -178,7 +178,7 @@ public class Hero extends Actor {
                 dropSound.play();
             }
         }
-    }
+    }*/
 
     private void compruebaLimites() {
         MapProperties properties = mapa.getProperties();

@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
 
-import java.util.ArrayList;
 
 public class JuegoTower extends ScreenAdapter {
     private final Proyecto juego;
@@ -141,13 +140,6 @@ public class JuegoTower extends ScreenAdapter {
         fuenteVidas.draw(batch, "Vidas Restantes: " + juego.vidas, cameraHud.viewportWidth - 150, cameraHud.viewportHeight - 15);
 
         if (heroe.inventario != null) {
-            heroe.inventario.setRuna(new Texture("objetos/runa.png"));
-            heroe.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
-            heroe.inventario.setBaston(new Texture("objetos/baston.png"));
-            heroe.inventario.setCalavera(new Texture("objetos/calavera.png"));
-            heroe.inventario.setCarbon(new Texture("objetos/carbon.png"));
-            heroe.inventario.setLlave(new Texture("objetos/llave.png"));
-            heroe.inventario.setPocion(new Texture("objetos/pocion.png"));
             batch.draw(inventario, cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f, 1);
             if (heroe.inventario.getRuna() != null) {
                 batch.draw(heroe.inventario.getRuna(), cameraHud.viewportWidth / 2 - inventario.getWidth() / 2f + 12, 15);

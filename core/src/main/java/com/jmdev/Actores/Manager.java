@@ -3,6 +3,7 @@ package com.jmdev.Actores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -32,6 +33,7 @@ public class Manager extends Actor {
     private TiledMap mapa;
     private ArrayList<Mensaje> mensajes;
     private ArrayList<Area> areas;
+    private ArrayList<Cofre> cofres;
     private Textos texto;
     private boolean inmortal;
 
@@ -56,8 +58,61 @@ public class Manager extends Actor {
             CrearAnimacionEnemigo(en, i);
             stage.addActor(en);
         }
+        cargarCofres();
     }
+    private void cargarCofres(){
+        int cont = 0;
+        cofres = new ArrayList<Cofre>();
+        do{
+            cont++;
 
+            MapLayer capaCofres = mapa.getLayers().get("cofres");
+            MapObject objetoCofre = capaCofres.getObjects().get("cofre"+cont);
+            if(objetoCofre != null){
+                Cofre cofre = new Cofre(objetoCofre.getProperties().get("x", Float.class),
+                        objetoCofre.getProperties().get("y", Float.class),
+                        objetoCofre.getProperties().get("width", Float.class),
+                        objetoCofre.getProperties().get("height", Float.class),
+                        false);
+                cofres.add(cofre);
+            }else{
+                break;
+            }
+        }while(true);
+    }
+    private void compruebaCofre(){
+        for(Cofre c : cofres){
+            if (Intersector.overlaps(heroe.getShape(), c.getArea())) {
+                if (!c.isAbierto()) {
+                    c.setAbierto(true);
+                    Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
+                    dropSound.play();
+                    if(heroe.inventario == null){
+                        heroe.inventario = new Inventario();
+                        //mensaje inventario
+                    }else{
+                        if(heroe.inventario.getRuna() == null){
+                            heroe.inventario.setRuna(new Texture("objetos/runa.png"));
+                            //mensaje coleccion
+                        }else if(heroe.inventario.getAntorcha() == null){
+                            heroe.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
+                        }else if(heroe.inventario.getBaston() == null){
+                            heroe.inventario.setBaston(new Texture("objetos/baston.png"));
+                        }else if(heroe.inventario.getCalavera() == null){
+                            heroe.inventario.setCalavera(new Texture("objetos/calavera.png"));
+                        }else if(heroe.inventario.getCarbon() == null){
+                            heroe.inventario.setCarbon(new Texture("objetos/carbon.png"));
+                        }else if(heroe.inventario.getLlave() == null){
+                            heroe.inventario.setLlave(new Texture("objetos/llave.png"));
+                        }else if(heroe.inventario.getPocion() == null){
+                            heroe.inventario.setPocion(new Texture("objetos/pocion.png"));
+                            //mensaje todos conseguidos
+                        }
+                    }
+                }
+            }
+        }
+    }
     private void CrearAnimacionEnemigo(Enemigo e, int i) {
         MoveToAction movimiento;
         SequenceAction secuencia;
@@ -421,7 +476,6 @@ public class Manager extends Actor {
                 sw = false;
             }
         }
-
         return sw;
     }
 
@@ -459,7 +513,6 @@ public class Manager extends Actor {
                 }
             }
         }
-
         for (Mensaje men : mensajes) {
             if (Intersector.overlaps(heroe.getShape(), men.getArea())) {
                 if (!men.isMostrado()) {
@@ -612,7 +665,7 @@ public class Manager extends Actor {
                     }
                     break;
                 case Input.Keys.E:
-                    heroe.comprobarCofre();
+                    compruebaCofre();
                     break;
                 case Input.Keys.ESCAPE:
                     if (texto != null) {
@@ -625,7 +678,7 @@ public class Manager extends Actor {
                     heroe.colisiones = true;
                     break;
                 case Input.Keys.Q:
-                    heroe.inventario = new Inventario();
+
                     break;
             }
             return true;
