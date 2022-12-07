@@ -23,7 +23,9 @@ public class ManagerCasa extends Actor {
     private Stage stage;
     private Hero heroe;
     private TiledMap mapa;
-    Area area;
+    Area salida;
+    Area salida_patio;
+    Area salida_patio_2;
 
     public ManagerCasa(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe) {
         this.juego = juego;
@@ -64,31 +66,32 @@ public class ManagerCasa extends Actor {
         }
         return sw;
     }
-    private void compruebaCofre(){
-        for(Cofre c : juego.cofres){
+
+    private void compruebaCofre() {
+        for (Cofre c : juego.cofres) {
             if (Intersector.overlaps(heroe.getShape(), c.getArea())) {
                 if (!c.isAbierto()) {
                     c.setAbierto(true);
                     Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
                     dropSound.play();
-                    if(juego.inventario == null){
+                    if (juego.inventario == null) {
                         juego.inventario = new Inventario();
                         //mensaje inventario
-                    }else{
-                        if(juego.inventario.getRuna() == null){
+                    } else {
+                        if (juego.inventario.getRuna() == null) {
                             juego.inventario.setRuna(new Texture("objetos/runa.png"));
                             //mensaje coleccion
-                        }else if(juego.inventario.getAntorcha() == null){
+                        } else if (juego.inventario.getAntorcha() == null) {
                             juego.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
-                        }else if(juego.inventario.getBaston() == null){
+                        } else if (juego.inventario.getBaston() == null) {
                             juego.inventario.setBaston(new Texture("objetos/baston.png"));
-                        }else if(juego.inventario.getCalavera() == null){
+                        } else if (juego.inventario.getCalavera() == null) {
                             juego.inventario.setCalavera(new Texture("objetos/calavera.png"));
-                        }else if(juego.inventario.getCarbon() == null){
+                        } else if (juego.inventario.getCarbon() == null) {
                             juego.inventario.setCarbon(new Texture("objetos/carbon.png"));
-                        }else if(juego.inventario.getLlave() == null){
+                        } else if (juego.inventario.getLlave() == null) {
                             juego.inventario.setLlave(new Texture("objetos/llave.png"));
-                        }else if(juego.inventario.getPocion() == null){
+                        } else if (juego.inventario.getPocion() == null) {
                             juego.inventario.setPocion(new Texture("objetos/pocion.png"));
                             //mensaje todos conseguidos
                         }
@@ -111,7 +114,16 @@ public class ManagerCasa extends Actor {
             juego.setScreen(new PantallaFin(juego, stage, false));
         }
 
-        if (Intersector.overlaps(heroe.getShape(), area.getArea())) {
+        if (Intersector.overlaps(heroe.getShape(), salida.getArea())) {
+            juego.ultimaCasa = 2;
+            juego.setScreen(new JuegoTower(juego, 2));
+        }
+        if (Intersector.overlaps(heroe.getShape(), salida_patio.getArea())) {
+            juego.ultimaCasa = 3;
+            juego.setScreen(new JuegoTower(juego, 2));
+        }
+        if (Intersector.overlaps(heroe.getShape(), salida_patio_2.getArea())) {
+            juego.ultimaCasa = 4;
             juego.setScreen(new JuegoTower(juego, 2));
         }
     }
@@ -122,12 +134,27 @@ public class ManagerCasa extends Actor {
 
 
         objetoArea = capaAreas.getObjects().get("salida");
-        area = new Area(objetoArea.getProperties().get("x", Float.class),
+        salida = new Area(objetoArea.getProperties().get("x", Float.class),
                 objetoArea.getProperties().get("y", Float.class),
                 objetoArea.getProperties().get("width", Float.class),
                 objetoArea.getProperties().get("height", Float.class),
                 1);
-
+        objetoArea = capaAreas.getObjects().get("salida_patio");
+        if (objetoArea != null) {
+            salida_patio = new Area(objetoArea.getProperties().get("x", Float.class),
+                    objetoArea.getProperties().get("y", Float.class),
+                    objetoArea.getProperties().get("width", Float.class),
+                    objetoArea.getProperties().get("height", Float.class),
+                    1);
+        }
+        objetoArea = capaAreas.getObjects().get("salida_patio_2");
+        if (objetoArea != null) {
+            salida_patio_2 = new Area(objetoArea.getProperties().get("x", Float.class),
+                    objetoArea.getProperties().get("y", Float.class),
+                    objetoArea.getProperties().get("width", Float.class),
+                    objetoArea.getProperties().get("height", Float.class),
+                    1);
+        }
     }
 
     class ManagerInputListener extends InputListener {

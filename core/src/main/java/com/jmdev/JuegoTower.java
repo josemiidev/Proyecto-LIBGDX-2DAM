@@ -85,7 +85,7 @@ public class JuegoTower extends ScreenAdapter {
         stage.addActor(manager);
         if (estado == 0) {
             juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
-            juego.music.setLooping(true); //SE ESTABLECE EL BUCLE PARA LA LLUVIA
+            juego.music.setLooping(true);
             juego.music.play();
             juego.enemigosEliminados = 0;
         }
@@ -139,6 +139,12 @@ public class JuegoTower extends ScreenAdapter {
                 break;
             case 2:
                 playerSpawn = positionLayer.getObjects().get("spawn_casa_2");
+                break;
+            case 3:
+                playerSpawn = positionLayer.getObjects().get("patio_casa_2");
+                break;
+            case 4:
+                playerSpawn = positionLayer.getObjects().get("patio_casa_2_2");
                 break;
         }
         return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="63">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="65">
  <tileset firstgid="1" source="TX Tileset Grass.tsx"/>
  <tileset firstgid="65" source="TX Tileset Wall.tsx"/>
  <tileset firstgid="321" source="TX Struct2.tsx"/>
@@ -105,8 +105,8 @@
   <object id="25" name="cementerio_1" x="642" y="293" width="311" height="45"/>
   <object id="26" name="puerta_2" x="2254" y="633" width="51" height="11.3333"/>
   <object id="27" name="cartel_casa_2" x="2247" y="837" width="94" height="60"/>
-  <object id="30" name="entrada_casa_2" x="3060" y="292" width="70" height="32"/>
-  <object id="53" name="patio_casa_2" x="2320" y="301.333">
+  <object id="30" name="entrada_casa_2_2" x="3060" y="305" width="70" height="19"/>
+  <object id="53" name="patio_casa_2" x="2320" y="271.333">
    <point/>
   </object>
   <object id="54" name="fin_juego" x="2702.67" y="2976" width="50" height="62.6667"/>
@@ -116,6 +116,10 @@
   <object id="56" name="spawn_casa_1" x="407.228" y="441.236">
    <point/>
   </object>
+  <object id="63" name="patio_casa_2_2" x="3011" y="259">
+   <point/>
+  </object>
+  <object id="64" name="entrada_casa_2" x="2288" y="303.5" width="70" height="19"/>
  </objectgroup>
  <objectgroup id="20" name="enemigos">
   <object id="37" name="enemigo1" x="332.505" y="499.325">

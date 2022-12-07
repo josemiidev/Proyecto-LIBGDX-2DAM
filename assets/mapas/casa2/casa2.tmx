@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="8">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="9">
  <tileset firstgid="1" source="TX Tileset Stone Ground.tsx"/>
  <tileset firstgid="65" source="TX Props.tsx"/>
  <layer id="1" name="suelo" width="30" height="16">
@@ -23,7 +23,7 @@
   </data>
  </layer>
  <objectgroup id="3" name="objetos">
-  <object id="1" name="spawn patio" x="782.051" y="69.5358">
+  <object id="1" name="spawn patio" x="763.087" y="105.658">
    <point/>
   </object>
   <object id="2" name="salida_patio" x="86.6939" y="-4.51531" width="76.7603" height="14.449"/>
@@ -31,10 +31,10 @@
   <object id="4" name="spawn" x="112.883" y="228.475">
    <point/>
   </object>
+  <object id="8" name="salida_patio_2" x="811.401" y="-3.61224" width="80.3725" height="16.2551"/>
  </objectgroup>
  <objectgroup id="6" name="cofres">
   <object id="5" name="cofre1" x="16.2551" y="-3.61225" width="60.5052" height="46.9592"/>
   <object id="6" name="cofre2" x="652.011" y="18.0612" width="65.9235" height="53.2807"/>
-  <object id="7" name="salida_patio_2" x="815.465" y="-2.70919" width="80.3725" height="16.2551"/>
  </objectgroup>
 </map>

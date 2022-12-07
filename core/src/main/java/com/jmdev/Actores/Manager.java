@@ -564,6 +564,22 @@ public class Manager extends Actor {
                 objetoArea.getProperties().get("height", Float.class),
                 2);
         areas.add(area);
+
+        objetoArea = capaAreas.getObjects().get("entrada_casa_2");
+        area = new Area(objetoArea.getProperties().get("x", Float.class),
+                objetoArea.getProperties().get("y", Float.class),
+                objetoArea.getProperties().get("width", Float.class),
+                objetoArea.getProperties().get("height", Float.class),
+                2);
+        areas.add(area);
+
+        objetoArea = capaAreas.getObjects().get("entrada_casa_2_2");
+        area = new Area(objetoArea.getProperties().get("x", Float.class),
+                objetoArea.getProperties().get("y", Float.class),
+                objetoArea.getProperties().get("width", Float.class),
+                objetoArea.getProperties().get("height", Float.class),
+                2);
+        areas.add(area);
     }
 
     private void cargaAreaMensajes() {
