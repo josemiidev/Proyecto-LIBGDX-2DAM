@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.jmdev.Actores.Cofre;
 import com.jmdev.Actores.Enemigo;
+import com.jmdev.Actores.Inventario;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,8 @@ public class Proyecto extends Game {
     public SpriteBatch batch;
     public Music music;
     public ArrayList<Enemigo> enemigos;
+    public Inventario inventario;
+    public ArrayList<Cofre> cofres;
 
     @Override
     public void create() {

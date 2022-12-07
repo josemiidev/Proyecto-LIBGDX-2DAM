@@ -33,7 +33,7 @@ public class Manager extends Actor {
     private TiledMap mapa;
     private ArrayList<Mensaje> mensajes;
     private ArrayList<Area> areas;
-    private ArrayList<Cofre> cofres;
+
     private Textos texto;
     private boolean inmortal;
 
@@ -58,54 +58,35 @@ public class Manager extends Actor {
             CrearAnimacionEnemigo(en, i);
             stage.addActor(en);
         }
-        cargarCofres();
-    }
-    private void cargarCofres(){
-        int cont = 0;
-        cofres = new ArrayList<Cofre>();
-        do{
-            cont++;
 
-            MapLayer capaCofres = mapa.getLayers().get("cofres");
-            MapObject objetoCofre = capaCofres.getObjects().get("cofre"+cont);
-            if(objetoCofre != null){
-                Cofre cofre = new Cofre(objetoCofre.getProperties().get("x", Float.class),
-                        objetoCofre.getProperties().get("y", Float.class),
-                        objetoCofre.getProperties().get("width", Float.class),
-                        objetoCofre.getProperties().get("height", Float.class),
-                        false);
-                cofres.add(cofre);
-            }else{
-                break;
-            }
-        }while(true);
     }
+
     private void compruebaCofre(){
-        for(Cofre c : cofres){
+        for(Cofre c : juego.cofres){
             if (Intersector.overlaps(heroe.getShape(), c.getArea())) {
                 if (!c.isAbierto()) {
                     c.setAbierto(true);
                     Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
                     dropSound.play();
-                    if(heroe.inventario == null){
-                        heroe.inventario = new Inventario();
+                    if(juego.inventario == null){
+                        juego.inventario = new Inventario();
                         //mensaje inventario
                     }else{
-                        if(heroe.inventario.getRuna() == null){
-                            heroe.inventario.setRuna(new Texture("objetos/runa.png"));
+                        if(juego.inventario.getRuna() == null){
+                            juego.inventario.setRuna(new Texture("objetos/runa.png"));
                             //mensaje coleccion
-                        }else if(heroe.inventario.getAntorcha() == null){
-                            heroe.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
-                        }else if(heroe.inventario.getBaston() == null){
-                            heroe.inventario.setBaston(new Texture("objetos/baston.png"));
-                        }else if(heroe.inventario.getCalavera() == null){
-                            heroe.inventario.setCalavera(new Texture("objetos/calavera.png"));
-                        }else if(heroe.inventario.getCarbon() == null){
-                            heroe.inventario.setCarbon(new Texture("objetos/carbon.png"));
-                        }else if(heroe.inventario.getLlave() == null){
-                            heroe.inventario.setLlave(new Texture("objetos/llave.png"));
-                        }else if(heroe.inventario.getPocion() == null){
-                            heroe.inventario.setPocion(new Texture("objetos/pocion.png"));
+                        }else if(juego.inventario.getAntorcha() == null){
+                            juego.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
+                        }else if(juego.inventario.getBaston() == null){
+                            juego.inventario.setBaston(new Texture("objetos/baston.png"));
+                        }else if(juego.inventario.getCalavera() == null){
+                            juego.inventario.setCalavera(new Texture("objetos/calavera.png"));
+                        }else if(juego.inventario.getCarbon() == null){
+                            juego.inventario.setCarbon(new Texture("objetos/carbon.png"));
+                        }else if(juego.inventario.getLlave() == null){
+                            juego.inventario.setLlave(new Texture("objetos/llave.png"));
+                        }else if(juego.inventario.getPocion() == null){
+                            juego.inventario.setPocion(new Texture("objetos/pocion.png"));
                             //mensaje todos conseguidos
                         }
                     }
@@ -452,27 +433,27 @@ public class Manager extends Actor {
 
     private boolean compruebaInventario() {
         boolean sw = false;
-        if (heroe.inventario != null) {
+        if (juego.inventario != null) {
             sw = true;
-            if (heroe.inventario.getRuna() == null) {
+            if (juego.inventario.getRuna() == null) {
                 sw = false;
             }
-            if (heroe.inventario.getAntorcha() == null) {
+            if (juego.inventario.getAntorcha() == null) {
                 sw = false;
             }
-            if (heroe.inventario.getBaston() == null) {
+            if (juego.inventario.getBaston() == null) {
                 sw = false;
             }
-            if (heroe.inventario.getLlave() == null) {
+            if (juego.inventario.getLlave() == null) {
                 sw = false;
             }
-            if (heroe.inventario.getCarbon() == null) {
+            if (juego.inventario.getCarbon() == null) {
                 sw = false;
             }
-            if (heroe.inventario.getPocion() == null) {
+            if (juego.inventario.getPocion() == null) {
                 sw = false;
             }
-            if (heroe.inventario.getCalavera() == null) {
+            if (juego.inventario.getCalavera() == null) {
                 sw = false;
             }
         }
