@@ -255,6 +255,39 @@ public class Hero extends Actor {
                 }
             }
         }
+        FRAME_COLS = 6;
+        FRAME_ROWS = 4;
+        walkSheet = new Texture(Gdx.files.internal("heroe_atacando.png"));
+        tmp = TextureRegion.split(walkSheet,
+                walkSheet.getWidth() / FRAME_COLS,
+                walkSheet.getHeight() / FRAME_ROWS);
+        atacarArriba = new TextureRegion[FRAME_COLS+1];
+        atacarDerecha = new TextureRegion[FRAME_COLS+1];
+        atacarIzquierda = new TextureRegion[FRAME_COLS+1];
+        atacarAbajo = new TextureRegion[FRAME_COLS+1];
+
+        for (int i = 0; i < FRAME_ROWS; i++) {
+            for (int j = 0; j < FRAME_COLS; j++) {
+                switch (i) {
+                    case 0:
+                        atacarArriba[j] = tmp[i][j];
+                        break;
+                    case 1:
+                        atacarIzquierda[j] = tmp[i][j];
+                        break;
+                    case 2:
+                        atacarAbajo[j] = tmp[i][j];
+                        break;
+                    case 3:
+                        atacarDerecha[j] = tmp[i][j];
+                        break;
+                }
+            }
+        }
+        atacarArriba[FRAME_COLS] = andarArriba[0];
+        atacarIzquierda[FRAME_COLS] = andarIzquierda[0];
+        atacarDerecha[FRAME_COLS] = andarDerecha[0];
+        atacarAbajo[FRAME_COLS] = andarAbajo[0];
 
         Texture walkSheet2 = new Texture(Gdx.files.internal("heroe_muriendo.png"));
         tmp = TextureRegion.split(walkSheet2,
@@ -269,6 +302,15 @@ public class Hero extends Actor {
         animacionIzquierda = new Animation<TextureRegion>(0.1f, andarIzquierda);
         animacionAbajo = new Animation<TextureRegion>(0.1f, andarAbajo);
         animacionDerecha = new Animation<TextureRegion>(0.1f, andarDerecha);
+
+        animacionAtaqueArriba = new Animation<TextureRegion>(0.05f, atacarArriba);
+        animacionAtaqueArriba.setPlayMode(Animation.PlayMode.NORMAL);
+        animacionAtaqueIzquierda = new Animation<TextureRegion>(0.05f, atacarIzquierda);
+        animacionAtaqueIzquierda.setPlayMode(Animation.PlayMode.NORMAL);
+        animacionAtaqueAbajo = new Animation<TextureRegion>(0.05f, atacarAbajo);
+        animacionAtaqueAbajo.setPlayMode(Animation.PlayMode.NORMAL);
+        animacionAtaqueDerecha = new Animation<TextureRegion>(0.05f, atacarDerecha);
+        animacionAtaqueDerecha.setPlayMode(Animation.PlayMode.NORMAL);
 
         animacionMuerte = new Animation<TextureRegion>(0.2f, muerte);
         animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);

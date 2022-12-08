@@ -71,7 +71,7 @@ public class PantallaMenu extends ScreenAdapter {
         newGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                dispose();
+                //dispose();
                 juego.vidas = 2;
                 juego.enemigosEliminados = 0;
                 juego.setScreen(new JuegoTower(juego, 0));
@@ -93,7 +93,7 @@ public class PantallaMenu extends ScreenAdapter {
         loadGame.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                dispose();
+                //dispose();
                 juego.vidas = 2;
                 juego.enemigosEliminados = 0;
                 juego.setScreen(new JuegoTower(juego, 0));
