@@ -489,7 +489,13 @@ public class Manager extends Actor {
                         juego.setScreen(new PantallaCasa1(juego));
                         break;
                     case 2:
-                        juego.setScreen(new PantallaCasa2(juego));
+                        juego.setScreen(new PantallaCasa2(juego,0));
+                        break;
+                    case 3:
+                        juego.setScreen(new PantallaCasa2(juego,1));
+                        break;
+                    case 4:
+                        juego.setScreen(new PantallaCasa2(juego,2));
                         break;
                 }
             }
@@ -570,7 +576,7 @@ public class Manager extends Actor {
                 objetoArea.getProperties().get("y", Float.class),
                 objetoArea.getProperties().get("width", Float.class),
                 objetoArea.getProperties().get("height", Float.class),
-                2);
+                3);
         areas.add(area);
 
         objetoArea = capaAreas.getObjects().get("entrada_casa_2_2");
@@ -578,7 +584,7 @@ public class Manager extends Actor {
                 objetoArea.getProperties().get("y", Float.class),
                 objetoArea.getProperties().get("width", Float.class),
                 objetoArea.getProperties().get("height", Float.class),
-                2);
+                4);
         areas.add(area);
     }
 

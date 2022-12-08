@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -39,7 +40,7 @@ public class PantallaCasa2 extends ScreenAdapter {
     final int[] capas_altas = {3};
     final int[] capas_bajas = {0, 1, 2};
 
-    public PantallaCasa2(Proyecto juego) {
+    public PantallaCasa2(Proyecto juego, int tipoEntrada) {
         this.juego = juego;
         juego.ultimaCasa = 2;
         //MAPA
@@ -58,6 +59,11 @@ public class PantallaCasa2 extends ScreenAdapter {
         camera = new OrthographicCamera();
         Viewport viewport = new ScreenViewport(camera);
         heroe = new Hero(map);
+        if(tipoEntrada != 0){
+            Vector2 spawn = getSpawnVuelta(tipoEntrada);
+            heroe.setPosition(spawn.x, spawn.y);
+        }
+
         //CAMARA HUD
         cameraHud = new OrthographicCamera();
         cameraHud.setToOrtho(false, 800, 480);
@@ -83,6 +89,19 @@ public class PantallaCasa2 extends ScreenAdapter {
         offsetY = -(heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
 
         cargarCofres();
+    }
+    private Vector2 getSpawnVuelta(int i) {
+        MapLayer positionLayer = map.getLayers().get("objetos");
+        MapObject playerSpawn = new MapObject();
+        switch (i) {
+            case 1:
+                playerSpawn = positionLayer.getObjects().get("spawn_patio_1");
+                break;
+            case 2:
+                playerSpawn = positionLayer.getObjects().get("spawn_patio_2");
+                break;
+        }
+        return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
     }
     private void cargarCofres(){
         int cont = 0;

@@ -115,16 +115,19 @@ public class ManagerCasa extends Actor {
         }
 
         if (Intersector.overlaps(heroe.getShape(), salida.getArea())) {
-            juego.ultimaCasa = 2;
             juego.setScreen(new JuegoTower(juego, 2));
         }
-        if (Intersector.overlaps(heroe.getShape(), salida_patio.getArea())) {
-            juego.ultimaCasa = 3;
-            juego.setScreen(new JuegoTower(juego, 2));
+        if(salida_patio!= null){
+            if (Intersector.overlaps(heroe.getShape(), salida_patio.getArea())) {
+                juego.ultimaCasa = 3;
+                juego.setScreen(new JuegoTower(juego, 2));
+            }
         }
-        if (Intersector.overlaps(heroe.getShape(), salida_patio_2.getArea())) {
-            juego.ultimaCasa = 4;
-            juego.setScreen(new JuegoTower(juego, 2));
+        if(salida_patio_2 != null){
+            if (Intersector.overlaps(heroe.getShape(), salida_patio_2.getArea())) {
+                juego.ultimaCasa = 4;
+                juego.setScreen(new JuegoTower(juego, 2));
+            }
         }
     }
 
@@ -182,6 +185,9 @@ public class ManagerCasa extends Actor {
                     break;
                 case Input.Keys.E:
                     compruebaCofre();
+                case Input.Keys.P:
+                    heroe.colisiones = true;
+                    break;
             }
             return true;
         }
@@ -211,6 +217,9 @@ public class ManagerCasa extends Actor {
                     break;
                 case Input.Keys.SPACE:
                     heroe.atacando = false;
+                    break;
+                case Input.Keys.P:
+                    heroe.colisiones = false;
                     break;
             }
             return true;
