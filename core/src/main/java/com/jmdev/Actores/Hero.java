@@ -1,7 +1,6 @@
 package com.jmdev.Actores;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -21,6 +20,9 @@ public class Hero extends Actor {
     enum VerticalMovement {UP, NONE, DOWN}
 
     enum HorizontalMovement {LEFT, NONE, RIGHT}
+
+    int FRAME_COLS = 9;
+    int FRAME_ROWS = 4;
 
     Animation<TextureRegion> animacionArriba, animacionDerecha, animacionIzquierda, animacionAbajo;
     Animation<TextureRegion> animacionAtaqueArriba, animacionAtaqueDerecha, animacionAtaqueIzquierda, animacionAtaqueAbajo;
@@ -225,6 +227,58 @@ public class Hero extends Actor {
     }
 
     private void recortarTextura() {
+        TextureRegion[][] tmp;
+        Texture walkSheet = new Texture(Gdx.files.internal("heroe_andando.png"));
+        tmp = TextureRegion.split(walkSheet,
+                walkSheet.getWidth() / FRAME_COLS,
+                walkSheet.getHeight() / FRAME_ROWS);
+        andarArriba = new TextureRegion[FRAME_COLS];
+        andarDerecha = new TextureRegion[FRAME_COLS];
+        andarIzquierda = new TextureRegion[FRAME_COLS];
+        andarAbajo = new TextureRegion[FRAME_COLS];
+
+        for (int i = 0; i < FRAME_ROWS; i++) {
+            for (int j = 0; j < FRAME_COLS; j++) {
+                switch (i) {
+                    case 0:
+                        andarArriba[j] = tmp[i][j];
+                        break;
+                    case 1:
+                        andarIzquierda[j] = tmp[i][j];
+                        break;
+                    case 2:
+                        andarAbajo[j] = tmp[i][j];
+                        break;
+                    case 3:
+                        andarDerecha[j] = tmp[i][j];
+                        break;
+                }
+            }
+        }
+
+        Texture walkSheet2 = new Texture(Gdx.files.internal("heroe_muriendo.png"));
+        tmp = TextureRegion.split(walkSheet2,
+                walkSheet2.getWidth() / 6,
+                walkSheet2.getHeight());
+        muerte = new TextureRegion[6];
+        for (int i = 0; i < 6; i++) {
+            muerte[i] = tmp[0][i];
+        }
+
+        animacionArriba = new Animation<TextureRegion>(0.1f, andarArriba);
+        animacionIzquierda = new Animation<TextureRegion>(0.1f, andarIzquierda);
+        animacionAbajo = new Animation<TextureRegion>(0.1f, andarAbajo);
+        animacionDerecha = new Animation<TextureRegion>(0.1f, andarDerecha);
+
+        animacionMuerte = new Animation<TextureRegion>(0.2f, muerte);
+        animacionMuerte.setPlayMode(Animation.PlayMode.NORMAL);
+
+        regionActual = andarAbajo[1];
+        ultimaPosicion = "abajo";
+        finAnimacion = true;
+    }
+
+    private void recortarTextura2() {
         //texturas andar
         Texture completo = new Texture(Gdx.files.internal("heroe.png"));
         //CREAMOS LOS OBJETOS TEXTUREREGION
