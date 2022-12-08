@@ -134,7 +134,6 @@ public class Enemigo extends Actor {
         }
         regionActual = andarAbajo[1];
     }
-
     public Rectangle getShape() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
