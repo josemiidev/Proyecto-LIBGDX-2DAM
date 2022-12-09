@@ -474,50 +474,43 @@ public class JuegoTower extends ScreenAdapter {
         MapLayer capaMensajes = map.getLayers().get("objetos");
         MapObject objetoMensajes;
         Mensaje mensaje;
-
-        objetoMensajes = capaMensajes.getObjects().get("decision_camino");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "¿Que camino debo coger primero? \nTendremos que probar suerte...",false);
-        juego.mensajes.add(mensaje);
-
-        objetoMensajes = capaMensajes.getObjects().get("cartel_casa_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...",false);
-        juego.mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("cementerio_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "¿Un cementerio al lado de casa? \n Vaya vistas...",false);
-        juego.mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("laberinto_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "El que plantó los arbustos así era \nun cachondo eh!",false);
-        juego.mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("lapida_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?",false);
-        juego.mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("cartel_casa_2");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "Se vende... \n¿Pero quien va a comparar esto?",false);
-        juego.mensajes.add(mensaje);
+        boolean sw = true;
+        for(int i = 1; i <= 6; i++){
+            objetoMensajes = capaMensajes.getObjects().get("area"+i);
+            for(Mensaje men : juego.mensajes){
+                if(men.getIdentificador().equals("area"+i)){
+                    sw = false;
+                }
+            }
+            if(sw){
+                mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                        objetoMensajes.getProperties().get("y", Float.class),
+                        objetoMensajes.getProperties().get("width", Float.class),
+                        objetoMensajes.getProperties().get("height", Float.class),
+                        "","area"+i);
+                switch(mensaje.getIdentificador()){
+                    case "area1":
+                        mensaje.setTexto("¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?");
+                        break;
+                    case "area2":
+                        mensaje.setTexto("El que plantó los arbustos así era \nun cachondo eh!");
+                        break;
+                    case "area3":
+                        mensaje.setTexto("¿Un cementerio al lado de casa? \n Vaya vistas...");
+                        break;
+                    case "area4":
+                        mensaje.setTexto("'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...");
+                        break;
+                    case "area5":
+                        mensaje.setTexto("¿Que camino debo coger primero? \nTendremos que probar suerte...");
+                        break;
+                    case "area6":
+                        mensaje.setTexto("Se vende... \n¿Pero quien va a comparar esto?");
+                        break;
+                }
+                juego.mensajes.add(mensaje);
+            }
+        }
     }
     private void cargarCofres(){
         int cont = 0;
@@ -535,9 +528,6 @@ public class JuegoTower extends ScreenAdapter {
                         objetoCofre.getProperties().get("width", Float.class),
                         objetoCofre.getProperties().get("height", Float.class),
                         false,cont + "");
-
-                juego.mensajes.add(new Mensaje(cofre.getArea().x,cofre.getArea().y,cofre.getArea().width,cofre.getArea().height,
-                        "",true));
                 for(Cofre c:juego.cofres){
                     if (Objects.equals(c.getIdentificador(), cofre.getIdentificador())) {
                         sw = false;
@@ -546,6 +536,8 @@ public class JuegoTower extends ScreenAdapter {
                 }
                 if(sw){
                     juego.cofres.add(cofre);
+                    juego.mensajes.add(new Mensaje(cofre.getArea().x,cofre.getArea().y,cofre.getArea().width,cofre.getArea().height,
+                            "","cofre"+cont));
                 }
             }else{
                 break;

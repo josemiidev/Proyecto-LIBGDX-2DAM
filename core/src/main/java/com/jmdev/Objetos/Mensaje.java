@@ -7,14 +7,14 @@ public class Mensaje {
     private String texto;
     private boolean mostrado;
     private boolean activo;
-    private boolean esCofre;
+    private String identificador;
 
-    public Mensaje(float x, float y, float width, float hegiht, String mensaje, boolean esCofre) {
+    public Mensaje(float x, float y, float width, float hegiht, String mensaje, String identificador) {
         this.texto = mensaje;
         this.area = new Rectangle(x, y, width, hegiht);
         this.mostrado = false;
         this.activo = false;
-        this.esCofre = esCofre;
+        this.identificador = identificador;
     }
 
     public void setTexto(String texto) {
@@ -41,19 +41,19 @@ public class Mensaje {
         return mostrado;
     }
 
-    public boolean esCofre() {
-        return esCofre;
-    }
-
-    public void setEsCofre(boolean esCofre) {
-        this.esCofre = esCofre;
-    }
-
     public boolean isActivo() {
         return activo;
     }
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 }
