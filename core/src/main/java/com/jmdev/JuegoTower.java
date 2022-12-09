@@ -25,6 +25,7 @@ import com.jmdev.Actores.Cofre;
 import com.jmdev.Actores.Enemigo;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
+import com.jmdev.Objetos.Mensaje;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -465,6 +466,58 @@ public class JuegoTower extends ScreenAdapter {
         MapObject playerSpawn = positionLayer.getObjects().get("enemigo" + i);
         return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
     }
+    private void cargaAreaMensajes() {
+        if(juego.mensajes == null){
+            juego.mensajes = new ArrayList<Mensaje>();
+        }
+        MapLayer capaMensajes = map.getLayers().get("objetos");
+        MapObject objetoMensajes;
+        Mensaje mensaje;
+
+        objetoMensajes = capaMensajes.getObjects().get("decision_camino");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                objetoMensajes.getProperties().get("y", Float.class),
+                objetoMensajes.getProperties().get("width", Float.class),
+                objetoMensajes.getProperties().get("height", Float.class),
+                "¿Que camino debo coger primero? \nTendremos que probar suerte...",false);
+        juego.mensajes.add(mensaje);
+
+        objetoMensajes = capaMensajes.getObjects().get("cartel_casa_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                objetoMensajes.getProperties().get("y", Float.class),
+                objetoMensajes.getProperties().get("width", Float.class),
+                objetoMensajes.getProperties().get("height", Float.class),
+                "'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...",false);
+        juego.mensajes.add(mensaje);
+        objetoMensajes = capaMensajes.getObjects().get("cementerio_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                objetoMensajes.getProperties().get("y", Float.class),
+                objetoMensajes.getProperties().get("width", Float.class),
+                objetoMensajes.getProperties().get("height", Float.class),
+                "¿Un cementerio al lado de casa? \n Vaya vistas...",false);
+        juego.mensajes.add(mensaje);
+        objetoMensajes = capaMensajes.getObjects().get("laberinto_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                objetoMensajes.getProperties().get("y", Float.class),
+                objetoMensajes.getProperties().get("width", Float.class),
+                objetoMensajes.getProperties().get("height", Float.class),
+                "El que plantó los arbustos así era \nun cachondo eh!",false);
+        juego.mensajes.add(mensaje);
+        objetoMensajes = capaMensajes.getObjects().get("lapida_1");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                objetoMensajes.getProperties().get("y", Float.class),
+                objetoMensajes.getProperties().get("width", Float.class),
+                objetoMensajes.getProperties().get("height", Float.class),
+                "¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?",false);
+        juego.mensajes.add(mensaje);
+        objetoMensajes = capaMensajes.getObjects().get("cartel_casa_2");
+        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
+                objetoMensajes.getProperties().get("y", Float.class),
+                objetoMensajes.getProperties().get("width", Float.class),
+                objetoMensajes.getProperties().get("height", Float.class),
+                "Se vende... \n¿Pero quien va a comparar esto?",false);
+        juego.mensajes.add(mensaje);
+    }
     private void cargarCofres(){
         int cont = 0;
         boolean sw = true;
@@ -481,6 +534,9 @@ public class JuegoTower extends ScreenAdapter {
                         objetoCofre.getProperties().get("width", Float.class),
                         objetoCofre.getProperties().get("height", Float.class),
                         false,cont + "");
+
+                juego.mensajes.add(new Mensaje(cofre.getArea().x,cofre.getArea().y,cofre.getArea().width,cofre.getArea().height,
+                        "",true));
                 for(Cofre c:juego.cofres){
                     if (Objects.equals(c.getIdentificador(), cofre.getIdentificador())) {
                         sw = false;

@@ -259,7 +259,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "¿Que camino debo coger primero? \nTendremos que probar suerte...");
+                "¿Que camino debo coger primero? \nTendremos que probar suerte...",false);
         mensajes.add(mensaje);
 
         objetoMensajes = capaMensajes.getObjects().get("cartel_casa_1");
@@ -267,35 +267,35 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...");
+                "'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...",false);
         mensajes.add(mensaje);
         objetoMensajes = capaMensajes.getObjects().get("cementerio_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "¿Un cementerio al lado de casa? \n Vaya vistas...");
+                "¿Un cementerio al lado de casa? \n Vaya vistas...",false);
         mensajes.add(mensaje);
         objetoMensajes = capaMensajes.getObjects().get("laberinto_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "El que plantó los arbustos así era \nun cachondo eh!");
+                "El que plantó los arbustos así era \nun cachondo eh!",false);
         mensajes.add(mensaje);
         objetoMensajes = capaMensajes.getObjects().get("lapida_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?");
+                "¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?",false);
         mensajes.add(mensaje);
         objetoMensajes = capaMensajes.getObjects().get("cartel_casa_2");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "Se vende... \n¿Pero quien va a comparar esto?");
+                "Se vende... \n¿Pero quien va a comparar esto?",false);
         mensajes.add(mensaje);
     }
 

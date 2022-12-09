@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jmdev.Actores.Cofre;
 import com.jmdev.Actores.Enemigo;
 import com.jmdev.Actores.Inventario;
+import com.jmdev.Objetos.Mensaje;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class Proyecto extends Game {
     public ArrayList<Enemigo> enemigos;
     public Inventario inventario;
     public ArrayList<Cofre> cofres;
+    public ArrayList<Mensaje> mensajes;
 
     @Override
     public void create() {

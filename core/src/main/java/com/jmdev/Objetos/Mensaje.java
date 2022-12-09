@@ -6,11 +6,13 @@ public class Mensaje {
     private Rectangle area;
     private String texto;
     private boolean mostrado;
+    private boolean esCofre;
 
-    public Mensaje(float x, float y, float width, float hegiht, String mensaje) {
+    public Mensaje(float x, float y, float width, float hegiht, String mensaje, boolean esCofre) {
         this.texto = mensaje;
         this.area = new Rectangle(x, y, width, hegiht);
         this.mostrado = false;
+        this.esCofre = esCofre;
     }
 
     public void setTexto(String texto) {
@@ -35,5 +37,13 @@ public class Mensaje {
 
     public boolean isMostrado() {
         return mostrado;
+    }
+
+    public boolean esCofre() {
+        return esCofre;
+    }
+
+    public void setEsCofre(boolean esCofre) {
+        this.esCofre = esCofre;
     }
 }
