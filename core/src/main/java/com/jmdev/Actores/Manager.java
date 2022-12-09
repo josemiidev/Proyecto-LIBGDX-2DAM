@@ -206,7 +206,7 @@ public class Manager extends Actor {
             if (m.completo) m.remove();
         }
         if (heroe.muerto) {
-            juego.music.dispose();
+            juego.music.stop();
             juego.setScreen(new PantallaFin(juego, stage, true));
         }
     }
@@ -267,7 +267,7 @@ public class Manager extends Actor {
                 objetoMensajes.getProperties().get("y", Float.class),
                 objetoMensajes.getProperties().get("width", Float.class),
                 objetoMensajes.getProperties().get("height", Float.class),
-                "'Casa de los Meintron... No pasar...' \nParece que no hay nadie...");
+                "'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...");
         mensajes.add(mensaje);
         objetoMensajes = capaMensajes.getObjects().get("cementerio_1");
         mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),

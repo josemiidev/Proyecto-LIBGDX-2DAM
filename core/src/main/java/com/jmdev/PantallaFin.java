@@ -108,6 +108,7 @@ public class PantallaFin extends ScreenAdapter {
                 game.vidas = 2;
                 game.enemigosEliminados = 0;
                 game.enemigos = null;
+                game.ultimaCasa = 0;
                 game.setScreen(new JuegoTower(game, 0));
             }
 
@@ -128,6 +129,7 @@ public class PantallaFin extends ScreenAdapter {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 game.vidas--;
+                game.ultimaCasa = 0;
                 game.setScreen(new JuegoTower(game, 1));
             }
 

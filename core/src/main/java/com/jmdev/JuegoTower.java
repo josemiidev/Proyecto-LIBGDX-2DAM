@@ -87,7 +87,7 @@ public class JuegoTower extends ScreenAdapter {
         stage.setViewport(viewport);
         Actor manager = new Manager(juego, stage, map, heroe);
         stage.addActor(manager);
-        if (estado == 0) {
+        if (estado != 2) {
             juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
             juego.music.setLooping(true);
             juego.music.play();
@@ -568,6 +568,8 @@ public class JuegoTower extends ScreenAdapter {
                 batch.draw(juego.inventario.getCalavera(), cameraHud.viewportWidth / 2 +150, 15);
             }
         }
+        //DIBUJAR DIALOGOS
+
         batch.end();
     }
 

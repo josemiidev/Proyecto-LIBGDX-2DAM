@@ -71,7 +71,6 @@ public class Enemigo extends Actor {
             completo = true;
         }
         comprobarTextura();
-
     }
 
     public void comprobarTextura() {
