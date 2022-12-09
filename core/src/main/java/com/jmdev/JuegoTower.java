@@ -95,7 +95,7 @@ public class JuegoTower extends ScreenAdapter {
             juego.music = Gdx.audio.newMusic(Gdx.files.internal("sonido/musica.mp3"));
             juego.music.setLooping(true);
             juego.music.play();
-            juego.enemigosEliminados = 0;
+
 
         }
         if(juego.enemigos == null){
@@ -133,6 +133,7 @@ public class JuegoTower extends ScreenAdapter {
         if(estado == 0){
             juego.mensajes.get(6).setTexto("Bienvenid@ a 'El Valle', un lugar plácido lugar que ha sido infectado\nLimpia el lugar de monstruos y recupera todos los objetos.");
             juego.mensajes.get(6).setActivo(true);
+            juego.enemigosEliminados = 0;
         }
     }
 
@@ -645,7 +646,6 @@ public class JuegoTower extends ScreenAdapter {
                 m.setMostrado(true);
             }
         }
-
         batch.end();
     }
 

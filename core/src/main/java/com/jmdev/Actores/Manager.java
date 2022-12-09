@@ -135,6 +135,9 @@ public class Manager extends Actor {
             if(men.getArea() != null){
                 if (Intersector.overlaps(heroe.getShape(), men.getArea())) {
                     if (!men.isMostrado()) {
+                        for(Mensaje m: juego.mensajes){
+                            m.setActivo(false);
+                        }
                         men.setActivo(true);
                     }
                 }
