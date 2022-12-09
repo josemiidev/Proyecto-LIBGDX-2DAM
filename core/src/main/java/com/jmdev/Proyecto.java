@@ -25,6 +25,8 @@ public class Proyecto extends Game {
     public ArrayList<Cofre> cofres;
     public ArrayList<Mensaje> mensajes;
 
+    public String ultimoObjeto;
+
     @Override
     public void create() {
         gameSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));

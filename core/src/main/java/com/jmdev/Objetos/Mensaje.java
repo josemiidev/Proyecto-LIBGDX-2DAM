@@ -17,6 +17,11 @@ public class Mensaje {
         this.identificador = identificador;
     }
 
+    public Mensaje() {
+        this.mostrado = false;
+        this.activo = false;
+    }
+
     public void setTexto(String texto) {
         this.texto = texto;
     }

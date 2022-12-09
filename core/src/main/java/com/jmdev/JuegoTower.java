@@ -478,8 +478,12 @@ public class JuegoTower extends ScreenAdapter {
         for(int i = 1; i <= 6; i++){
             objetoMensajes = capaMensajes.getObjects().get("area"+i);
             for(Mensaje men : juego.mensajes){
-                if(men.getIdentificador().equals("area"+i)){
-                    sw = false;
+                if(men.getArea() != null){
+                    if(men.getIdentificador().equals("area"+i)){
+                        sw = false;
+                    }
+                }else{
+                    sw=false;
                 }
             }
             if(sw){
@@ -509,8 +513,11 @@ public class JuegoTower extends ScreenAdapter {
                         break;
                 }
                 juego.mensajes.add(mensaje);
+
             }
         }
+        mensaje = new Mensaje();
+        juego.mensajes.add(mensaje);
     }
     private void cargarCofres(){
         int cont = 0;
@@ -527,7 +534,7 @@ public class JuegoTower extends ScreenAdapter {
                         objetoCofre.getProperties().get("y", Float.class),
                         objetoCofre.getProperties().get("width", Float.class),
                         objetoCofre.getProperties().get("height", Float.class),
-                        false,cont + "");
+                        false,cont+"");
                 for(Cofre c:juego.cofres){
                     if (Objects.equals(c.getIdentificador(), cofre.getIdentificador())) {
                         sw = false;
@@ -536,8 +543,6 @@ public class JuegoTower extends ScreenAdapter {
                 }
                 if(sw){
                     juego.cofres.add(cofre);
-                    juego.mensajes.add(new Mensaje(cofre.getArea().x,cofre.getArea().y,cofre.getArea().width,cofre.getArea().height,
-                            "","cofre"+cont));
                 }
             }else{
                 break;

@@ -55,26 +55,40 @@ public class Manager extends Actor {
                     c.setAbierto(true);
                     Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
                     dropSound.play();
+
                     if(juego.inventario == null){
                         juego.inventario = new Inventario();
-                        //mensaje inventario
+                        juego.mensajes.get(6).setTexto("Has encontrado una mochila, llenala y completa la mision.");
+                        juego.mensajes.get(6).setActivo(true);
                     }else{
                         if(juego.inventario.getRuna() == null){
                             juego.inventario.setRuna(new Texture("objetos/runa.png"));
-                            //mensaje coleccion
+                            juego.mensajes.get(6).setTexto("Has encontrado una runa.");
+                            juego.mensajes.get(6).setActivo(true);
                         }else if(juego.inventario.getAntorcha() == null){
                             juego.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
+                            juego.mensajes.get(6).setTexto("Has encontrado una antorcha.");
+                            juego.mensajes.get(6).setActivo(true);
                         }else if(juego.inventario.getBaston() == null){
                             juego.inventario.setBaston(new Texture("objetos/baston.png"));
+                            juego.mensajes.get(6).setTexto("Has encontrado un baston.");
+                            juego.mensajes.get(6).setActivo(true);
                         }else if(juego.inventario.getCalavera() == null){
                             juego.inventario.setCalavera(new Texture("objetos/calavera.png"));
+                            juego.mensajes.get(6).setTexto("Has encontrado una calavera.");
+                            juego.mensajes.get(6).setActivo(true);
                         }else if(juego.inventario.getCarbon() == null){
                             juego.inventario.setCarbon(new Texture("objetos/carbon.png"));
+                            juego.mensajes.get(6).setTexto("Has encontrado unpedazo de carbon.");
+                            juego.mensajes.get(6).setActivo(true);
                         }else if(juego.inventario.getLlave() == null){
                             juego.inventario.setLlave(new Texture("objetos/llave.png"));
+                            juego.mensajes.get(6).setTexto("Has encontrado una llave.");
+                            juego.mensajes.get(6).setActivo(true);
                         }else if(juego.inventario.getPocion() == null){
                             juego.inventario.setPocion(new Texture("objetos/pocion.png"));
-                            //mensaje todos conseguidos
+                            juego.mensajes.get(6).setTexto("Has encontrado una pocion.");
+                            juego.mensajes.get(6).setActivo(true);
                         }
                     }
                 }
@@ -124,9 +138,11 @@ public class Manager extends Actor {
             juego.setScreen(new PantallaFin(juego, stage, false));
         }
         for (Mensaje men : juego.mensajes) {
-            if (Intersector.overlaps(heroe.getShape(), men.getArea())) {
-                if (!men.isMostrado()) {
-                    men.setActivo(true);
+            if(men.getArea() != null){
+                if (Intersector.overlaps(heroe.getShape(), men.getArea())) {
+                    if (!men.isMostrado()) {
+                        men.setActivo(true);
+                    }
                 }
             }
         }
@@ -252,9 +268,6 @@ public class Manager extends Actor {
                 case Input.Keys.P:
                     inmortal = true;
                     heroe.colisiones = true;
-                    break;
-                case Input.Keys.Q:
-
                     break;
             }
             return true;
