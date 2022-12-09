@@ -101,7 +101,7 @@ public class PantallaMenu extends ScreenAdapter {
             }
         });
         stage.addActor(exitGame);
-        Label title = new Label("Tower Adventure", juego.gameSkin, "title");
+        Label title = new Label("Adventure Hero", juego.gameSkin, "title");
         title.setAlignment(Align.center);
         title.setY(height / 2 + newGame.getHeight() + 25);
         title.setWidth(width);
