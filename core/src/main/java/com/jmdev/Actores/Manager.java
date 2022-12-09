@@ -27,14 +27,11 @@ import com.jmdev.Proyecto;
 import java.util.ArrayList;
 
 public class Manager extends Actor {
-    private Proyecto juego;
-    private Stage stage;
-    private Hero heroe;
-    private TiledMap mapa;
-    private ArrayList<Mensaje> mensajes;
-    private ArrayList<Area> areas;
-
-    private Textos texto;
+    private final Proyecto juego;
+    private final Stage stage;
+    private final Hero heroe;
+    private final TiledMap mapa;
+    private final ArrayList<Area> areas;
     private boolean inmortal;
 
     public Manager(Proyecto juego, Stage stage, TiledMap mapa, Hero heroe) {
@@ -46,9 +43,7 @@ public class Manager extends Actor {
         stage.addActor(heroe);
         addListener(new ManagerInputListener());
 
-        mensajes = new ArrayList<Mensaje>();
         areas = new ArrayList<Area>();
-        cargaAreaMensajes();
         cargaAreas();
 
     }
@@ -128,18 +123,10 @@ public class Manager extends Actor {
             juego.music.pause();
             juego.setScreen(new PantallaFin(juego, stage, false));
         }
-        for (Mensaje men : mensajes) {
+        for (Mensaje men : juego.mensajes) {
             if (Intersector.overlaps(heroe.getShape(), men.getArea())) {
                 if (!men.isMostrado()) {
-                    if (texto != null) {
-                        texto.remove();
-                        texto = null;
-                    }
-                    texto = new Textos(men.getTexto());
-                    texto.setPosition(heroe.getX() + heroe.getWidth(), heroe.getY() + heroe.getHeight());
-                    texto.toFront();
-                    stage.addActor(texto);
-                    men.setMostrado(true);
+                    men.setActivo(true);
                 }
             }
         }
@@ -160,26 +147,6 @@ public class Manager extends Actor {
                         break;
                 }
             }
-        }
-        for (Mensaje men : mensajes) {
-            if (Intersector.overlaps(heroe.getShape(), men.getArea())) {
-                if (!men.isMostrado()) {
-                    if (texto != null) {
-                        texto.remove();
-                        texto = null;
-                    }
-                    texto = new Textos(men.getTexto());
-                    texto.setPosition(heroe.getX() + heroe.getWidth(), heroe.getY() + heroe.getHeight());
-                    texto.toFront();
-                    stage.addActor(texto);
-                    men.setMostrado(true);
-                }
-            }
-        }
-
-        if (texto != null) {
-            texto.setX(heroe.getX() + heroe.getWidth());
-            texto.setY(heroe.getY() + heroe.getHeight());
         }
         for (Enemigo m : juego.enemigos) {
             if (m != null) {
@@ -249,58 +216,6 @@ public class Manager extends Actor {
         areas.add(area);
     }
 
-    private void cargaAreaMensajes() {
-        MapLayer capaMensajes = mapa.getLayers().get("objetos");
-        MapObject objetoMensajes;
-        Mensaje mensaje;
-
-        objetoMensajes = capaMensajes.getObjects().get("decision_camino");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "¿Que camino debo coger primero? \nTendremos que probar suerte...",false);
-        mensajes.add(mensaje);
-
-        objetoMensajes = capaMensajes.getObjects().get("cartel_casa_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...",false);
-        mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("cementerio_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "¿Un cementerio al lado de casa? \n Vaya vistas...",false);
-        mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("laberinto_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "El que plantó los arbustos así era \nun cachondo eh!",false);
-        mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("lapida_1");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?",false);
-        mensajes.add(mensaje);
-        objetoMensajes = capaMensajes.getObjects().get("cartel_casa_2");
-        mensaje = new Mensaje(objetoMensajes.getProperties().get("x", Float.class),
-                objetoMensajes.getProperties().get("y", Float.class),
-                objetoMensajes.getProperties().get("width", Float.class),
-                objetoMensajes.getProperties().get("height", Float.class),
-                "Se vende... \n¿Pero quien va a comparar esto?",false);
-        mensajes.add(mensaje);
-    }
-
-
-
     class ManagerInputListener extends InputListener {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
@@ -327,10 +242,11 @@ public class Manager extends Actor {
                 case Input.Keys.E:
                     compruebaCofre();
                     break;
-                case Input.Keys.ESCAPE:
-                    if (texto != null) {
-                        texto.remove();
-                        texto = null;
+                case Input.Keys.ENTER:
+                    for(Mensaje men : juego.mensajes){
+                        if(men.isActivo()){
+                            men.setActivo(false);
+                        }
                     }
                     break;
                 case Input.Keys.P:

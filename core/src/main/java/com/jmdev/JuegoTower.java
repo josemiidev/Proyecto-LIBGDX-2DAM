@@ -21,10 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jmdev.Actores.Cofre;
-import com.jmdev.Actores.Enemigo;
-import com.jmdev.Actores.Hero;
-import com.jmdev.Actores.Manager;
+import com.jmdev.Actores.*;
 import com.jmdev.Objetos.Mensaje;
 
 import java.util.ArrayList;
@@ -32,19 +29,20 @@ import java.util.Objects;
 
 
 public class JuegoTower extends ScreenAdapter {
-    private Proyecto juego;
+    private final Proyecto juego;
     private final Stage stage;
     TiledMap map;
-    private OrthographicCamera camera, cameraHud;
+    private final OrthographicCamera camera, cameraHud;
     OrthogonalTiledMapRenderer mapRenderer;
     private final int mapWidthInPixels;
     private final int mapHeightInPixels;
     private float offsetX, offsetY;
     private final Hero heroe;
-    private SpriteBatch batch;
-    private BitmapFont fuenteEnemigos, fuenteVidas;
+    private final SpriteBatch batch;
+    private final BitmapFont fuenteEnemigos, fuenteVidas, fuenteMensajes;
     final int[] capas_altas = {13, 14, 15};
     final int[] capas_bajas = {0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12};
+    Texture cuadroDialogo;
 
     /**
      * @param juego  Clase Proyecto donde almacenamos toda la informacion
@@ -52,7 +50,6 @@ public class JuegoTower extends ScreenAdapter {
      */
     public JuegoTower(Proyecto juego, int estado) {
         this.juego = juego;
-
         //MAPA
         map = new TmxMapLoader().load("mapas/mapa.tmx");
         MapProperties properties = map.getProperties();
@@ -63,6 +60,8 @@ public class JuegoTower extends ScreenAdapter {
         mapWidthInPixels = mapWidthInTiles * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
         mapRenderer = new OrthogonalTiledMapRenderer(map);
+
+        cuadroDialogo = new Texture("dialogo.png");
         //CAMARAS
         //CAMARA MOVIMIENTO
         camera = new OrthographicCamera();
@@ -82,6 +81,8 @@ public class JuegoTower extends ScreenAdapter {
         fuenteEnemigos.setColor(Color.BLACK);
         fuenteVidas = new BitmapFont();
         fuenteVidas.setColor(Color.BLACK);
+        fuenteMensajes = new BitmapFont();
+        fuenteMensajes.setColor(Color.BLACK);
 
         //ESCENA
         stage = new Stage();
@@ -625,6 +626,13 @@ public class JuegoTower extends ScreenAdapter {
             }
         }
         //DIBUJAR DIALOGOS
+        for(Mensaje m : juego.mensajes){
+            if(m.isActivo()){
+                batch.draw(cuadroDialogo,0,0,cameraHud.viewportWidth,cuadroDialogo.getHeight());
+                fuenteMensajes.draw(batch,m.getTexto(),10,cuadroDialogo.getHeight() - 10);
+                m.setMostrado(true);
+            }
+        }
 
         batch.end();
     }

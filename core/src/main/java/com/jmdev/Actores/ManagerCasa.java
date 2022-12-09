@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jmdev.JuegoTower;
 import com.jmdev.Objetos.Area;
+import com.jmdev.Objetos.Mensaje;
 import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
@@ -187,6 +188,13 @@ public class ManagerCasa extends Actor {
                     compruebaCofre();
                 case Input.Keys.P:
                     heroe.colisiones = true;
+                    break;
+                case Input.Keys.ENTER:
+                    for(Mensaje men : juego.mensajes){
+                        if(men.isActivo()){
+                            men.setActivo(false);
+                        }
+                    }
                     break;
             }
             return true;

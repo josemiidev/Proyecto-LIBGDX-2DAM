@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.jmdev.Objetos.Mensaje;
 
 /**
  * Pantalla Mostrada al final del juego, ya sea si has muerto o has ganado
@@ -30,6 +31,10 @@ public class PantallaFin extends ScreenAdapter {
         this.game = game;
         this.stage = stage;
         this.muerto = muerto;
+
+        for(Mensaje m: game.mensajes){
+            m.setActivo(false);
+        }
     }
 
     @Override
