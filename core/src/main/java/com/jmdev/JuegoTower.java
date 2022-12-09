@@ -128,6 +128,9 @@ public class JuegoTower extends ScreenAdapter {
         offsetY = -(mapHeightInPixels - heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
         cargaAreaMensajes();
         cargarCofres();
+
+        juego.mensajes.get(6).setTexto("Bienvenid@ a 'El Valle', un lugar plácido lugar que ha sido infectado\nLimpia el lugar de monstruos y recupera todos los objetos.");
+        juego.mensajes.get(6).setActivo(true);
     }
 
     private void CrearAnimacionEnemigo(Enemigo e, int i) {
@@ -494,26 +497,25 @@ public class JuegoTower extends ScreenAdapter {
                         "","area"+i);
                 switch(mensaje.getIdentificador()){
                     case "area1":
-                        mensaje.setTexto("¿Tanto arbusto para esto? \n¿Qué habrá en el cofre?");
+                        mensaje.setTexto("¿Tanto arbusto para esto? Es algo extraño... \n¿Qué habrá en el cofre?");
                         break;
                     case "area2":
-                        mensaje.setTexto("El que plantó los arbustos así era \nun cachondo eh!");
+                        mensaje.setTexto("El que plantó los arbustos así era un cachondo eh! \nMadre mía que laberinto!");
                         break;
                     case "area3":
-                        mensaje.setTexto("¿Un cementerio al lado de casa? \n Vaya vistas...");
+                        mensaje.setTexto("¿Un cementerio al lado de casa?¿Es un poco rraro no? \n Vaya vistas tendrán que tener desde la ventana...");
                         break;
                     case "area4":
-                        mensaje.setTexto("'Casa de los Meintron... No pasar...' \nPero parece que no hay nadie...");
+                        mensaje.setTexto("'Casa de los Meintron. No pasar.' \nPero parece que no hay nadie... Vamos a pasar!");
                         break;
                     case "area5":
-                        mensaje.setTexto("¿Que camino debo coger primero? \nTendremos que probar suerte...");
+                        mensaje.setTexto("¿Que camino debo coger primero?¿Izquierda? ¿Derecha? \nTendremos que probar nuestra suerte...");
                         break;
                     case "area6":
-                        mensaje.setTexto("Se vende... \n¿Pero quien va a comparar esto?");
+                        mensaje.setTexto("'Se vende barato' \n¿Pero quien va a comparar esto?");
                         break;
                 }
                 juego.mensajes.add(mensaje);
-
             }
         }
         sw=true;
@@ -526,7 +528,6 @@ public class JuegoTower extends ScreenAdapter {
             mensaje = new Mensaje();
             juego.mensajes.add(mensaje);
         }
-
     }
     private void cargarCofres(){
         int cont = 0;
