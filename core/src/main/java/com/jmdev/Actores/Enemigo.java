@@ -24,14 +24,15 @@ public class Enemigo extends Actor {
     public boolean isAlive, completo;
     AlphaAction actionFadeOut;
     private float xAnterior, yAnterior;
+    private int id;
 
-    public Enemigo(int x, int y) {
+    public Enemigo(int x, int y,int id) {
         isAlive = true;
         completo = false;
         if (regionActual == null) {
             recortarTextura();
         }
-
+        this.id = id;
         stateTime = 0f;
         horizontalMovement = Hero.HorizontalMovement.NONE;
         verticalMovement = Hero.VerticalMovement.NONE;
@@ -44,7 +45,9 @@ public class Enemigo extends Actor {
         xAnterior = getX();
         yAnterior = getY();
     }
-
+    public int getId(){
+        return id;
+    }
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //batch.draw(regionActual, getX(), getY());

@@ -16,9 +16,13 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Cofre;
+import com.jmdev.Actores.Enemigo;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.Manager;
 
@@ -27,7 +31,7 @@ import java.util.Objects;
 
 
 public class JuegoTower extends ScreenAdapter {
-    private final Proyecto juego;
+    private Proyecto juego;
     private final Stage stage;
     TiledMap map;
     private OrthographicCamera camera, cameraHud;
@@ -88,6 +92,30 @@ public class JuegoTower extends ScreenAdapter {
             juego.music.setLooping(true);
             juego.music.play();
             juego.enemigosEliminados = 0;
+
+        }
+        if(juego.enemigos == null){
+            juego.enemigos = new ArrayList<Enemigo>();
+        }
+        for (int i = 1; i <= 15; i++) {
+            if(estado != 0){
+                if(juego.enemigos.get(i-1).isAlive){
+                    Enemigo en = new Enemigo(1500, 1500,i);
+                    Vector2 spawn = getSpawnEnemigo(i);
+                    en.setPosition(spawn.x, spawn.y);
+                    CrearAnimacionEnemigo(en, i);
+                    juego.enemigos.set(i-1, en);
+                    stage.addActor(en);
+                }
+            }else{
+                Enemigo en = new Enemigo(1500, 1500,i);
+                Vector2 spawn = getSpawnEnemigo(i);
+                en.setPosition(spawn.x, spawn.y);
+                juego.enemigos.add(en);
+                CrearAnimacionEnemigo(en, i);
+                stage.addActor(en);
+            }
+
         }
         //ASIGANAMOS LOS PERMISOS DE TECLADO
         Gdx.input.setInputProcessor(stage);
@@ -100,6 +128,343 @@ public class JuegoTower extends ScreenAdapter {
         cargarCofres();
     }
 
+    private void CrearAnimacionEnemigo(Enemigo e, int i) {
+        MoveToAction movimiento;
+        SequenceAction secuencia;
+        RepeatAction repeticion;
+        switch (i) {
+            case 1:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 2:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 970);
+                movimiento.setDuration(9f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(9f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 3:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 550);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 600, e.getY() - 550);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 550);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 4:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 1000, e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 800, e.getY() + 400);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 460, e.getY() + 400);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 5:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 700, e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 700, e.getY() + 300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 6:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY() + 200);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY() + 200);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 7:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 8:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY() - 200);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY() - 500);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 700);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 9:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 1000, e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 10:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 175, e.getY() - 200);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 175, e.getY() - 600);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 800);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 11:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY() + 200);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY() + 400);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY() + 100);
+                movimiento.setDuration(4f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(1f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 12:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 100, e.getY());
+                movimiento.setDuration(1f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 100, e.getY() + 460);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 300, e.getY() + 460);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 100, e.getY() + 460);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 100, e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(1f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 13:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 900, e.getY());
+                movimiento.setDuration(4.5f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 900, e.getY() + 300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 440, e.getY() + 300);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 200, e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(1.5f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 14:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY() - 100);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY() - 300);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 150, e.getY() - 400);
+                movimiento.setDuration(2f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 100, e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(1f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+            case 15:
+                secuencia = new SequenceAction();
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() + 250, e.getY() - 300);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX() - 200, e.getY() - 300);
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                movimiento = new MoveToAction();
+                movimiento.setPosition(e.getX(), e.getY());
+                movimiento.setDuration(3f);
+                secuencia.addAction(movimiento);
+                repeticion = new RepeatAction();
+                repeticion.setCount(RepeatAction.FOREVER);
+                repeticion.setAction(secuencia);
+                e.addAction(repeticion);
+                break;
+        }
+    }
+    private Vector2 getSpawnEnemigo(int i) {
+        MapLayer positionLayer = map.getLayers().get("enemigos");
+        MapObject playerSpawn = positionLayer.getObjects().get("enemigo" + i);
+        return new Vector2(playerSpawn.getProperties().get("x", Float.class), playerSpawn.getProperties().get("y", Float.class));
+    }
     private void cargarCofres(){
         int cont = 0;
         boolean sw = true;
