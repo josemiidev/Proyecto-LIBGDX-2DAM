@@ -37,7 +37,7 @@ public class PantallaCasa1 extends ScreenAdapter {
     private float offsetX, offsetY;
     private final Hero heroe;
     private final SpriteBatch batch;
-    private final BitmapFont fuenteEnemigos, fuenteVidas, fuenteMensajes;
+    private final BitmapFont fuenteEnemigos, fuenteVidas, fuenteMensajes, fuenteEnter;
     final int[] capas_altas = {3};
     final int[] capas_bajas = {0, 1, 2};
     Texture cuadroDialogo;
@@ -74,6 +74,8 @@ public class PantallaCasa1 extends ScreenAdapter {
         fuenteVidas.setColor(Color.BLACK);
         fuenteMensajes = new BitmapFont();
         fuenteMensajes.setColor(Color.BLACK);
+        fuenteEnter = new BitmapFont();
+        fuenteEnter.setColor(Color.BLACK);
 
         //ESCENA
         stage = new Stage();
@@ -184,6 +186,7 @@ public class PantallaCasa1 extends ScreenAdapter {
             if(m.isActivo()){
                 batch.draw(cuadroDialogo,0,0,cameraHud.viewportWidth,cuadroDialogo.getHeight());
                 fuenteMensajes.draw(batch,m.getTexto(),10,cuadroDialogo.getHeight() - 10);
+                fuenteEnter.draw(batch,"Presione ENTER para cerrar",cameraHud.viewportWidth - 200,20);
                 m.setMostrado(true);
             }
         }

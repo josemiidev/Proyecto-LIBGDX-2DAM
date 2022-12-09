@@ -39,7 +39,7 @@ public class JuegoTower extends ScreenAdapter {
     private float offsetX, offsetY;
     private final Hero heroe;
     private final SpriteBatch batch;
-    private final BitmapFont fuenteEnemigos, fuenteVidas, fuenteMensajes;
+    private final BitmapFont fuenteEnemigos, fuenteVidas, fuenteMensajes,fuenteEnter;
     final int[] capas_altas = {13, 14, 15};
     final int[] capas_bajas = {0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 10, 11, 12};
     Texture cuadroDialogo;
@@ -83,6 +83,8 @@ public class JuegoTower extends ScreenAdapter {
         fuenteVidas.setColor(Color.BLACK);
         fuenteMensajes = new BitmapFont();
         fuenteMensajes.setColor(Color.BLACK);
+        fuenteEnter = new BitmapFont();
+        fuenteEnter.setColor(Color.BLACK);
 
         //ESCENA
         stage = new Stage();
@@ -128,9 +130,10 @@ public class JuegoTower extends ScreenAdapter {
         offsetY = -(mapHeightInPixels - heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
         cargaAreaMensajes();
         cargarCofres();
-
-        juego.mensajes.get(6).setTexto("Bienvenid@ a 'El Valle', un lugar plácido lugar que ha sido infectado\nLimpia el lugar de monstruos y recupera todos los objetos.");
-        juego.mensajes.get(6).setActivo(true);
+        if(estado == 0){
+            juego.mensajes.get(6).setTexto("Bienvenid@ a 'El Valle', un lugar plácido lugar que ha sido infectado\nLimpia el lugar de monstruos y recupera todos los objetos.");
+            juego.mensajes.get(6).setActivo(true);
+        }
     }
 
     private void CrearAnimacionEnemigo(Enemigo e, int i) {
@@ -522,6 +525,7 @@ public class JuegoTower extends ScreenAdapter {
         for(Mensaje men:juego.mensajes){
             if(men.getArea()==null){
                 sw=false;
+                break;
             }
         }
         if(sw){
@@ -637,6 +641,7 @@ public class JuegoTower extends ScreenAdapter {
             if(m.isActivo()){
                 batch.draw(cuadroDialogo,0,0,cameraHud.viewportWidth,cuadroDialogo.getHeight());
                 fuenteMensajes.draw(batch,m.getTexto(),10,cuadroDialogo.getHeight() - 10);
+                fuenteEnter.draw(batch,"Presione ENTER para cerrar",cameraHud.viewportWidth - 200,20);
                 m.setMostrado(true);
             }
         }

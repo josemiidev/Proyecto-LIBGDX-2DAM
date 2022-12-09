@@ -41,7 +41,6 @@ public class Hero extends Actor {
     public boolean atacando, finAnimacion, isAlive, muerto, muriendo, ataca, colisiones;
     private String ultimaPosicion;
 
-
     public Hero(TiledMap mapa) {
         this.mapa = mapa;
         if (regionActual == null) {
@@ -163,25 +162,6 @@ public class Hero extends Actor {
 
     }
 
-    /*public void comprobarCofre() {
-        TiledMapTileLayer cofres = (TiledMapTileLayer) mapa.getLayers().get("colisiones cofres");
-        ArrayList<TiledMapTileLayer.Cell> celdas = new ArrayList<TiledMapTileLayer.Cell>();
-        celdas.add(cofres.getCell((Math.round(getX()) / 32) + 2, Math.round(getY()) / 32));
-        celdas.add(cofres.getCell((Math.round(getX()) / 32) - 1, Math.round(getY()) / 32));
-        celdas.add(cofres.getCell(Math.round(getX()) / 32, (Math.round(getY()) / 32) + 1));
-        celdas.add(cofres.getCell((Math.round(getX()) / 32) + 1, (Math.round(getY()) / 32) + 1));
-        celdas.add(cofres.getCell((Math.round(getX()) / 32) - 1, (Math.round(getY()) / 32) + 1));
-        celdas.add(cofres.getCell(Math.round(getX()) / 32, (Math.round(getY()) / 32) - 1));
-        for (TiledMapTileLayer.Cell cell : celdas) {
-            if (cell != null) {
-                //SONIDO DE ABRIR COFRE
-                System.out.println("HAY COFRE");
-                Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
-                dropSound.play();
-            }
-        }
-    }*/
-
     private void compruebaLimites() {
         MapProperties properties = mapa.getProperties();
         int mapWidthInTiles = properties.get("width", Integer.class);
@@ -294,7 +274,7 @@ public class Hero extends Actor {
                 walkSheet2.getWidth() / 6,
                 walkSheet2.getHeight());
         muerte = new TextureRegion[6];
-        for (int i = 0; i < 6; i++) {
+        for(int i = 0; i < 6; i++) {
             muerte[i] = tmp[0][i];
         }
 

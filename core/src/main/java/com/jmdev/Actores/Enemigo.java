@@ -24,7 +24,7 @@ public class Enemigo extends Actor {
     public boolean isAlive, completo;
     AlphaAction actionFadeOut;
     private float xAnterior, yAnterior;
-    private int id;
+    private final int id;
 
     public Enemigo(int x, int y,int id) {
         isAlive = true;

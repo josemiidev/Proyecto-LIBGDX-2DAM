@@ -20,10 +20,10 @@ import com.jmdev.PantallaFin;
 import com.jmdev.Proyecto;
 
 public class ManagerCasa extends Actor {
-    private Proyecto juego;
-    private Stage stage;
-    private Hero heroe;
-    private TiledMap mapa;
+    private final Proyecto juego;
+    private final Stage stage;
+    private final Hero heroe;
+    private final TiledMap mapa;
     Area salida;
     Area salida_patio;
     Area salida_patio_2;
@@ -117,9 +117,7 @@ public class ManagerCasa extends Actor {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-        //font.draw(batch, "Enemigos: " + juego.enemigosEliminados + "/15", 20, 460);
-    }
+    public void draw(Batch batch, float parentAlpha) {}
 
     @Override
     public void act(float delta) {

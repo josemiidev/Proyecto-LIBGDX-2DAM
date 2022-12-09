@@ -2,8 +2,6 @@ package com.jmdev.Actores;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.ArrayList;
-
 public class Inventario {
     private Texture rejilla;
     private Texture pocion;

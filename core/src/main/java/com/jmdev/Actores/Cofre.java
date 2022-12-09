@@ -4,13 +4,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Cofre extends Actor {
-
     private Rectangle area;
     private boolean abierto;
     private String identificador;
-
-    public Cofre() {
-    }
 
     public Cofre(float x, float y, float width, float hegiht, boolean abierto, String identificador) {
         this.abierto = abierto;

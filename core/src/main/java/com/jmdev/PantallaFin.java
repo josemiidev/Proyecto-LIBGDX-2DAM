@@ -76,17 +76,32 @@ public class PantallaFin extends ScreenAdapter {
         title.setWidth(width);
         stage.addActor(title);
 
-        Label autor = new Label("Create By: Jose Miguel Lorenzo Lara", game.gameSkin, "default");
-        autor.setAlignment(Align.center);
-        autor.setY(autor.getHeight());
-        autor.setWidth(width);
-        stage.addActor(autor);
+        Label creditos = new Label("CREDITOS\n" +
+                "==========\n" +
+                "Desarrollador: JosemiiDEV\n" +
+                "Tileset y Objetos: Cainos\n" +
+                "Sprites Enemigos: Pipoya\n" +
+                "\n" +
+                "MUSICA\n" +
+                "========\n" +
+                "Glacier: SalmonLikeTheFish\n" +
+                "\n" +
+                "EFECTOS DE SONIDO\n" +
+                "===================\n" +
+                "Puertas: SFX_AFRIK\n" +
+                "Espada: Merrick079\n" +
+                "Cofre: Nox_Sound\n" +
+                "Muerte: vox_artist",game.gameSkin,"default");
+        creditos.setAlignment(Align.center);
+        creditos.setY(title.getY() - creditos.getHeight());
+        creditos.setWidth(width);
+        stage.addActor(creditos);
 
         TextButton salir = new TextButton("Salir", game.gameSkin);
         salir.setWidth(width / 2);
         salir.setPosition(
                 width / 2 - (salir.getWidth() / 2),
-                autor.getHeight() + salir.getHeight() + 10
+                10
         );
         salir.addListener(new InputListener() {
             @Override
@@ -153,7 +168,7 @@ public class PantallaFin extends ScreenAdapter {
             }
 
             title.setColor(Color.RED);
-            autor.setColor(Color.RED);
+            creditos.setColor(Color.RED);
             salir.setColor(Color.RED);
             nueva.setColor(Color.RED);
             reintentar.setColor(Color.RED);

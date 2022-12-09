@@ -9,14 +9,10 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.jmdev.Objetos.Area;
 import com.jmdev.Objetos.Mensaje;
 import com.jmdev.PantallaCasa1;
@@ -96,10 +92,8 @@ public class Manager extends Actor {
         }
     }
 
-
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-    }
+    public void draw(Batch batch, float parentAlpha) {}
 
     private boolean compruebaInventario() {
         boolean sw = false;
