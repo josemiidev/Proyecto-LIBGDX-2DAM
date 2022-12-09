@@ -186,7 +186,9 @@ public class Manager extends Actor {
                     }
                 }
             }
-            if (m.completo) m.remove();
+            if(m != null){
+                if (m.completo) m.remove();
+            }
         }
         if (heroe.muerto) {
             juego.music.stop();

@@ -68,33 +68,47 @@ public class ManagerCasa extends Actor {
         return sw;
     }
 
-    private void compruebaCofre() {
-        for (Cofre c : juego.cofres) {
+    private void compruebaCofre(){
+        for(Cofre c : juego.cofres){
             if (Intersector.overlaps(heroe.getShape(), c.getArea())) {
                 if (!c.isAbierto()) {
                     c.setAbierto(true);
                     Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("sonido/abrir_cofre.mp3"));
                     dropSound.play();
-                    if (juego.inventario == null) {
+
+                    if(juego.inventario == null){
                         juego.inventario = new Inventario();
-                        //mensaje inventario
-                    } else {
-                        if (juego.inventario.getRuna() == null) {
+                        juego.mensajes.get(6).setTexto("Has encontrado una mochila, llenala y completa la mision.");
+                        juego.mensajes.get(6).setActivo(true);
+                    }else{
+                        if(juego.inventario.getRuna() == null){
                             juego.inventario.setRuna(new Texture("objetos/runa.png"));
-                            //mensaje coleccion
-                        } else if (juego.inventario.getAntorcha() == null) {
+                            juego.mensajes.get(6).setTexto("Has encontrado una runa.");
+                            juego.mensajes.get(6).setActivo(true);
+                        }else if(juego.inventario.getAntorcha() == null){
                             juego.inventario.setAntorcha(new Texture("objetos/antorcha.png"));
-                        } else if (juego.inventario.getBaston() == null) {
+                            juego.mensajes.get(6).setTexto("Has encontrado una antorcha.");
+                            juego.mensajes.get(6).setActivo(true);
+                        }else if(juego.inventario.getBaston() == null){
                             juego.inventario.setBaston(new Texture("objetos/baston.png"));
-                        } else if (juego.inventario.getCalavera() == null) {
+                            juego.mensajes.get(6).setTexto("Has encontrado un baston.");
+                            juego.mensajes.get(6).setActivo(true);
+                        }else if(juego.inventario.getCalavera() == null){
                             juego.inventario.setCalavera(new Texture("objetos/calavera.png"));
-                        } else if (juego.inventario.getCarbon() == null) {
+                            juego.mensajes.get(6).setTexto("Has encontrado una calavera.");
+                            juego.mensajes.get(6).setActivo(true);
+                        }else if(juego.inventario.getCarbon() == null){
                             juego.inventario.setCarbon(new Texture("objetos/carbon.png"));
-                        } else if (juego.inventario.getLlave() == null) {
+                            juego.mensajes.get(6).setTexto("Has encontrado unpedazo de carbon.");
+                            juego.mensajes.get(6).setActivo(true);
+                        }else if(juego.inventario.getLlave() == null){
                             juego.inventario.setLlave(new Texture("objetos/llave.png"));
-                        } else if (juego.inventario.getPocion() == null) {
+                            juego.mensajes.get(6).setTexto("Has encontrado una llave.");
+                            juego.mensajes.get(6).setActivo(true);
+                        }else if(juego.inventario.getPocion() == null){
                             juego.inventario.setPocion(new Texture("objetos/pocion.png"));
-                            //mensaje todos conseguidos
+                            juego.mensajes.get(6).setTexto("Has encontrado una pocion.");
+                            juego.mensajes.get(6).setActivo(true);
                         }
                     }
                 }

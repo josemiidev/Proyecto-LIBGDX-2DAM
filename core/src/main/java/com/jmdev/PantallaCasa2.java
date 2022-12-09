@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
@@ -21,28 +22,32 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jmdev.Actores.Cofre;
 import com.jmdev.Actores.Hero;
 import com.jmdev.Actores.ManagerCasa;
+import com.jmdev.Objetos.Mensaje;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class PantallaCasa2 extends ScreenAdapter {
-    private Proyecto juego;
-    private Stage stage;
+    private final Proyecto juego;
+    private final Stage stage;
     TiledMap map;
-    private OrthographicCamera camera, cameraHud;
+    private final OrthographicCamera camera, cameraHud;
     OrthogonalTiledMapRenderer mapRenderer;
-    private int mapWidthInPixels;
-    private int mapHeightInPixels;
+    private final int mapWidthInPixels;
+    private final int mapHeightInPixels;
     private float offsetX, offsetY;
-    private Hero heroe;
-    private SpriteBatch batch;
-    private BitmapFont fuenteEnemigos, fuenteVidas;
+    private final Hero heroe;
+    private final SpriteBatch batch;
+    private final BitmapFont fuenteEnemigos, fuenteVidas, fuenteMensajes;
     final int[] capas_altas = {3};
     final int[] capas_bajas = {0, 1, 2};
+
+    Texture cuadroDialogo;
 
     public PantallaCasa2(Proyecto juego, int tipoEntrada) {
         this.juego = juego;
         juego.ultimaCasa = 2;
+        cuadroDialogo = new Texture("dialogo.png");
         //MAPA
         map = new TmxMapLoader().load("mapas/casa2/casa2.tmx");
         MapProperties properties = map.getProperties();
@@ -74,6 +79,8 @@ public class PantallaCasa2 extends ScreenAdapter {
         fuenteEnemigos.setColor(Color.BLACK);
         fuenteVidas = new BitmapFont();
         fuenteVidas.setColor(Color.BLACK);
+        fuenteMensajes = new BitmapFont();
+        fuenteMensajes.setColor(Color.BLACK);
 
         //ESCENA
         stage = new Stage();
@@ -191,6 +198,13 @@ public class PantallaCasa2 extends ScreenAdapter {
             }
             if (juego.inventario.getCalavera() != null) {
                 batch.draw(juego.inventario.getCalavera(), cameraHud.viewportWidth / 2 +150, 15);
+            }
+        }
+        for(Mensaje m : juego.mensajes){
+            if(m.isActivo()){
+                batch.draw(cuadroDialogo,0,0,cameraHud.viewportWidth,cuadroDialogo.getHeight());
+                fuenteMensajes.draw(batch,m.getTexto(),10,cuadroDialogo.getHeight() - 10);
+                m.setMostrado(true);
             }
         }
         batch.end();
