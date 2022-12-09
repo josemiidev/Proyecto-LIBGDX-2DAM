@@ -125,7 +125,7 @@ public class JuegoTower extends ScreenAdapter {
         //POSICION CAMARA
         offsetX = heroe.getX() - Gdx.graphics.getWidth() / 2f;
         offsetY = -(mapHeightInPixels - heroe.getY() + heroe.getHeight()) + Gdx.graphics.getHeight() / 2f;
-
+        cargaAreaMensajes();
         cargarCofres();
     }
 
