@@ -516,8 +516,17 @@ public class JuegoTower extends ScreenAdapter {
 
             }
         }
-        mensaje = new Mensaje();
-        juego.mensajes.add(mensaje);
+        sw=true;
+        for(Mensaje men:juego.mensajes){
+            if(men.getArea()==null){
+                sw=false;
+            }
+        }
+        if(sw){
+            mensaje = new Mensaje();
+            juego.mensajes.add(mensaje);
+        }
+
     }
     private void cargarCofres(){
         int cont = 0;
